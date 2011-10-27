@@ -1,0 +1,59 @@
+\documentclass{article} 
+
+\bibliographystyle{amsalpha} 
+
+\voffset=-0.2\textheight  \textheight=1.4\textheight
+%\hoffset=-0.2\textwidth \textwidth=1.4\textwidth
+%\voffset=-0.05\textheight \textheight=1.1\textheight
+\hoffset=-0.05\textwidth \textwidth=1.1\textwidth
+
+\include{macros}
+
+\usepackage{pdfsync}
+\usepackage{hyperref}
+
+
+\title{}
+
+\author{William Stein\footnote{The work was supported by NSF grants...}}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract} 
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+\subsection{Elliptic Curves over $\Q$}
+Tables of elliptic curves over $\Q$ have been of great value in
+mathematical research.  The first systematic published tables were in
+Antwerp IV \cite{antwerpiv}, which included all elliptic curves over
+$\Q$ of conductor up to $200$, and also a table of all elliptic curves
+with bad reduction only at $2,3$.
+
+Cremona then wrote a book \cite{cremona:algs} that gave a careful and
+detailed description of a suite of algorithms that together would
+output a list of all elliptic curves over $\Q$ of any specific given
+conductor, along with extensive data about each curve.  The proof that
+his algorithm output all curves of given conductor had to wait for
+\cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
+computed tables \cite{cremona:onlinetables} of all elliptic curves
+over $\Q$ of conductor up to $200,000$, and his main current target is
+reaching $234,446$, which is the smallest known conductor of a rank
+$4$ curve.
+ 
+\subsection{Why $\Q(\sqrt{5})$?}
+
+\section{Finall all curves over $\Q(\sqrt{5})$ with given conductor}
+
+\section{Example: norm conductor $31$}
+
+\section{Future projects}
+
+\section{Elliptic curves over $\Q(\sqrt{5})$ of norm conductor up to $199$}
+
+
+\bibliography{biblio}
+\end{document}
