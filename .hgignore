@@ -1,0 +1,12 @@
+auto
+.aux
+.bbl
+.blg
+.log
+.out
+.pdfsync
+.pdf
+biblio.bib
+macros.tex
+tables
+~
