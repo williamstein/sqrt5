@@ -2,18 +2,19 @@
 
 \bibliographystyle{amsalpha} 
 
-\voffset=-0.2\textheight  \textheight=1.4\textheight
+%\voffset=-0.2\textheight  \textheight=1.4\textheight
 %\hoffset=-0.2\textwidth \textwidth=1.4\textwidth
-%\voffset=-0.05\textheight \textheight=1.1\textheight
+\voffset=-0.05\textheight \textheight=1.1\textheight
 \hoffset=-0.05\textwidth \textwidth=1.1\textwidth
 
 \include{macros}
 
-\usepackage{pdfsync}
+\newcommand{\n}{\mathfrak{n}}
+\newcommand{\cN}{\mathcal{N}}
+
 \usepackage{hyperref}
 
-
-\title{}
+\title{Finding all Elliptic Curves over $\Q(\sqrt{5})$\\of Given Conductor}
 
 \author{William Stein\footnote{The work was supported by NSF grants...}}
 
@@ -23,6 +24,8 @@
 
 \begin{abstract} 
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction}\label{sec:intro}
 
@@ -34,25 +37,163 @@ $\Q$ of conductor up to $200$, and also a table of all elliptic curves
 with bad reduction only at $2,3$.
 
 Cremona then wrote a book \cite{cremona:algs} that gave a careful and
-detailed description of a suite of algorithms that together would
+detailed description of algorithms that together would
 output a list of all elliptic curves over $\Q$ of any specific given
 conductor, along with extensive data about each curve.  The proof that
 his algorithm output all curves of given conductor had to wait for
 \cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
 computed tables \cite{cremona:onlinetables} of all elliptic curves
-over $\Q$ of conductor up to $200,000$, and his main current target is
-reaching $234,446$, which is the smallest known conductor of a rank
-$4$ curve.
+over $\Q$ of conductor up to $200,000$ with Mordell-Weil groups and
+other data about each, and his main current target is reaching
+$234,446$, which is the smallest known conductor of a rank $4$ curve.
+
+In a different direction, Stein-Watkins (see
+\cite{stein-watkins:ants5, bmsw:bulletins}) created a huge table of
+136,832,795 elliptic curves over $\Q$ of conductor $\leq 10^8$, and
+another table of 11,378,911 elliptic curves over $\Q$ of prime
+conductor $\leq 10^{10}$.  For each curve, these tables contain the
+analytic rank numerically computed to some precision, and some other
+data, though the actual ranks of all of these curves has not been
+determined.  There are also many curves of large discriminant missing
+from the Stein-Watkins tables, since these tables are made by
+enumerating curves with relatively small defining equations, and
+discarding those of large conductor, rather than systematically
+finding all curves of given conductor no matter how large the defining
+equation.
  
 \subsection{Why $\Q(\sqrt{5})$?}
 
-\section{Finall all curves over $\Q(\sqrt{5})$ with given conductor}
+Like $\Q$, the field $F=\Q(\sqrt{5})$ is a totally real field, and
+many of the techniques that we have for studying elliptic curves over
+$\Q$ generalize, or are conjectured to generalize, to totally real
+fields.  Naturally generalizing the situation over $\Q$, there is
+usually a similar notion of modularity coming from Shimura curve
+parametrizations and Hilbert modular forms, which is now backed up by
+extensive theoretical \cite{} and some computational \cite{} evidence.
+Moreover, extensive work  \cite{} of Zhang has extended many results
+of Gross-Zagier \cite{} and Kolyvagin \cite{} to the context of elliptic
+curves over totally real fields.
 
-\section{Example: norm conductor $31$}
+If we order fields by absolute discriminant, then $F=\Q(\sqrt{5})$ is
+the next field after $\Q$.  That $5$ divides $\disc(F)=5$ obstructs
+attempts to generalize the Taylor-Wiles method to elliptic curves over
+$F$, which makes this case even more interesting.  The field $F$ also
+has $xx$ CM $j$-invariants, which is far more than any other field of
+degree $\leq 2$ [[??]] (see Section~\ref{sec:cm}).  Let
+$\vphi=\frac{1+\sqrt{5}}{2}$.  The unit group $\{\pm 1\} \times
+\langle \vphi \rangle$ of the ring $R=\O_F=\Z[\vphi]$ of integers of
+$F$ is infinite, which leads to additional complications.  Finally,
+the totally real field $F$ has even degree $2$, which makes
+computation of Hilbert modular forms and corresponding elliptic curves
+more difficult, since the techniques of \cite{} are not available.  In
+particular, some curves (e.g., with square level) can have no Shimura
+curve parameterization.
 
-\section{Future projects}
 
-\section{Elliptic curves over $\Q(\sqrt{5})$ of norm conductor up to $199$}
+\subsection{Modularity conjecture}\label{sec:mod}
+The following conjecture is not yet known in general. 
+\begin{conjecture}[Modularity]\label{conj:mod}
+  The set of $L$-functions of elliptic curves over $F$ equals the set
+  of $L$-functions associated to cuspidal Hilbert modular newforms
+  over $F$ of parallel weight $2$ with rational Hecke eigenvalues.
+\end{conjecture}
+Given the huge amount of recent progress on modularity theorems, we
+are optimistic that Conjecture~\ref{conj:mod} will be proved in the
+near future.  We officially {\em assume} it for the rest of this
+paper.
+
+
+\section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
+
+
+
+\section{Strategies for finding an elliptic curve attached to a Hilbert modular form}
+Let $f\in S_{(2,2)}(\n)$ be a rational Hilbert newforms as in
+Section~\ref{sec:hmf}.  According to Conjecture~\ref{conj:mod}, there
+is some elliptic curve $E_f$ over $f$ such that $L(f,s) = L(E_f,s)$.
+Note that $E_f$ is only well defined up to isogeny.  Unlike the case
+for elliptic curves over $\Q$ (see \cite{cremona:algs}), there appears
+to be no fast direct algorithm to find $E_f$.  Nonetheless, there are
+numerous approaches.
+
+In all the sections below, we assume that Conjecture~\ref{conj:mod} is
+true and that we have computed (as in Section~\ref{sec:hmf}) a
+complete list of Hecke eigenvalues $a_\p$ of all rational Hilbert
+newforms of some level $\n$, to at least enough precision $B$ to determine
+one from another.
+
+\subsection{Naive enumeration}\label{sec:naive}
+
+The most naive strategy is to systematically enumerate pairs $a,b\in
+R$, hence elliptic curves $E: y^2 = x^3 + ax + b$ over $F$, and for
+each curve compute some $L$-series coefficients $a_\p(E)$ at primes
+that do not divide the discriminant of the cubic by counting points
+modulo primes.  If all $a_\p(E)$ match with those of the input newform
+$f$, up to the bound $B$, we then compute the conductor $\cN_E$, and
+if it equals $\n$, we conclude that $L(E_f,s) = L(f,s)$.
+
+Under our hypotheses, naive enumeration is an algorithm to solve our
+problem: it will terminate, and when it terminates it outputs a
+correct curve $E_f$. Unfortunately, it can be very slow because even
+if $\n$ is small, the simplest curve in the isogeny class of $E_f$ may
+have very large coefficients, for example, if each is of the form
+$x+\vphi y$ with $x$ and $y$ having coefficients around $10^5$, then
+we would have to consider $10^{20}$ before finding $E_f$, which is not
+feasible.
+
+\subsection{Torsion families}\label{sec:torsion}
+
+We can tell whether or not $\ell\mid \#E(F)_{\tor}$ for some
+$E$ in the isogeny class of $E_f$ using the following proposition.
+
+\begin{proposition}
+ TODO: Explain how to tell if $\ell\mid \#E(F)_{\tor}$.
+\end{proposition}
+\begin{proof}
+  Use Galois representations, and also Katz's theorem.
+\end{proof}
+
+Instead of searching through all curves as in Section~\ref{sec:naive},
+...
+
+
+\subsection{Twisting}
+
+\subsection{Curves with specified $a_\p$}
+
+\subsection{Curves with good reduction outside $S$}
+
+\subsection{Special values of twisted $L$-series}
+
+\subsection{Congruence families}
+
+\section{Enumerating the curves in an isogeny class}
+
+\section{Norm conductor $31$}\label{sec:31}
+
+\section{Related future projects}\label{sec:future}
+
+\section{Tables}\label{sec:tables}
+
+\subsection{Up to norm conductor  $199$}\label{sec:to199}
+
+[[TODO: This will be a short-as-reasonable table of curves of norm
+conductor $\leq 199$, hence including the first curve of rank $1$.  It
+will probably be about 6 pages long.]]
+
+\subsection{CM elliptic curves over $F$}\label{sec:cm}
+
+[[TODO: A table like in the back of \cite{silverman:aec2}, but over
+$\Q(\sqrt{5})$.  We haven't made this yet.  I'm not sure how hard this
+is; should be fun.]]
+
+\subsection{Extended version only: up to norm conductor  $1831$}\label{sec:to1831}
+
+[[This will contain a longer version, which includes both curves and
+their conjugates, etc., and has all data up to 1831, and will be over
+100 pages long.  This will be a special version only available on our
+websites; we won't submit this to a journal.]]
+
 
 
 \bibliography{biblio}
