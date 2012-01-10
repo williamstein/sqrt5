@@ -1,23 +1,19 @@
-\documentclass{article} 
-
-\bibliographystyle{amsalpha} 
-
-%\voffset=-0.2\textheight  \textheight=1.4\textheight
-%\hoffset=-0.2\textwidth \textwidth=1.4\textwidth
-\voffset=-0.05\textheight \textheight=1.1\textheight
-\hoffset=-0.05\textwidth \textwidth=1.1\textwidth
+\documentclass{amsart} 
 
 \include{macros}
+
+\bibliographystyle{amsalpha} 
 
 \newcommand{\n}{\mathfrak{n}}
 \newcommand{\cN}{\mathcal{N}}
 
 \usepackage{hyperref}
 
-\title{Finding all Elliptic Curves over $\Q(\sqrt{5})$\\of Given Conductor}
+\title{Elliptic Curves over $\Q(\sqrt{5})$}
 
-\author{William Stein\footnote{The work was supported by NSF grants...}}
-
+\author{Jon Bober, Alyson Deines, Joanna Gaski, Ari Klages-Mundt, Ben
+  Leveque, Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
+  Stein}
 
 \begin{document}
 \maketitle
@@ -25,7 +21,8 @@
 \begin{abstract} 
 \end{abstract}
 
-\tableofcontents
+\footnote{TODO: Acknowledge NFS.  Also, always keep in mind that the
+  Page limit for ANTS is 15 pages, including references.}
 
 \section{Introduction}\label{sec:intro}
 
@@ -36,23 +33,24 @@ Antwerp IV \cite{antwerpiv}, which included all elliptic curves over
 $\Q$ of conductor up to $200$, and also a table of all elliptic curves
 with bad reduction only at $2,3$.
 
-Cremona then wrote a book \cite{cremona:algs} that gave a careful and
+Cremona wrote \cite{cremona:algs}, which gave a careful and
 detailed description of algorithms that together would
-output a list of all elliptic curves over $\Q$ of any specific given
+output a list of all elliptic curves over $\Q$ of any specific 
 conductor, along with extensive data about each curve.  The proof that
 his algorithm output all curves of given conductor had to wait for
 \cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
 computed tables \cite{cremona:onlinetables} of all elliptic curves
-over $\Q$ of conductor up to $200,000$ with Mordell-Weil groups and
-other data about each, and his main current target is reaching
-$234,446$, which is the smallest known conductor of a rank $4$ curve.
+over $\Q$ of conductor up to $210,\!000$, including Mordell-Weil groups and
+extensive other data about each curve; his main current target is to reach
+conductor $234,\!446$, which is the smallest known conductor of a 
+rank $4$ curve.
 
 In a different direction, Stein-Watkins (see
-\cite{stein-watkins:ants5, bmsw:bulletins}) created a huge table of
+\cite{stein-watkins:ants5, bmsw:bulletins}) created a table of
 136,832,795 elliptic curves over $\Q$ of conductor $\leq 10^8$, and
 another table of 11,378,911 elliptic curves over $\Q$ of prime
-conductor $\leq 10^{10}$.  For each curve, these tables contain the
-analytic rank numerically computed to some precision, and some other
+conductor $\leq 10^{10}$.  For each curve, these tables contain 
+a numerical approximation to $\ord_{s=1} L(E,s)$, and some other
 data, though the actual ranks of all of these curves has not been
 determined.  There are also many curves of large discriminant missing
 from the Stein-Watkins tables, since these tables are made by
@@ -66,28 +64,28 @@ equation.
 Like $\Q$, the field $F=\Q(\sqrt{5})$ is a totally real field, and
 many of the techniques that we have for studying elliptic curves over
 $\Q$ generalize, or are conjectured to generalize, to totally real
-fields.  Naturally generalizing the situation over $\Q$, there is
-usually a similar notion of modularity coming from Shimura curve
+fields.
+As is the case over $\Q$, there is a 
+notion of modularity coming from Shimura curve
 parametrizations and Hilbert modular forms, which is now backed up by
 extensive theoretical \cite{} and some computational \cite{} evidence.
-Moreover, extensive work  \cite{} of Zhang has extended many results
-of Gross-Zagier \cite{} and Kolyvagin \cite{} to the context of elliptic
-curves over totally real fields.
+Moreover,  work \cite{zhang:heightsshimura} of Zhang has extended many results
+of Gross-Zagier \cite{gross-zagier} and Kolyvagin \cite{gross:kolyvagin} 
+to the context of elliptic curves over totally real fields.
 
 If we order fields by absolute discriminant, then $F=\Q(\sqrt{5})$ is
 the next field after $\Q$.  That $5$ divides $\disc(F)=5$ obstructs
 attempts to generalize the Taylor-Wiles method to elliptic curves over
 $F$, which makes this case even more interesting.  The field $F$ also
-has $xx$ CM $j$-invariants, which is far more than any other field of
+has $xx$ CM $j$-invariants, which is more than any other field of
 degree $\leq 2$ [[??]] (see Section~\ref{sec:cm}).  Let
 $\vphi=\frac{1+\sqrt{5}}{2}$.  The unit group $\{\pm 1\} \times
-\langle \vphi \rangle$ of the ring $R=\O_F=\Z[\vphi]$ of integers of
-$F$ is infinite, which leads to additional complications.  Finally,
-the totally real field $F$ has even degree $2$, which makes
+\langle \vphi \rangle$ of the ring $R=\cO_F=\Z[\vphi]$ of integers of
+$F$ is infinite, which leads to additional interesting complications.
+Finally, the totally real field $F$ has even degree $2$, which makes
 computation of Hilbert modular forms and corresponding elliptic curves
-more difficult, since the techniques of \cite{} are not available.  In
-particular, some curves (e.g., with square level) can have no Shimura
-curve parameterization.
+more difficult, since the cohomological techniques of \cite{} are not
+available.  
 
 
 \subsection{Modularity conjecture}\label{sec:mod}
@@ -95,12 +93,11 @@ The following conjecture is not yet known in general.
 \begin{conjecture}[Modularity]\label{conj:mod}
   The set of $L$-functions of elliptic curves over $F$ equals the set
   of $L$-functions associated to cuspidal Hilbert modular newforms
-  over $F$ of parallel weight $2$ with rational Hecke eigenvalues.
+  over $F$ of weight $(2,2)$ with rational Hecke eigenvalues.
 \end{conjecture}
 Given the huge amount of recent progress on modularity theorems, we
-are optimistic that Conjecture~\ref{conj:mod} will be proved in the
-near future.  We officially {\em assume} it for the rest of this
-paper.
+are optimistic that Conjecture~\ref{conj:mod} will be proved.  {\em We thus
+officially assume Conjecture~\ref{conj:mod}  for the rest of this paper.}
 
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
