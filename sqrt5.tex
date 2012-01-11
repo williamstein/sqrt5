@@ -1,25 +1,23 @@
 \documentclass{amsart} 
-
 \include{macros}
-
-\bibliographystyle{amsalpha} 
 
 \newcommand{\n}{\mathfrak{n}}
 \newcommand{\cN}{\mathcal{N}}
 
-\usepackage{hyperref}
+%\usepackage{hyperref}
 
 \title{Elliptic Curves over $\Q(\sqrt{5})$}
 
-\author{Jon Bober, Alyson Deines, Joanna Gaski, Ari Klages-Mundt, Ben
+\author[Bober et al.]{Jon Bober, Alyson Deines, Joanna Gaski, Ari Klages-Mundt, Ben
   Leveque, Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
   Stein}
 
 \begin{document}
-\maketitle
 
 \begin{abstract} 
-\end{abstract}
+\end{abstract} 
+
+\maketitle
 
 \footnote{TODO: Acknowledge NFS.  Also, always keep in mind that the
   Page limit for ANTS is 15 pages, including references.}
@@ -67,10 +65,10 @@ $\Q$ generalize, or are conjectured to generalize, to totally real
 fields.
 As is the case over $\Q$, there is a 
 notion of modularity coming from Shimura curve
-parametrizations and Hilbert modular forms, which is now backed up by
-extensive theoretical \cite{} and some computational \cite{} evidence.
+parametrizations and Hilbert modular forms, which is supported by
+theoretical evidence \cite{}.%something suggested by R. Taylor
 Moreover,  work \cite{zhang:heightsshimura} of Zhang has extended many results
-of Gross-Zagier \cite{gross-zagier} and Kolyvagin \cite{gross:kolyvagin} 
+of Gross-Zagier \cite{gross-zagier} and Kolyvagin \cite{kolyvagin:mordellweil} 
 to the context of elliptic curves over totally real fields.
 
 If we order fields by absolute discriminant, then $F=\Q(\sqrt{5})$ is
@@ -101,6 +99,108 @@ officially assume Conjecture~\ref{conj:mod}  for the rest of this paper.}
 
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
+
+We describe..., with improvements
+that make it faster.   [[write outline]]
+
+\subsection{Hilbert modular forms and quaternion 
+algebras}\label{sec:dembele}
+In this section, we give Dembele's algebraic approach
+\cite{dembele:hilbert5} via the Jacquet-Langlands correspondence to
+computing  certain Hilbert modular forms.
+
+The Hamiltonian quaternion algebra $F[i,j,k]$ over $F$ is ramified
+only at the two infinite places, and contains the maximal order
+$$
+ S = R\left[\frac{1}{2}(1-\overline{\vphi} i + \vphi j),\,
+       \frac{1}{2}(-\overline{\vphi} i + j + \vphi k),\,
+       \frac{1}{2}(\vphi i - \overline{\vphi} j + k), \,
+       \frac{1}{2}(i + \vphi j - \overline{\vphi} k)\right].
+$$
+Let $\P^1(R/\n)$ be the set of equivalence classes of column vectors
+with two coprime entries $a,b \in R/\n$ modulo the action of $R^*$.
+The algebra $F[i,j,k]$ is unramified at all finite primes; in
+particular, for each prime $\p\mid \n$, we may fix an isomorphism
+$F[i,j,k]\tensor F_{\p} \isom M_2(F_{\p})$, which induces a left
+action of $S^*$ on $\P^1(R/\n)$.
+The Jaquet-Langlands correspondence implies that
+the space of Hilbert modular forms with level a nonzero ideal
+$\n \subset R$ and weight $(2,2)$ is
+noncanonically isomorphic as a module over the Hecke algebra
+$$\T=\Z[T_\p :  \p \text{ nonzero prime ideal of }R]$$ 
+to the finite dimensional complex vector space $ V = \C[S^* \backslash
+\P^1(R/\n)].  $ The action of $T_{\p}$, for $p\nmid \n$, is
+$T_{\p}([x]) = \sum [\alpha x]$, where the sum is over the classes
+$[\alpha]\in S/S^*$ with $\N(\alpha)=\pi_p$ (reduced quaternion norm),
+where $\pi_p$ is a totally positive generator of~$\p$.
+
+\subsection{An Algorithm}
+
+In this section we describe some important details that must be
+understood in order to obtain an efficient algorithm from the
+isomorphism of Section~\ref{sec:dembele}.
+
+\subsubsection{Computing $R/\n$}
+Crucial to computing $\P^1(R/\n)$ efficiently is that we can compute
+with $R/\n$ quickly.  To this end, we factor $\n = \prod_{i=1}^m
+\p_i^{e_i}$ and represent elements of $R/\n$ as $m$-tuples in
+$\bigoplus R/\p_i^{e_i}$, thus reducing to the prime power case.  To
+avoid dynamic memory allocation (thus speeding up the code by an order
+of magnitude), we assume that $N(\n)\leq 2^{31}$ is small enough that
+any linear algebra we will do later with the corresponding module will
+be feasible; we thus assume $m\leq 16$ and all $p_i^{e_i}\leq 2^{31}$,
+where $p_i$ is the characteristic of $\p_i$.  As we will explain
+below, we represent an element of $R/\p_i^{e_i}$ as a pair of 64-bit
+integers, and represent an element of $R/\n$ as an array of 16 pairs
+of 64-bit integers (we use this representation in all cases; in
+particular, even if $\n$ is divisible by less than $16$ primes; the
+massive speed gain coming from avoiding dynamic memory allocation more
+than compensates for the wasted memory).
+
+Let $\p^e$ be one of the prime power factors of $\n$, and let $p$ be the residue
+characteristic of $\p$. We have one of the following cases:
+\begin{itemize}
+\item $\p$ splits in $R$; then $R/\p\isom \Z/p\Z$ and we represent elements
+of $R/\p^e$ as pairs $(a,0)$ mod $p^e$ with the usual addition and multiplication
+in the first factor.
+\item $\p$ is inert in $R$; then $R/\p^e\isom (\Z/p^e\Z)[x]/(x^2-x-1)$,
+and we represent elements by pairs $(a,b) \in \Z/p^e\Z$ with multiplication
+$$(a,b)(c,d) = (ac+bd,ad+bd+bc) \mod p^e.$$
+\item $\p$ is ramified and $e=2f$ is even; this is exactly the
+same as the case when $\p$ is inert but with $e$ replaced by $f$,
+since $R/\p^eR \isom (\Z/p^{f}\Z)[x]/(x^2-x-1)$.
+\item $\p$ is ramified (so $p=5$) and $e=2f-1$ is odd; this ring $A=R/\p^e$
+  is trickier than the rest, because it is {\em not} of the form
+  $\Z[x]/(m,g)$ where $m\in\Z$ and $g \in\Z[x]$.  We have $A \ncisom
+  (\Z/5^f\Z)[x]/(x^2-5, 5^{f-1}x)$, and represent elements of $A$ as
+  pairs $(a,b) \in (\Z/5^f)\times (\Z/5^{f-1}\Z)$, with arithmetic
+  given by
+\begin{align*}
+(a,b) + (c,d) &= (a+c \mod 5^f,\,\,\, b+d \mod 5^{f-1})\\
+(a,b)\cdot (c,d) &= (ac+5bd \mod 5^f,\,\,\, ad+bc \mod 5^{f-1}).
+\end{align*}
+The golden ratio in $R$ maps to $(1/2,1/2)$.
+\end{itemize}
+
+
+\subsubsection{Computing $\P^1(R/\n)$}
+We use the bijection $\P^1(\R/\n) \isom \prod_{\p_i^{e_i}}
+\P^1(R/\p_i^{e_i})$ to reduce to the prime power case.  Each element
+$[(a,b)]$ of $\P^1(R/\p_i^{e_i})$ has a unique representative of the
+form $(1,b)$ or $(a,1)$ with $a$ divisible by $\p$, so it is straightforward
+to enumerate the elements of $\P^1(R/\p_i^{e_i})$ after choosing a way
+to enumerate the elements of $R/\p_i^{e_i}$.  Also, we put an element
+of $\P^1(\R/\n)$ in the above canonical form by working with each factor
+individually. 
+
+
+\subsubsection{Enumerating elements of $S$ of norm $\pi_p$ modulo $S^*$}
+[[TODO!]]
+This is around line 1099 of sqrt5.py.  It was pretty tricky to figure out
+and involves multiple ideas.
+
+\subsubsection{Computing a local splitting}
+[[TODO!]]
 
 
 
@@ -193,5 +293,6 @@ websites; we won't submit this to a journal.]]
 
 
 
+\bibliographystyle{amsalpha} 
 \bibliography{biblio}
 \end{document}
