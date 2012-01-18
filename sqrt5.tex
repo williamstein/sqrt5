@@ -1,10 +1,7 @@
 \documentclass{amsart} 
 \include{macros}
-
 \newcommand{\n}{\mathfrak{n}}
 \newcommand{\cN}{\mathcal{N}}
-
-%\usepackage{hyperref}
 
 \title{Elliptic Curves over $\Q(\sqrt{5})$}
 
@@ -56,6 +53,8 @@ enumerating curves with relatively small defining equations, and
 discarding those of large conductor, rather than systematically
 finding all curves of given conductor no matter how large the defining
 equation.
+
+{\bf Acknowledgements.} John Cremona, Tom Fisher, Noam Elkies, Richard Taylor.
  
 \subsection{Why $\Q(\sqrt{5})$?}
 
@@ -204,7 +203,7 @@ and involves multiple ideas.
 
 
 
-\section{Strategies for finding an elliptic curve attached to a Hilbert modular form}
+\section{Strategies for finding an elliptic curve attached to a Hilbert modular form}\label{sec:finding}
 Let $f\in S_{(2,2)}(\n)$ be a rational Hilbert newforms as in
 Section~\ref{sec:hmf}.  According to Conjecture~\ref{conj:mod}, there
 is some elliptic curve $E_f$ over $f$ such that $L(f,s) = L(E_f,s)$.
@@ -264,9 +263,35 @@ Instead of searching through all curves as in Section~\ref{sec:naive},
 
 \subsection{Congruence families}
 
-\section{Enumerating the curves in an isogeny class}
 
-TODO
+
+\section{Enumerating the curves in an isogeny class}\label{sec:isoclass}
+
+Given an elliptic curve $E/F$, we wish to find representative
+isomorphism classes for all elliptic curves $E'/F$ that are isogenous
+to $E$ via an isogeny defined over $F$.  The analogue of this problem
+over $\Q$ has an algorithmic solution as explained in
+\cite[\S3.8]{cremona:algs}; it relies on (1) Mazur's theorem
+\cite{mazur:rational} that $\deg(E\to E')\leq 163$, and (2) formulas
+of Velu \cite{velu:isogenies} that provide a way to explicitly
+enumerate all $p$-isogenies with domain $E$.  Velu's formulas are
+valid for any number field, but so far there has not been an explicit
+generalization of Mazur's theorem for any number field other than
+$\Q$.  In this connection, see \cite{}, which asserts that the set
+isogeny degrees over a number field $K$ is {\em finite} when a certain
+obvious CM obstruction is not present.
+
+Fortunately, \cite{billerey:isog} sidesteps this issue with an
+algorithm that takes as input a specific non-CM elliptic $E$ over a
+number field $K$, and outputs a finite list of primes $p$ such that
+$E$ might have a $p$-isogeny.  The algorithm is particularly easy to
+implement in the special case when $K$ is a quadratic field, as
+explained in \cite[\S2.3.4]{billerey:isog}.  Using this algorithm
+combined with Velu's formulas, we were easily able to enumerate {\em
+  all} isomorphism classes of curves isogenous to the curves we found
+via the methods of Section~\ref{sec:finding}, and divide our curves up into
+isogeny classes.
+
 
 \section{Norm conductor $31$}\label{sec:31}
 
@@ -275,6 +300,29 @@ TODO
 TODO
 
 \section{Tables}\label{sec:tables}
+
+As explained in Sections~\ref{sec:finding} and \ref{sec:isoclass},
+assuming Conjecture~\ref{conj:mod}, we found the complete list of
+elliptic curves with norm conductor up to $1831$, which is the first
+norm conductor of a rank $2$ curve over $F$.  Table~\ref{table:counts}
+summarizes the number of curves we found.  Note that in these counts
+we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
+nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
+separately if they are not isomorphic.  For comparison, 
+there are xxx isogeny classes and xxx isomorphism classes
+of elliptic curves over $\Q$ with conductor up to $1831$.
+\begin{center}
+\begin{table}
+\caption{Number of curves that we found\label{table:counts}}
+\begin{tabular}{|c|c|c|}\hline
+{\bf rank} & {\bf number of isogeny classes} & {\bf number of isom. classes} \\\hline
+ $0$ & $750$ & ?\\\hline
+ $1$ & $650$ & ?\\\hline
+ $2$ & $2$ & ? \\\hline
+{\bf totals} & $1402$ & ? \\\hline
+\end{tabular}
+\end{table}
+\end{center}
 
 \subsection{Up to norm conductor  $199$}\label{sec:to199}
 
