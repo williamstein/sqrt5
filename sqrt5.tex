@@ -296,11 +296,19 @@ via the methods of Section~\ref{sec:finding}, and divide our curves up into
 isogeny classes.
 
 
-\section{Norm conductor $31$}\label{sec:31}
-
 \section{Related future projects}\label{sec:future}
 
-TODO
+It would be natural to extend the tables to the first known curve of
+rank $3$, which may be the known one of norm conductor $163^2=26569$.
+It would also be interesting to make a table in the style of
+\cite{stein-watkins:ants5}, and compute analytic ranks of the large
+number of curves that we would find; this would benefit from
+Sutherland's smalljac program, which has very fast code for computing
+$L$-series coefficients.  Some aspects of the tables could also be
+generalized to modular abelian varieties $A_f$ attached to Hilbert
+modular newforms with not-necessarily-rational Hecke eigenvalues; in
+particular, we could enumerate the $A_f$ up to some norm conductor,
+and numerically compute their analytic ranks.
 
 \section{Tables}\label{sec:tables}
 
@@ -312,17 +320,17 @@ summarizes the number of curves we found.  Note that in these counts
 we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
 nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
 separately if they are not isomorphic.  For comparison, 
-there are xxx isogeny classes and xxx isomorphism classes
-of elliptic curves over $\Q$ with conductor up to $1831$.
+there are 5260 isogeny classes and 10283 isomorphism classes
+of elliptic curves over $\Q$ with conductor up to $1831$ [[double check!]].
 \begin{center}
-\begin{table}
-\caption{Number of curves that we found\label{table:counts}}
-\begin{tabular}{|c|c|c|}\hline
-{\bf rank} & {\bf number of isogeny classes} & {\bf number of isom. classes} \\\hline
- $0$ & $750$ & ?\\\hline
- $1$ & $650$ & ?\\\hline
- $2$ & $2$ & ? \\\hline
-{\bf totals} & $1402$ & ? \\\hline
+\begin{table}[h]
+\caption{Curves over $\Q(\sqrt{5})$\label{table:counts}}
+\begin{tabular}{|c|c|c|c|}\hline
+rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smallest norm conductor\\\hline
+ $0$ & $750$ & ? & 31\\\hline
+ $1$ & $650$ & ? & 199\\\hline
+ $2$ & $2$ & ?  & 1831\\\hline
+total & $1402$ & $3338$ & - \\\hline
 \end{tabular}
 \end{table}
 \end{center}
