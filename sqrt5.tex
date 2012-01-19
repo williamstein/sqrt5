@@ -343,9 +343,65 @@ will probably be about 6 pages long.]]
 
 \subsection{CM elliptic curves over $F$}\label{sec:cm}
 
-[[TODO: A table like in the back of \cite{silverman:aec2}, but over
-$\Q(\sqrt{5})$.  We haven't made this yet.  I'm not sure how hard this
-is; should be fun.]]
+There are $27$ $\Qbar$-isomorphism classes of CM elliptic curves
+defined over $F$, which is far more than for any other quadratic
+field. They have $j$-invariants
+\begin{align*}
+ & 0, 54000, -12288000, 1728, 287496, -3375, 16581375, 8000, -32768, -884736,\\
+&  -884736000, -147197952000, -262537412640768000, 565760 \vphi + 349120,\\
+& -565760 \vphi + 914880, 190356480 \vphi + 117668160,  -190356480 \vphi + 308024640,\\
+& 85995 \vphi - 138510, -85995 \vphi - 52515, 16554983445 \vphi + 10231546590,\\
+&  -16554983445 \vphi + 26786530035, 52756480 \vphi - 85360640,  -52756480 \vphi - 32604160, \\
+& 191346871173120 \vphi -
+309605741199360, -191346871173120 \vphi - 118258870026240,\\
+& 368136133486354759680 \vphi - 595656776467890339840,\\
+&-368136133486354759680 \vphi - 227520642981535580160.
+\end{align*}
+
+\begin{proposition}
+The field $F$ has more isomorphism classes of CM
+elliptic curves than any other quadratic field.
+\end{proposition}
+\begin{proof}
+Let $K$ be a quadratic extension of $\Q$.
+Let $H_D$ denote the Hilbert class polynomial of the CM order
+$\O_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
+polynomial of the $j$-invariant $j_D$ of any elliptic curve $E=E_D$ with
+CM by $\O_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
+$H_D$ is either linear or is quadratic and has both roots in $K$.
+The $D$ for which $H_D$ is linear are
+$-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$,
+which account for the rational $j$-invariants listed above.
+According to \cite{cremona:abvar}, the
+$D$ for which $H_D$ is quadratic are the following $19$
+discriminants
+\begin{align*}
+&-15, -20, -24, -35, -40, -51, -52, -60, -88, -91, -115,  \\
+& -123, -148, -187, -232, -235, -240, -267, -403, -427.
+\end{align*}
+ 
+By computing discriminants of these Hilbert class polynomials,
+we obtain the following table:
+\begin{center}
+\begin{tabular}{|c|l|}\hline
+Field & $D$ so $H_D$ has roots in field\\\hline
+\Q(\sqrt{2}) & $-24,-88$ \\\hline
+\Q(\sqrt{5}) & $-15,-20,-35,-40,-60,-115,-235$ \\\hline
+\Q(\sqrt{13}) & $-52,-91,-403$ \\\hline
+\Q(\sqrt{17}) & $-51,-187$ \\\hline
+\Q(\sqrt{29}) & $-232$ \\\hline
+\Q(\sqrt{37}) & $-148$ \\\hline
+\Q(\sqrt{41}) & $-123$ \\\hline
+\Q(\sqrt{61}) & $-427$ \\\hline
+\Q(\sqrt{89}) & $-267$ \\\hline
+\end{tabular}
+\end{center}
+The claim follows because the $\Q(\sqrt{5})$ row is largest.
+
+\end{proof}
+
+
+
 
 \subsection{Extended version only: up to norm conductor  $1831$}\label{sec:to1831}
 
