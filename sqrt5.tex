@@ -343,20 +343,9 @@ will probably be about 6 pages long.]]
 
 \subsection{CM elliptic curves over $F$}\label{sec:cm}
 
-There are $27$ $\Qbar$-isomorphism classes of CM elliptic curves
-defined over $F$, which is far more than for any other quadratic
-field. They have $j$-invariants
-\begin{align*}
- & 0, 54000, -12288000, 1728, 287496, -3375, 16581375, 8000, -32768, -884736,\\
-&  -884736000, -147197952000, -262537412640768000, 565760 \vphi + 349120,\\
-& -565760 \vphi + 914880, 190356480 \vphi + 117668160,  -190356480 \vphi + 308024640,\\
-& 85995 \vphi - 138510, -85995 \vphi - 52515, 16554983445 \vphi + 10231546590,\\
-&  -16554983445 \vphi + 26786530035, 52756480 \vphi - 85360640,  -52756480 \vphi - 32604160, \\
-& 191346871173120 \vphi -
-309605741199360, -191346871173120 \vphi - 118258870026240,\\
-& 368136133486354759680 \vphi - 595656776467890339840,\\
-&-368136133486354759680 \vphi - 227520642981535580160.
-\end{align*}
+There are $31$ distinct $\Qbar$-isomorphism classes of CM elliptic
+curves defined over $F$, more than for any other
+quadratic field.
 
 \begin{proposition}
 The field $F$ has more isomorphism classes of CM
@@ -368,36 +357,64 @@ Let $H_D$ denote the Hilbert class polynomial of the CM order
 $\O_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
 polynomial of the $j$-invariant $j_D$ of any elliptic curve $E=E_D$ with
 CM by $\O_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
-$H_D$ is either linear or is quadratic and has both roots in $K$.
-The $D$ for which $H_D$ is linear are
-$-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$,
-which account for the rational $j$-invariants listed above.
+$H_D$ is either linear or quadratic and has both roots in $K$.
+The $D$ for which $H_D$ is linear are the thirteen values
+$-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$.
 According to \cite{cremona:abvar}, the
-$D$ for which $H_D$ is quadratic are the following $19$
+$D$ for which $H_D$ is quadratic are the following $29$
 discriminants
 \begin{align*}
-&-15, -20, -24, -35, -40, -51, -52, -60, -88, -91, -115,  \\
-& -123, -148, -187, -232, -235, -240, -267, -403, -427.
+&-15, -20, -24, -32, -35, -36, -40, -48, -51, -52, -60, \\
+&-64, -72, -75, -88, -91, -99, -100, -112, -115, -123, \\
+&-147, -148, -187, -232, -235, -267, -403, -427
 \end{align*}
+%z = list(reversed(sorted([D*f^2 for D,f in cm_orders(2)]))); z 
+%len(z)
  
 By computing discriminants of these Hilbert class polynomials,
-we obtain the following table:\footnote{This table is wrong,
-as mentioned by Cremona in a post to sage-devel on Jan 24, 2012.}
+we obtain the following table:
+% w = {}
+% for D, f in cm_orders(2):
+%     m = hilbert_class_polynomial(D*f^2).discriminant().squarefree_part()
+%     print D, m
+%     if not w.has_key(m):
+%         w[m] = []
+%     w[m].append(D)
+%     w[m] = list(reversed(sorted(w[m])))
+% print '-'*70
+% print w
+
+% for F, Ds in sorted(w.iteritems()):
+%     print "\\Q(\\sqrt{%s}) & $%s$ \\\\\\hline"%(F,
+%                   ','.join([str(z) for z in Ds]))
+
 \begin{center}
 \begin{tabular}{|c|l|}\hline
 Field & $D$ so $H_D$ has roots in field\\\hline
-\Q(\sqrt{2}) & $-24,-88$ \\\hline
-\Q(\sqrt{5}) & $-15,-20,-35,-40,-60,-115,-235$ \\\hline
+\Q(\sqrt{2}) & $-24,-32,-64,-88$ \\\hline
+\Q(\sqrt{3}) & $-36,-48$ \\\hline
+\Q(\sqrt{5}) & $-15,-20,-35,-40,-60,$ \\
+             & $-75,-100,-115,-235$\\\hline
+\Q(\sqrt{6}) & $-72$ \\\hline
+\Q(\sqrt{7}) & $-112$ \\\hline
 \Q(\sqrt{13}) & $-52,-91,-403$ \\\hline
 \Q(\sqrt{17}) & $-51,-187$ \\\hline
+\end{tabular}
+\begin{tabular}{|c|l|}\hline
+Field & $D$ so $H_D$ has roots in field\\\hline
+\Q(\sqrt{21}) & $-147$ \\\hline
 \Q(\sqrt{29}) & $-232$ \\\hline
+\Q(\sqrt{33}) & $-99$ \\\hline
 \Q(\sqrt{37}) & $-148$ \\\hline
 \Q(\sqrt{41}) & $-123$ \\\hline
 \Q(\sqrt{61}) & $-427$ \\\hline
 \Q(\sqrt{89}) & $-267$ \\\hline
+& \\\hline
 \end{tabular}
 \end{center}
-The claim follows because the $\Q(\sqrt{5})$ row is largest.
+The claim follows because the $\Q(\sqrt{5})$ row is largest, which
+contains $9$ entries.  There are thus $31 = 2\cdot 9 + 13$ distinct CM $j$-invariants
+in $\Q(\sqrt{5})$.
 
 \end{proof}
 
