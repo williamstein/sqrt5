@@ -257,6 +257,29 @@ Instead of searching through all curves as in Section~\ref{sec:naive},
 
 \subsection{Curves with specified $a_\p$}
 
+Rather than enumerate through all possible curves, we instead make use
+of the known traces of Frobius to dramatically reduce our search
+space. The concept is fairly elementary: Suppose we have a newform
+$f$, with Hecke eigenvalue $a_\p$, then we know the point count of
+$E_f/(\cO_F/\p)$. Now rather than enumerating over all curves, we
+simply search over lifts of the curves over $\cO_F/\p$ with the
+correct point count.
+
+It is possible to use multiple Hecke eigenvalues
+$a_{\p_1},\ldots,a_{\p_k}$ by lifting curves with correct point counts
+in the $\cO_F/\p_i$'s to curves in $\cO_F/\prod \p_i$ before lifting
+into $F$. Like wheel factorization, this reduces the overall search
+space, but also rapidly increases the number of curves to lift.
+
+While this method will eventually terminate just like naive enumeration, it
+suffers from the same issue of potentially being very slow due to large
+coefficients. However, for many curves this is not the case, and because of
+its simplicity, an implementation can be quite efficient. With that in
+mind, this can be a very useful technique when we are building tables of
+elliptic curves based upon newforms and we would like to reduce the number
+of newforms that we must run through slow techniques.
+
+
 \subsection{Curves with good reduction outside $S$}
 
 \subsection{Special values of twisted $L$-series}
@@ -330,7 +353,7 @@ rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smal
  $0$ & $750$ & ? & 31\\\hline
  $1$ & $650$ & ? & 199\\\hline
  $2$ & $2$ & ?  & 1831\\\hline
-total & $1402$ & $3338$ & - \\\hline
+total & $1414$ & $3338$ & - \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -391,24 +414,24 @@ we obtain the following table:
 \begin{center}
 \begin{tabular}{|c|l|}\hline
 Field & $D$ so $H_D$ has roots in field\\\hline
-\Q(\sqrt{2}) & $-24,-32,-64,-88$ \\\hline
-\Q(\sqrt{3}) & $-36,-48$ \\\hline
-\Q(\sqrt{5}) & $-15,-20,-35,-40,-60,$ \\
+$\Q(\sqrt{2})$ & $-24,-32,-64,-88$ \\\hline
+$\Q(\sqrt{3})$ & $-36,-48$ \\\hline
+$\Q(\sqrt{5})$ & $-15,-20,-35,-40,-60,$ \\
              & $-75,-100,-115,-235$\\\hline
-\Q(\sqrt{6}) & $-72$ \\\hline
-\Q(\sqrt{7}) & $-112$ \\\hline
-\Q(\sqrt{13}) & $-52,-91,-403$ \\\hline
-\Q(\sqrt{17}) & $-51,-187$ \\\hline
+$\Q(\sqrt{6})$ & $-72$ \\\hline
+$\Q(\sqrt{7})$ & $-112$ \\\hline
+$\Q(\sqrt{13})$ & $-52,-91,-403$ \\\hline
+$\Q(\sqrt{17})$ & $-51,-187$ \\\hline
 \end{tabular}
 \begin{tabular}{|c|l|}\hline
 Field & $D$ so $H_D$ has roots in field\\\hline
-\Q(\sqrt{21}) & $-147$ \\\hline
-\Q(\sqrt{29}) & $-232$ \\\hline
-\Q(\sqrt{33}) & $-99$ \\\hline
-\Q(\sqrt{37}) & $-148$ \\\hline
-\Q(\sqrt{41}) & $-123$ \\\hline
-\Q(\sqrt{61}) & $-427$ \\\hline
-\Q(\sqrt{89}) & $-267$ \\\hline
+$\Q(\sqrt{21})$ & $-147$ \\\hline
+$\Q(\sqrt{29})$ & $-232$ \\\hline
+$\Q(\sqrt{33})$ & $-99$ \\\hline
+$\Q(\sqrt{37})$ & $-148$ \\\hline
+$\Q(\sqrt{41})$ & $-123$ \\\hline
+$\Q(\sqrt{61})$ & $-427$ \\\hline
+$\Q(\sqrt{89})$ & $-267$ \\\hline
 & \\\hline
 \end{tabular}
 \end{center}
