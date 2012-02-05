@@ -1,0 +1,1 @@
+rsync -axvH ./ wstein.org:www/papers/sqrt5/
