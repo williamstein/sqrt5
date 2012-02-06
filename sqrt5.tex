@@ -265,26 +265,28 @@ Instead of searching through all curves as in Section~\ref{sec:naive},
 \subsection{Curves with specified $a_\p$}
 
 Rather than enumerate through all possible curves, we instead make use
-of the known traces of Frobius to dramatically reduce our search
-space. Suppose we have a newform $f$, with Hecke eigenvalues $a_\p$,
-so we know $\#E_f(R/\p)$. Instead of enumerating over all curves as in
-Section~\ref{sec:naive}, we search over lifts of the curves
-over $R/\p$ with the given point counts.
+of the known traces of Frobenius to reduce our search space. Suppose
+we have a newform $f$ with Hecke eigenvalues $a_\p$, so we know
+$\#E_f(R/\p)=\Norm(\p)+1-a_{\p}$. Instead of enumerating over all
+curves as in Section~\ref{sec:naive}, we search over lifts to $R$ of the
+curves over $R/\p$ that have the given point counts.
 
-It is possible to use multiple Hecke eigenvalues
+We can simultaneously use multiple Hecke eigenvalues
 $a_{\p_1},\ldots,a_{\p_k}$ by lifting curves with given point counts
 in the $R/\p_i$'s to curves in $R/\prod \p_i$ before lifting to
-$F$. This reduces the overall search space, but also rapidly increases
+$R$. This reduces the overall search space, but also rapidly increases
 the number of curves to lift.
 
 While this method will eventually terminate just like naive
 enumeration, it suffers from the same issue of potentially being very
-slow due to large coefficients. However, many curves have relatively
-small coefficients, and because of its simplicity, an implementation
-can be quite efficient.  Thus this is a useful technique when we are
-building tables of elliptic curves associated to newforms and would
-like to reduce the number of newforms that we must run through slower
-techniques.
+slow due if all curves in the isogeny class have large
+coefficients. However, often in practice defined equations for curves
+have relatively small coefficients, and because of its simplicity, an
+implementation of this algorithm can be quite efficient. 
+% Thus this is
+%a useful technique when we are building tables of elliptic curves
+%associated to newforms and would like to reduce the number of newforms
+%that we must run through slower techniques.
 
 
 \subsection{Curves with good reduction outside $S$}
@@ -302,27 +304,31 @@ isomorphism classes for all elliptic curves $E'/F$ that are isogenous
 to $E$ via an isogeny defined over $F$.  The analogue of this problem
 over $\Q$ has an algorithmic solution as explained in
 \cite[\S3.8]{cremona:algs}; it relies on (1) Mazur's theorem
-\cite{mazur:rational} that $\deg(E\to E')\leq 163$, and (2) formulas
+\cite{mazur:rational} that if $\varphi:E\to E'$ is a $\Q$-rational
+isogeny of prime degree, then $\deg(\varphi)\leq 163$, and (2) formulas
 of Velu \cite{velu:isogenies} that provide a way to explicitly
 enumerate all $p$-isogenies with domain $E$.  Velu's formulas are
 valid for any number field, but so far there has not been an explicit
 generalization of Mazur's theorem for any number field other than
-$\Q$.  In this connection, see \cite{} ((work of Dmitry Vayntrob and
-Eric Larson)), which asserts that the set isogeny degrees over a
-number field $K$ is {\em finite} when a certain obvious CM obstruction
-is not present.  [[Remove the last sentence if we can't find a solid 
-reference; maybe it was wrong and evaporated, as big theorems are
-apt to do.]]
+$\Q$.  
 
-Fortunately, \cite{billerey:isog} sidesteps this issue with an
-algorithm that takes as input a specific non-CM elliptic $E$ over a
-number field $K$, and outputs a finite list of primes $p$ such that
-$E$ might have a $p$-isogeny.  The algorithm is particularly easy to
-implement in the special case when $K$ is a quadratic field, as
-explained in \cite[\S2.3.4]{billerey:isog}.  Using this algorithm
-combined with Velu's formulas, we were easily able to enumerate {\em
-  all} isomorphism classes of curves isogenous to the curves we found
-via the methods of Section~\ref{sec:finding}, and divide our curves up into
+\begin{remark}
+  Assume the generalized Riemann hypothesis.  Then work of Eric Larson
+  and Dmitry Vaintrob (see \url{http://arxiv.org/abs/1110.0255})
+  implies that there is an explicitly computable constant $C$ such
+  that any prime degree isogeny over $F$ has degree at most $C$.
+\end{remark}
+
+Since we are interested in specific elliptic curves, 
+we can use an algorithm in \cite{billerey:isog}  that takes as
+input a specific non-CM elliptic $E$ over a number field $K$, and
+outputs a finite list of primes $p$ such that $E$ might have a
+$p$-isogeny.  The algorithm is particularly easy to implement in the
+special case when $K$ is a quadratic field, as explained in
+\cite[\S2.3.4]{billerey:isog}.  Using this algorithm combined with
+Velu's formulas, we were able to enumerate {\em all}
+isomorphism classes of curves isogenous to the curves we found via the
+methods of Section~\ref{sec:finding}, and divide our curves up into
 isogeny classes.
 
 
