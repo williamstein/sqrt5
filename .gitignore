@@ -1,0 +1,14 @@
+*~
+other/
+*.log
+*.bbl
+*.blg
+*.out
+*.pdf
+*.pdfsync
+*.gz
+*.toc
+auto/
+.DS_Store
+*.aux
+.#*
