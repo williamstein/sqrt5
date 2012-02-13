@@ -1,0 +1,23 @@
+As another approach to finding curves, we have used the method described by John Cremona and Mark Lingham in \cite{Cre-Lin}. The goal of this technique is to find all curves with good reduction at primes outside of a finite set $\mathcal{S}$ of primes in $K$ (in our case, $K = \mathbb{Q}(\sqrt{5})$). A $\textsc{Magma}$ implementation of the described algorithm (which has intrinsic limitations---especially over general number fields---due to the difficulty of finding integral points on elliptic curves) has been provided by Cremona and has proven effective to a certain extent. A concise summary of this method is given in a review of \cite{Cre-Lin} on MathSciNet (see \cite{msn-review}), and the main idea of the algorithm is as follows:
+
+\begin{enumerate}
+
+\item Compute the finite $m$-Selmer groups $K(\mathcal{S},m)$ of $K^*$, where
+\begin{equation}
+    K(\mathcal{S},m) = \{x\in K^*/(K^*)^m \ | \ ord_\mathfrak{p}(x) \equiv 0 \ (mod \ m) \ \ \forall \mathfrak{p}\notin \mathcal{S}\} \nonumber
+\end{equation}
+The algorithm requires the computation of these groups for $m = 2,3,4,6,\text{and}\ 12$.
+
+\item From these $m$-Selmer groups, compute a finite set of possible $j$-invariants such that each elliptic curve with good reduction outside $\mathcal{S}$ has $j$-invariant in this set. These $j$-values are either $j=0,1728$, cases which can be treated directly, or $\mathcal{S}$-integers in $K$ satisfying $w \equiv j^2(j-1728)^3 \ (\text{mod} \ K^{*6})$ for $w$ in a specific subgroup of $K(\mathcal{S},6)$. In the latter case $j$ is of the form $j = \frac{x^3}{w}$, where $(x,y)$ is an $\mathcal{S}$-integral point on the elliptic curve $E_w: Y^2 = X^3 - 1728w$.
+
+\item From this set of $j$-invariants, construct each curve with the desired reduction properties (indeed, there are finitely many by Shafarevich's Theorem). We must also check that each curve found has good reduction at the primes above 2 and 3 (if these primes are not in $\mathcal{S}$).
+
+\end{enumerate}
+
+The issue of finding all $\mathcal{S}$-integral points over $K$ (which give the $j$-invariants in step 2) presents a problem. For example, finding the generators of a curve's Mordell-Weil group---one technique for finding integral points---can be difficult if these generators have large coefficients (this makes them hard to find with reasonable search bounds) or when the curve's rank is high (in this case, there are multiple generators to find). Due to these limitations, Cremona uses a naive search to directly find $\mathcal{S}$-integral points within a given search region. With a larger bound, the program will find more curves but will run slower than with a smaller bound. Note that searches such as these will generally run much faster over $\mathbb{Q}$ than over number fields, so this method is less effective over $K$. Indeed, we see these limitations in the output of the algorithm---it failed to find a good number of curves, including one of conductor $-29\varphi+10$, which we knew to exist by looking at corresponding modular forms and was found by the method described in $\S$4.2.4 (the $a$-invariants are $[0, \varphi + 1, \varphi, 25857\varphi - 41835, 2396223\varphi - 3877170]$).
+
+Despite the disadvantage of working in an extension of $\mathbb{Q}$, the Cremona-Lingham method had some success. Altogether, it found 36 previously unknown curves with norm conductor less than 2000, including some with very large $a$-invariants, which would be virtually impossible to find using a straightforward naive search. For example, the method found the curve $E$ with $a$-invariants $[0, 0, 0, -4122575271\varphi - 2547891639, -152431815268008\varphi - 94208042802474]$. It is important to note that while these coefficients are very large, the method found the curve by finding a point $(x,y)$ on its corresponding $E_w$ with relatively \emph{small} coefficients. Indeed, by factoring the $j$-invariant of $E$ we see:
+\begin{equation}
+-\frac{87325496}{121}\varphi - \frac{54204053}{121} \ \ = \ \ j_E \ \ = \ \ \frac{x^3}{w} \ \ = \ \ \frac{(27\varphi + 178)^3}{968\varphi - 1573} \nonumber
+\end{equation}
+When we solve for $y$ we see that the point found is $(x,y) = (27\varphi+178,216\varphi + 2953)$, which is certainly reasonable.

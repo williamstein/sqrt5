@@ -1,0 +1,40 @@
+Our goal in this section is to present a total ordering upon isomorphism
+classes of elliptic curves in quadratic fields given a choice of integral
+basis. Our method of attack will be to continually refine a partial ordering
+until we have a total ordering.
+
+Let $K$ be an abelian field, $G=\Gal(K/\QQ)$, and $\cO_K$ be our ring of
+integers. We start by placing a partial ordering upon the elements of $K$.
+$\CC$. If $e_k$ is the $k$-th elementary symmetric function, and $|G\alpha|$
+is a vector whose components are the absolute value of elements of the orbit
+of $\alpha$ under $G$ for some embedding in $\CC$, then we say that $\alpha <
+\beta$ if the exists a $k$ such that $e_k(|G\alpha|) < e_k(|G\beta|)$ and
+$e_i(|G\alpha|) = e_i(|G\beta|)$ for all $i > k$.\footnote{It should be noted
+that the choice of embedding does not affect the ordering, since the values are
+permuted by $G$.} 
+
+It is clear that the set of elements that are incomparable with $\alpha$
+include $\zeta \sigma\alpha$ for all $\zeta\in\mu_K$ and $\sigma\in G$. In
+fact, it can be seen that all incomparable elements are of this form, since if
+two elements are incomparable, then $|G\alpha|$ and $|G\beta|$ on all symmetric
+functions on $[K:\QQ]$ variables, hence they must be equal. This implies that
+$|\beta|=|\sigma\alpha|$ for some $\sigma\in G$, so since $K$ is abelian, we
+know there is some $\zeta\in \mu_K$ such that $\beta = \zeta\sigma\alpha$.
+
+This partial ordering naturally gives a partial ordering upon ideals of $O_K$,
+by defining $e_k(I) = \min\{e_k(|G\alpha|) : \alpha \in I\}$ and saying that
+$I < J$ if there exists a $k$ such that $e_k(I) < e_k(J)$ and $e_i(I) = e_i(J)$
+for all $i > k$. In this case we can see that two ideals are incomparable if
+and only if one can be obtain by applying a field automorphism to the elements
+of the other.
+
+To order between Galois conjugate ideals, we specialize to quadratic fields,
+and assume that we have chosen $\{1,\gamma\}$ as our integral basis.
+For each ideal $I$ we define $\psi_I:O_K/I \to \ZZ/N(R_I)\ZZ$ to be unique
+homomorphism that factors through $O_K/R_I$, where $R_I = I/(I\cap \ZZ)O_K$.
+We then refine our previous ordering by saying that $I < J$ if 
+$\mods(\psi_I(\gamma)) < \mods(\psi_J(\gamma))$, where $\mods:\ZZ/n\ZZ\to \ZZ$
+is the lift that lies in the interval $(-n/2,n/2]$. With this we have a total
+ordering upon ideals of $O_K$.
+
+

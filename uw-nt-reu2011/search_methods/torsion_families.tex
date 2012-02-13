@@ -1,0 +1,65 @@
+In the preliminary stages of our search, two methods that proved effective to a certain extent were searching through families of curves with given torsion structures and using quadratic twists on curves already known. While is is unlikely that these techniques would have produced a huge number of curves with reasonable search bounds, their implementation was both instructive and somewhat successful---together they produced 25 of the missing curves. The next two sections will briefly describe torsion families and twisting twisting in more detail and give a summary of how they were used to find new curves. For proofs of the facts presented, consult Ian Connell's \emph{Elliptic Curve Handbook}, which can be found online at  http://www.ucm.es/BUCM/mat/doc8354.pdf. Connell's book, Silverman's \emph{The Arithmetic of Elliptic Curves}, and Kubert's \emph{Universal Bounds on the Torsion of Elliptic Curves} are the primary resources used throughout [FIX REFERENCES].
+
+\
+
+We know that for any elliptic curve $E/K$,
+\begin{equation}
+E(K) \cong \mathbb{Z}^r \times E(K)_{tors}, \nonumber
+\end{equation}
+and the structure of the torsion subgroup $E(K)_{tors}$ is an important characteristic of $E$. Sheldon Kamienny and Filip Najman have shown that over $K = \mathbb{Q}(\sqrt{5})$, the torsion subgroup will be isomorphic to one of the 16 groups below, with the last case appearing only once:
+
+\
+
+$\begin{array}{lll}
+\mathbb{Z}/m\mathbb{Z},   &1 \leq m \leq 10,& m = 12,\\
+\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2m\mathbb{Z}, &  1 \leq m \leq 4,&\\
+\mathbb{Z}/15\mathbb{Z}.&&
+\end{array}$
+
+\
+
+Over $\mathbb{Q}$, these families have explicit parametrizations (given on page 217 of Daniel Kubert's \emph{Universal Bounds on the Torsion of Elliptic Curves}), which take in either one or two elements in $\mathbb{Z}$ and produce a curve with the given torsion structure. Over $\mathbb{Q}(\sqrt{5})$ though, these parametrizations may not be guaranteed to produce all curves with the given structure, but they are a good place to start when searching for such curves.
+
+The idea of our implementation of the torsion family method was to essentially run a naive search up to a certain bound on the various parametrizations, compare the output to our list of known curves, and identify new curves accordingly.  However, we refined this method in some places by using the $a_p$ values for our unknown curves in conjunction with our code to compute isogeny degrees to identify unknown curves $E_{un}$ with given $p$-isogenies. These curves can be likely candidates for curves with $p$-torsion points, because $p$-isogenies are sometimes obtained by looking at a curve modulo $p$-torsion points (in the case $p=2$, these \emph{are} the curves with $p$-torsion points). Therefore, we can use the parametrizations of curves with given torsion structures in an attempt to find curves that have the known norm conductor of $E_{un}$. With luck, one of these curves will $E_{un}$ exactly.
+
+We also used code that calculates the predicted torsion structures for each of our missing curves. These predictions were helpful, as they gave us an indication of which parametrizations might be more fruitful than others. For example, it helped us to find such curves as:
+\begin{equation}
+E:  y^2+xy=x^3+(121\varphi-211)x+619\varphi-1006, \nonumber
+\end{equation}
+which has a 6-torsion point.
+
+Overall, the search was fairly successful for the 2-, 3-, 5-, and 7-torsion families, and was eventually extended to accommodate the rest of the possible torsion structures listed above. However, this search was quite slow because it depended on nested for-loops to search all possible parametrizations up to some bound. Also, over $K$, the number of parameters we must provide to each parametrization is twice the number we must provide over $\mathbb{Q}$ because each element in $\mathcal{O}_K$ has two components, so this significantly slowed the method as well. A major advantage to this search, though, is that with relatively small inputs, the parametrizations are able to produce curves with large and diverse $a$-invariants---curves that a regular naive search would certainly miss.
+
+\
+
+\subsection{Quadratic Twists (and a bit of background on isomorphisms)}
+
+If $E$ is an elliptic curve defined over a number field $K$ (in our case $\mathbb{Q}$($\sqrt{5}$)), then a \emph{twist} $E'$ of $E$ is a curve isomorphic to $E$ over some extension of $K$. One way to create such isomorphisms is by defining four-parameter maps: $\tau$ $= [r,s,t,u]$, where $r,s,t \in K$ and $u \in K^*$. These maps act on the space $\mathcal{E}$ of non-singular elliptic curves by: 
+\begin{equation} \tau: [a_1, a_2, a_3, a_4, a_6] \mapsto [a_1', a_2', a_3', a_4', a_6'], \nonumber\end{equation}
+where:
+
+$\begin{array}{rrrrcl}
+&&&a_1' &= & u^{-1}(a_1+2s), \nonumber \\
+&&&a_2' &= &u^{-2}(a_2-sa_1+3r-s^2),\nonumber \\
+&&&a_3' &= &u^{-3}(a_3+ra_1+2t),\nonumber\\
+&&&a_4' &= &u^{-4}(a_4-sa_3+2ra_2-(t+rs)a_1+3r^2-2st),\nonumber\\
+&&&a_6' &= &u^{-6}(a_6+ra_4+r^2a_2+r^3-ta_3-t^2-rta_1)\nonumber
+\end{array}$
+
+\
+
+\noindent The set of these maps $\tau$ form a group ($G$) under composition, and all isomorphisms between curves over $K$ may be given by elements in $G$. Therefore, two elliptic curves are isomorphic iff they are in the same $G$-orbit of $\mathcal{E}$. Conventionally, a $G$-orbit of $\mathcal{E}$ is called an \emph{abstract elliptic curve}, while a specific curve within an orbit is referred to as a \emph{model}. It is worth noting that there is an explicit formula for the image of a given point $(c, d)$ $\in$ $E$ under the action of the map $\tau$ $\in$ $G$:
+\begin{equation} \tau: (c, d) \mapsto (u^{-2}(c-r), u^{-3}(d-sc+sr-t)) \nonumber\end{equation}
+For example, the map $[-1]$, which sends every point on $E$ to its negative, is given by the map $\sigma$: $[0,-a_1,-a_3,-1]$ (quick sanity check: we see that if our curve is in short Weierstrass form (in particular $a_1 = a_3 = 0$), $\sigma$ indeed maps a point $(c, d)$ to its negative $(c, -d)$). We also note that the \emph{degree} of an isomorphism of curves $\tau = [r,s,t,u]$ is equal to $[K(r,s,t,u) : K]$. A \emph{quadratic twist} of a curve $E$ is therefore a curve $E'$ isomorphic to $E$ by a map of degree 1 or 2. If we consider $E$ in the form
+\begin{equation}
+E:   y^2 = x^3 + ax^2 + bx + c, \nonumber
+\end{equation}
+then the quadratic twist of E \emph{by} $d$, for any element $d \in K^*$, is given by the equation
+\begin{equation}
+E^d:   dy^2 = x^3 + ax^2 + bx + c.
+\end{equation}
+We can easily transform $(1)$ to Weierstrass form by multiplying through by $d^3$ and making the substitutions $y' = d^2y$ and $x' = dx$. Finally, if $E: [a_1, a_2, a_3, a_4, a_6]$ is our curve, we can give the isomorphism from $E$ to $E^d$ by the map $\tau_d = [0, a_1(\frac{r-1}{2}), a_3(\frac{r^3-1}{2}), r]$, where r is a root of $r^2 = \frac{1}{d}$. In fact the map from $K^*$ to $G$ given by $d \mapsto \tau_d$ is a homomorphism.
+
+Our implementation of twisting to find new elliptic curves is fairly straightforward: loop through values of $i$ and $j$ up to a certain bound and twist the inputted curve $E$ by $i\varphi+j$, where $\varphi = \frac{1+\sqrt{5}}{2}$ (which generates $\mathcal{O}_K$). This method has similar advantages and disadvantages to the torsion family method; the advantage of this system is that the result of a quadratic twist by $i\varphi+j$ can have vastly different coefficients than the original curve, including \emph{much} larger values, and a significant disadvantage is that we are still looping through values, which is very slow, especially since we must check each potential new curve against our list of known curves to see if it is isomorphic or isogenous to any curve of the same norm conductor. However, there is an intuitive bound on how high the norm of $d$ should be (if we are twisting by $d$): the norm conductor of $E_d$ (denote as $||cond(E_d)||$) is divisible by $||d\cdot cond(E)||$, so we need not consider twists by elements of norm too large for our table of curves with $N \leq 1000$.
+
+\

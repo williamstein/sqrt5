@@ -1,0 +1,130 @@
+In our attempt to find new elliptic curves over $K=\mathbb{Q}(\sqrt{5})$, we turned to $a_\mathfrak{p}$-values as a major source of information. The $a_\mathfrak{p}$-value of a curve $E$ at a prime $\mathfrak{p} \in K$ can be explicitly given by: $a_\mathfrak{p}=N(\mathfrak{p})+1-\#E(\mathbb{F}_p)$, so it is fairly easy to compute using Sage's built-in point counting methods. It is also referred to as the trace of Frobenius, for in the endomorphism ring $End(E/\mathbb{F}_p)$,
+\begin{equation}
+Frob_p^2 + a_\mathfrak{p}Frob_p + N(\mathfrak{p}) = 0, \nonumber
+\end{equation}
+where $Frob_p$ is the Frobenius map sending $(x,y) \mapsto (x^p,y^p) \in E/\mathbb{F}_p$.
+
+Our method for finding an unknown curve $E_{un}$ involves finding all curves in $\mathcal{O}_K/(p)$ which have the correct $a_{\mathfrak{p}_1}$ and $a_{\mathfrak{p}_2}$ values (for $p$ a split prime whose factors $\mathfrak{p}_1$ and $\mathfrak{p}_2$ in $K$ have norm less than 100). In some cases, we also ``combine'' two such rings $\mathcal{O}_K/(p)$ and $\mathcal{O}_K/(q)$ to conduct a more extensive search in $\mathcal{O}_K/(p\cdot q)$. This approach provides congruence conditions on the space of possible candidates for $E_{un}$ and dramatically reduces the number of curves we must search through after lifting each of these candidates to $\mathcal{O}_K$.
+
+\subsubsection{Curves in $\mathcal{O}_K/\mathfrak{p}$}
+
+Let $\mathfrak{p}$ be a prime above the split prime $p$. We know that in characteristic not 2 or 3, we can reduce any elliptic curve to short Weierstrass form (SWF), and since we are only considering primes $\mathfrak{p}$ above split primes (which are always congruent to 1 or 4 modulo 5), we will never run into issues. The first step in our method is to create a dictionary of all nonsingular SWF curves in $\mathcal{O}_K/\mathfrak{p}$, where the keys are $a_\mathfrak{p}$-values and the corresponding entries are the curves which have that $a_\mathfrak{p}$-value. Since $\mathfrak{p}$ is a maximal ideal in $\mathcal{O}_K$, $\mathcal{O}_K/\mathfrak{p}$ is a field of size $p$, so this amounts to finding all SWF curves $E$ with coefficients in $\mathbb{Z}/p\mathbb{Z}$:
+\begin{equation}
+E: \ \ y^2=x^3+Ax+B, \phantom{asdpoifaofi} A,B \in \mathbb{Z}/p\mathbb{Z} \nonumber
+\end{equation}
+\noindent with the given $a_\mathfrak{p}$. Using Sage's point-counting functionality, we can easily find the $a_\mathfrak{p}$ value for each of these curves and thus construct our dictionary.
+
+\subsubsection{Curves in $\mathcal{O}_K/(p)$}
+
+Let $p=\mathfrak{p}_1\cdot\mathfrak{p}_2$ in $K$. In order to find curves in $\mathcal{O}_K/(p)$ that have correct $a_\mathfrak{p}$-values at both $\mathfrak{p}_1$ and $\mathfrak{p}_2$, we simply use the Chinese Remainder Theorem on each pair of curves $E_{\mathfrak{p}_1}$ and $E_{\mathfrak{p}_2}$ produced by the method described above (applied to $\mathfrak{p}_1$ and $\mathfrak{p}_2$). Both curves are in short Weierstrass form, and we use the remainder theorem on the pairs of $a_4$- and $a_6$-invariants separately to produce an SWF curve in $\mathcal{O}_K/(p)$ which reduces properly in  $\mathcal{O}_K/\mathfrak{p}_1$ and  $\mathcal{O}_K/\mathfrak{p}_2$ and therefore has the correct $a_{\mathfrak{p}_1}$-values and $a_{\mathfrak{p}_2}$-values.
+
+\subsubsection{Restricted Models and Lifts}
+
+Now that we have a list of valid SWF curves in $\mathcal{O}_K/(p)$, we may consider various restricted models of each curve in our attempt to find $E_{un}$. Restricted models have the form:
+
+\
+
+$\begin{array}{l}
+E_{red}: \ \ y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6, \ \ \text{where:} \\
+a_1,a_3 \in \{0,1,\varphi,\varphi+1\} \ \ \text{and} \\
+a_2 \in \{0,\pm 1,\pm \varphi, \pm \varphi \pm 1\}
+\end{array}$
+
+\
+
+\noindent By allowing $a_1$, $a_2$, and $a_3$ to be non-zero, there is perhaps a better chance for $a_4$ and $a_6$ to be smaller than they would be in a short Weierstrass model, making it more likely that we encounter a restricted model of $E_{un}$ itself using a fairly low-bound search.
+
+In order to find the restricted models of our curves over $\mathcal{O}_K/(p)$, we can look at isomorphisms of the form $\tau=[r,s,t,1]$ which take each curve to one of the desired form. If $E: [a_1, a_2, a_3, a_4, a_6]$ is one of our SWF curves in $\mathcal{O}_K/(p)$, we know that $a_1 = a_2 = a_3 = 0$. Therefore, when looking at an isomorphism of the form $\tau$ from $E$ to a curve $E': [a_1', a_2', a_3', a_4', a_6']$ that we wish to be in restricted form, our expressions for $a_1'$ -- $a_3'$ simplify to:
+
+\
+
+$\begin{array}{rcllll}
+a_1'&=&2s&&\Rightarrow2s\in\{0,1,\varphi,\varphi+1\}\\             
+a_2'&=&3r-s^2&&\Rightarrow3r-s^2\in\{0,\pm 1, \pm \varphi, \pm \varphi \pm 1\}\\
+a_3'&=&2t&&\Rightarrow2t\in\{0,1,\varphi,\varphi+1\}
+\end{array}$
+
+\
+
+\noindent Since we are working in $\mathcal{O}_K/(p)$, we can choose $s$, $r$, and $t$ as follows (where $3^{-1}$ represents the inverse of 3 modulo $p$):
+
+\
+
+$\begin{array}{l}
+s\in\{0,\frac{p+1}{2},\frac{p+1}{2}\varphi,\frac{p+1}{2}(\varphi+1)\} \\
+\\
+r\in\{3^{-1}s^2,3^{-1}(s^2\pm 1),3^{-1}(s^2\pm \varphi),3^{-1}(s^2\pm \varphi\pm 1)\} \\
+\\
+t\in\{0,\frac{p+1}{2},\frac{p+1}{2}\varphi,\frac{p+1}{2}(\varphi+1)\}
+\end{array}$
+
+\
+
+\noindent These stipulations produce 144 different isomorphisms $\tau = [r,s,t,1]$ from $E$ to its restricted forms $E_{res}$. It is important to note that we are working in $\mathcal{O}_K/(p)$, so we must remember to reduce all coefficients modulo $p$. The exception is that we still want the components (i.e. the coefficients of the basis elements 1 and $a$) of $a_2$ to lie in the desired range, and reduction mod $p$ might not accomplish this (if $a_2=-1$, for example). The simple fix is that if reduction takes any component of $a_2$ to $p-1$, we subtract $p$ from this component.
+
+We may now lift each of the 144 different curves from $\mathcal{O}_K/(p)$ to $\mathcal{O}_K$. One possible lift of a curve $E$ is to take the natural image of $E$ (i.e. leave each coefficient as it is, but consider them as elements of $\mathcal{O}_K$). Additionally, we can lift by adding or subtracting multiples of $p$ from any component of any coefficient. Since we want our lift to be in restricted form, $a_1$, $a_2$, and $a_3$ should maintain their values under any lift, so we only alter $a_4$ and $a_6$. In order to produce a reasonably-sized yet diverse collection of lifts to consider, we alter each in four ways (for $i \in \{4,6\}$):
+
+\
+
+
+$\begin{array}{rcl}
+a_i & \mapsto & a_i \\
+a_i & \mapsto & a_i - p \\
+a_i & \mapsto & a_i - pa \\
+a_i & \mapsto & a_i -p(\varphi+1)
+\end{array}$
+
+\
+
+We therefore get 2304 restricted models in $\mathcal{O}_K$ with $-p \leq a_4[0], a_4[1],a_6[0],a_6[1] < p$, where the indices indicate which component of each coefficient is being considered. This gives us a decent breadth of curves to search through, while still limiting the coefficients to a reasonable range. We note that at no point in this process do we construct the curves, which is a relatively slow process in Sage. All manipulations to this point are on the coefficients, so for efficiency we store the ``curves'' as tuples. Once we have our lifts in $\mathcal{O}_K$, we use a custom function to quickly calculate the norm of the discriminant of each and check to see if the conductor norm of $E_{un}$ divides it. If so, we construct the curve and calculate its conductor to see if we have found $E_{un}$. As a final check, we calculate the $a_\mathfrak{p}$-values of the found curve to make sure that they match at all places with the $a_\mathfrak{p}$-values of $E_{un}$.
+
+Considering restricted models is a reasonably effective method over $K = \QQ(\sqrt{5})$ because $\mathcal{O}_K$ has an infinite unit group. This means that any curve will have an infinite number of restricted forms: Given any curve, the transformation $\tau=[r,s,t,1]$ given above will produce a restricted form that has the same discriminant as the original curve ($\Delta = u^{12}\Delta ' = \Delta '$). Now, since $K$ has infinitely many units, we can apply a transformation where $u \neq 1$ to this model, and the discriminant of the resulting curve will necessarily be different from that of the original curve. This transformation might perturb the $a_1$-, $a_2$-, and $a_3$-invariants, but we can always apply a transformation to get this curve back into restricted form. This final model will be isomorphic to the original restricted form but will have different discriminant, so it must be a different model. This means that there is a good chance that our target curve $E_{un}$ will have a restricted model with relatively small coefficients, making our search more likely to encounter one of them, and therefore to uncover $E_{un}$.
+
+
+\subsubsection{Looking at $\mathcal{O}_K/(p\cdot q)$}
+
+The method described above is not guaranteed to find a given curve using only the primes we have considered (those with norm less than 100), and we see that if we want a more extensive search we have a couple of different options. First, we could extend the list of primes we work with. However, for large primes $p$, the number of ``valid" curves in $\mathcal{O}_K/(p)$ (i.e. those with the correct $a_{\mathfrak{p}_1}$ and $a_{\mathfrak{p}_2}$ values) quickly becomes unwieldy. The Sato-Tate distribution tells us that:
+\begin{equation}
+\#\{E/{\mathbb{F}_p} \ | \ \alpha \leq a_\mathfrak{p}(E) \leq \beta\} \approx \frac{1}{\pi}\int_{\alpha}^{\beta}\sqrt{4p-t^2} \ dt, \nonumber
+\end{equation}
+
+\noindent so unless our curve has decently \emph{large} $|a_\mathfrak{p}|$-values for the primes we add to our search, the process is going to be fairly slow. To illustrate this, for each of the following primes $p$ we have computed the number of curves over $\mathbb{F}_p$ which have $a_p$-value 0 (according to Sato-Tate, the most common value):
+
+\
+
+$\begin{array}{ccccccccccc}
+\text{Prime (norm $<$ 100): \ }&11&19&29&31&41&59&61&71&79&89\\
+\#\{E/{\mathbb{F}_p} \ | \ a_p(E) = 0\}:&20&36&84&90&160&348&180&490&390&528
+\end{array}$
+
+\
+
+\noindent While not uniformly increasing, the number of curves indeed rises rapidly, and we must remember that for each of these curves we must compute all 2304 lifts described in $\S$4.2.3. Additionally, if we continue searching as before and increase the norm bound on our list of primes, we can still only be sure that each valid curve we consider has \emph{two} matching $a_\mathfrak{p}$ values with $E_{un}$, so the cost of adding larger primes with little added accuracy is likely not worth it.
+
+Our second option is to use the Chinese Remainder Theorem again to produce curves over $\mathcal{O}_K/(p\cdot q)$ that have four correct $a_\mathfrak{p}$-values. The remainder theorem assures us that if we start with two curves obtained by the method in $\S$4.2.2, the resulting curve in $\mathcal{O}_K/(p\cdot q)$ will reduce correctly modulo $p$ and $q$, and therefore modulo $\mathfrak{p}_i$ and $\mathfrak{q}_i$ as well. So while $p\cdot q$ will be fairly large, we have introduced two new congruence conditions to give us a more accurate set of curves to consider. We can then perform lifts to $\mathcal{O}_K$ to search for reduced models of $E_{un}$ with $-p\cdot q \leq a_4[0], a_4[1], a_6[0], a_6[1] \leq p\cdot q$, which gives us great breadth and increased accuracy. Indeed, when we used this method to find curves that were missed by the simpler search which lifted directly from $\mathcal{O}_K/(p)$ to $\mathcal{O}_K$, every curve was found on the first iteration (i.e. the first product $p\cdot q$ such that $E_{un}$ has good reduction at the primes over both $p$ and $q$).
+
+\subsubsection{Brief Summary of Results}
+
+Altogether, we found 42 curves with norm conductor less than 1000 using the methods outlined above. By coding the algorithm described in $\S$4.2.1 through $\S$4.2.3 in Cython, we were able to find 37 of these curves in 28 minutes. The remaining five curves were found in 52 minutes using the modification described in $\S$4.2.4.
+
+\subsubsection{Step-by-Step Algorithm to find $E_{un}$}
+
+Here we give a summary of the methods used:
+
+1. Factor $p = \mathfrak{p}_1 \cdot \mathfrak{p}_2$
+
+2. Find all curves in $\mathcal{O}_K/\mathfrak{p}_1$ and $\mathcal{O}_K/\mathfrak{p}_2$ that have the correct $a_{\mathfrak{p}_1}$- and $a_{\mathfrak{p}_2}$-values
+
+3. Produce curves in $\mathcal{O}_K/(p)$ using the Chinese Remainder Theorem
+
+5. Lift the restricted models of these curves to $\mathcal{O}_K$ in various ways
+
+6. If any of these lifts have the same conductor as $E_{un}$, check against all $a_\mathfrak{p}$-values
+
+7. If all $a_\mathfrak{p}$-values match, this is $E_{un}$
+
+8. If $E_{un}$ was not found, repeat steps 1-3 for two different split primes $p$ and $q$
+
+9. Use the Chinese Remainder Theorem to produce curves in $\mathcal{O}_K/(p\cdot q)$
+
+10. Repeat steps 5-7

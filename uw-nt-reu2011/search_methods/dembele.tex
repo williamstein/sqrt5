@@ -1,0 +1,572 @@
+\newcommand{\n}{\mathfrak{n}}
+\newcommand{\ap}[1]{a_{\p_{#1}}}
+\newcommand{\round}[1]{\left\lfloor{#1}\right\rceil}
+\newcommand{\fc}{\mathfrak{c}}
+
+In (INSERT REFERENCE), Lassina Dembele outlines a method for finding modular elliptic
+curves from Hilbert modular forms over totally real fields. In the case of nonsquare level
+the method relies on computing or guessing periods of the curve from L-functions of twists
+of the curve evaluated at 1. In particular, the only inputs required are the level of the
+Hilbert modular form and its L-series. So we suppose that we know the level $\n = (N)$ of the form,
+where $N$ is totally positive,
+and that we have sufficiently many coefficients of its L-series $\ap{1}, \ap{2}, \ap{3}, \ldots$.
+
+Associated to an elliptic curve is a period lattice \ldots (explain something here?)
+
+Suppose $E$ is an elliptic curve over $\Q(\sqrt 5)$. It does not make sense to speak of
+\emph{the} period lattice of $E$, as there are multiple embeddings of $E$ into the complex
+numbers. So let $\alpha_1$ and $\alpha_2$ denote the embeddings of $K$ into the real numbers,
+for concreteness with $\alpha_1$ chosen so that $\alpha_1(\phi) > 0$. Then we get two period
+lattices $L_{\alpha_1}(E)$ and $L_{\alpha 2}(E)$, corresponding to the two different embeddings
+of $K$ in $\R$. For convenience, we will henceforth choose $\alpha_1$ as a distinguished embedding;
+we think of $L_{\alpha_1}(E)$ as the period lattice of $E$ and $L_{\alpha_2}(E)$ as the period lattice
+of $\bar E$. (Note that $L_{\alpha_1}(\bar E) = L_{\alpha_2}(E)$.)
+
+\newcommand{\Omegap}{\Omega^+}
+\newcommand{\Omegam}{\Omega^-}
+\newcommand{\Omegapp}{\Omega^{++}}
+\newcommand{\Omegapm}{\Omega^{+-}}
+\newcommand{\Omegamp}{\Omega^{-+}}
+\newcommand{\Omegamm}{\Omega^{--}}
+
+So, with this understanding, let $\Omegap_E$ denote the least real period of $E$, and let
+$\Omegam_E$ denote the least imaginary period of $E$, a purely imaginary number; thus, we either
+have $L_{\alpha_1}(E) = \Omegap\Z + \Omegam\Z$ or $L_{\alpha_1}(E) = \Omegap\Z + 1/2(\Omegap + \Omegam)\Z$.
+Furthermore,
+as periods will often occur mixed together in pairs, we define
+\begin{eqnarray*}
+\Omegapp_E &=& \Omegap_E\Omegap_{\bar E} \\
+\Omegapm_E &=& \Omegap_E\Omegam_{\bar E} \\
+\Omegamp_E &=& \Omegam_E\Omegap_{\bar E} \\
+\Omegamm_E &=& \Omegam_E\Omegam_{\bar E}.
+\end{eqnarray*}
+We will refer to these numbers as the mixed periods $E$.
+
+Dembele's method relies on two observations. First, if we know these four numbers (or actually just the first three,
+but from any three of them we can recover the fourth), we can recover the curve
+$E$, and second, we can compute these numbers, or at least integer multiples of these numbers, by computing
+central values of twists of the L-function associated to $E$.
+
+\subsubsection{Recovering the curve from its mixed periods}
+
+First, let us assume that we know the mixed periods of the curve to infinite precision. Absent the knowledge
+of the discriminant of the curve, we do not precisely know the the lattice type of the curve and its conjugate,
+but there are only a few possibilities for what they may be. So we compute the $4$ complex numbers
+\begin{eqnarray*}
+    \tau_1(E) &=& \frac{\Omegamp_E}{\Omegapp_E} = \frac{\Omegam_E}{\Omegap_E} \\
+    \tau_2(E) &=& \frac{1}{2}\left(1 + \frac{\Omegamp_E}{\Omegapp_E}\right) = \frac{1}{2}\left(1 + \frac{\Omegam_E}{\Omegap_E}\right) \\
+    \tau_1(\bar E) &=& \frac{\Omegapm_E}{\Omegapp_E} = \frac{\Omegam_E}{\Omegap_E} \\
+    \tau_2(\bar E) &=& \frac{1}{2}\left(1 + \frac{\Omegapm_E}{\Omegapp_E}\right) = \frac{1}{2}\left(1 + \frac{\Omegam_{\bar E}}{\Omegap_{\bar E}}\right).
+\end{eqnarray*}
+We now compute $j(\tau)$ for each of numbers above, where (letting $q = \exp(2 \pi i \tau)$)
+\[
+    j(\tau) = \frac{1}{q} + 744 + 196884q + 21493760q^{2} + \cdots
+\]
+is the modular $j$-function. (In practice, we want to normalize $\tau$ to be in the standard fundamental
+domain for the action of $SL(2, \Z)$, so that the Fourier series for $j(\tau)$ converges nicely.) This should
+give us $4$ real numbers $j_1(E), j_2(E), j_1(\bar E),$ and $j_2(\bar E)$, and we will have
+$\sigma_1(j(E)) = j_{(1 \textrm{ or } 2)}(E)$ and $\sigma_2(j(E)) = j_{(1 \textrm{ or } 2)}(\bar E)$. We try
+each of the four possibilities in turn, recognizing $j(E)$ as an algebraic number from its two embeddings and
+constructing a curve with the desired $j$-invariant. Once we have a curve we can examine its Fourier coefficients
+to determine whether or not it is a twist of the curve we are looking for, and, if it is, we determine
+which twist it is.
+
+In practice, of course, we only have limited precision, and as $j(E)$ will not be an algebraic integer it may
+not be feasible to directly determine it exactly, especially if it has a rather large denominator. Still,
+the above approach may be useful.
+
+To get around issues of limited precision, we suppose that we have some extra information; namely, the discriminant
+$\Delta_E$ of the curve we are looking for. (In practice we start by guessing that $\Delta_E = N$, and then we
+introduce unit factors and increment powers of the factors of $N$ until we find the curve that we are looking for.)
+With $\Delta_E$ in hand we can directly determine which $\tau$ to choose: if $\sigma_1(\Delta_E) > 0$ then
+$\sigma_1(j(E)) = j(\tau_1(E))$, and if $\sigma_1(\Delta_E) < 0$ then $\sigma_1(j(E)) = j(\tau_2(E))$, and
+similarly for $\sigma_2$. We now compute $\sigma_1(c_4(E)) = (j(\tau) \sigma_1(\Delta_E))^{1/3}$ and
+$\sigma_2(c_4(E)) = (j(\tau') \sigma_2(\Delta_E))^{1/3}$.
+
+With approximations of the two embeddings of $c_4$ in hand we can recognize $c_4$ approximately as an algebraic
+integer. Specifically, we compute
+\[
+    \alpha = \frac{1}{2}\round{\sigma_1(c_4) + \sigma_2(c_4)}
+\]
+and
+\[
+    \beta = \frac{1}{2}\round{\frac{\sigma_1(c_4) - \sigma_2(c_4)}{\sqrt{5}}},
+\]
+where $\round(x)$ denotes the nearest integer function. We then set $C' = \alpha + \beta\sqrt{5}$. This may
+not actually be an integer, so we convert it to $C = a + b \varphi$, arbitrarily rounding either $a$ or $b$
+in the case that $C'$ was not actually integer. Now we vary $m$ and $n$ in some range around $0$ and for
+each of the possibilities
+\[
+    c_{4, \mathrm{guess}} = (a + m) + (b + n)\phi
+\]
+we attempt to solve
+\[
+    c_{6, \mathrm{guess}} = \pm \sqrt{c_{4, \mathrm{guess}}^3 - 1728 \Delta_E}.
+\]
+Each time this has a solution we construct a curve $E_{\mathrm{guess}}$ with given $c_4$ and $c_6$, check
+if it has the correct conductor, and, if so, check if its Fourier coefficients are the ones that we are looking
+for. If it passes these checks, we declare that $E = E_{\mathrm{guess}}$.
+
+\subsubsection{Dirichlet characters and twists}
+
+To compute the mixed periods of the curve we will need to compute central values of the $L$-function
+twisted by quadratic Dirichlet characters over $O_K$. Specifically, such a character $\chi$ is a completely
+multiplicative function $O_K \rightarrow {-1, 0, 1}$ that is periodic with respect to some minimal ideal $\a$,
+so that $\chi(x)$ = $\chi(n + a)$ for all $n \in O_K$ and all $a \in \a$. Equivalently, we may consider a
+homomorphism $\chi : (O_K/\a)^\cross \rightarrow {\pm 1}$ and extend it to $O_K$ by lifting and defining
+$\chi(n)$ to be $0$ whenever $x$ is not relatively prime to $\a$.
+
+For any $\a$ there is a \emph{trivial} character $\chi_0(n)$, which is the function that takes the value $1$
+whenever $n$ is relatively prime to $\a$ and $0$ otherwise. We say a character $\chi$ is imprimitive if its
+least period is $\a$ and it can be written as $\chi(n) = \chi_0(n)\chi_1(n)$, where $\chi_1(n)$ is a character
+with a smaller period than $\chi$. If $\chi_1$ has smallest possible period for
+such a representation, we call the period of $\chi_1$ the conductor of $\chi$. If the conductor of $\chi$ is
+also the modulus of $\chi$, then we say that $\chi$ is primitive. These are the characters that we are
+interested in.
+
+For simplicity, we compute only with characters of prime modulus. For each prime modulus $\p$ there is
+exactly one quadratic character, and it is primitive. To construct it and compute with it, one can simply
+construct $O_K/\p$, which will be a finite field, and will thus have a multiplicative generator. We choose
+such a generator and assign it the value $-1$; this completely determines the values of $\chi$. We can
+construct a table of these values and use it for evaluation of $\chi$.
+
+The use of $\chi$ comes in twisting the $L$-function of $E$ by $\chi$ to compute central values
+which are related to the mixed periods of $E$. If we have
+\[
+    L(E, s) = \sum_{\m \subseteq \cO_K} \frac{a_\m}{N(\m)^s},
+\]
+then for primitive $\chi$ with conductor relatively prime to the conductor of $E$, the twisted $L$-function
+is given by
+\[
+    L(E, \chi, s) = \sum_{\m \subseteq \cO_K} \frac{\chi(m) a_\m}{N(\m)^s},
+\]
+where $m$ is a totally positive generator of $\m$. The functional equation satisfied by $L(E, \chi, s)$ is
+the same as that of $L(E, s)$ except the conductor is multiplied by the square of the norm of the conductor
+of $\chi$ and the sign is multiplied by $\chi(-N)$.
+
+\subsubsection{Finding the mixed periods}
+The key to finding the periods of $E$ is the following conjecture of SOMEONE. (Is this a natural generalization
+of something that is known over $\Q$?)
+\begin{conjecture} If $\chi$ is primitive with conductor $\fc$ relatively prime to the conductor of $E$,
+with $\chi(\varphi) = s'$ and $\chi(1 - \varphi) = s$, $s, s' \in \{+, -\} = \{+1, -1\}$, then
+\[
+    \Omega^{s,s'}_E = c_\chi i^{ss'} \sqrt{5} \sqrt{(2, N(\fc))N(\fc)} L(E, \chi, 1)
+\]
+for some integer $c_\chi$.
+\end{conjecture}
+\begin{remark}
+I've specialized the conjecture to $\Q(\sqrt 5)$ and I've slightly modified the it to include what I believe to be
+the absolute value of the Gauss sum, and its sign up to $\pm 1$. Perhaps I need to look at this a little bit more
+carefully.
+\end{remark}
+
+With this conjecture in place we can now fairly easily compute integer multiples of each of the mixed periods of
+$E$ when the conductor is not a square, and with some extra work sometimes we even recover the periods directly.
+When the conductor is a square, there is a problem, however. The sign of $L(E, \chi, s)$ is given by
+$\epsilon_E \chi(-N),$ which is the same as $\epsilon_E \chi(-1)$ when $N$ is a square. $\chi(-1)$ is determined
+by $\chi(-1) = \chi(\varphi)\chi(1 - \varphi)$, so if $\epsilon_E = 1$, then $L(E, \chi, 1)$ will only be 
+nonvanishing when $\chi(\varphi) = \chi(1 - \varphi)$, and we can only obtain information about $\Omegapp$ and
+$\Omegamm$. Similarly, when $\epsilon_E = -1$ and $N$ is a square we can only obtain information about
+$\Omegapm$ and $\Omegamp$.
+
+Suppose then that $N$ is not a square, and again assume that we can compute with infinite precision, or
+at least all the precision we like. Then to find the mixed periods we choose some bound $M$ on the conductors
+of the characters we are willing to consider and first make four lists of characters
+\[
+    S^{s,s'} = \{ \chi \bmod \p : \chi(\phi) = s', \chi(1 - \phi) = s, (\p, \n) = 1, N(\p) < M, \chi(-N) = \epsilon_E\}
+\]
+Here $s, s' \in \{\pm 1\} = \{+, -\}$. We will consider these lists to be ordered by the norm conductors of the
+characters in increasing order, and index their elements as $\chi^{s,s'}_0, \chi^{s,s'}_1, \chi^{s,s'}_2, \ldots$.
+For each character we compute the central value of the twisted $L$-function to get four new lists
+\[
+    \mathcal{L}^{s,s'} = \{ i^{ss'}\sqrt{5 (2, N(\p)), N(\p)} L(E,\chi,1), \chi \in S^{s,s'}\} =
+        \{\mathcal{L}^{s,s'}_0, \mathcal{L}^{s,s'}_1, \ldots\}
+\]
+These should all be integer multiples of the mixed periods that we are looking for. To get a good idea of which
+multiples we should guess they are, we compute each of the ratios
+\[
+    \frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k} = \frac{c_{\chi^{s,s'}_0}}{c_{\chi^{s,s'}_k}} \in \Q, k = 1, 2, \ldots
+\]
+and recognize these as rational numbers (ignoring precision issues for the moment). If it turns out that
+any pair $c_{\chi^{s,s'}_k},c_{\chi^{s,s'}_l}$ is relatively prime, will be able to determine $\Omega^{ss'}$
+exactly. Regardless of this, we choose as an initial guess
+\[
+    \Omega^{ss'}_{E, \mathrm{guess}} = \frac{\mathcal{L}^{s,s'}_0}{M^{s,s'}}
+\]
+where
+\[
+    M^{s,s'} = \mathrm{lcm}\left\{ \mathrm{numerator}\left(\frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k}\right),
+        k = 1,2, \ldots \right\}
+\]
+
+\subsubsection{Examples and putting things together}
+The above discussion leaves some issues to be determined. In pratice we have only a limited number of coefficients
+of the $L$-functions that we need to work with, so our precision is somewhat limited. Also, there are a number
+of guesses that need to be made in the algorithm, so we need to have a good way of understanding how to make those
+guesses. We start with a few examples, which may provide some enlightenment, and then proceed to make
+suggestions for how a general search method should work.
+
+\textbf{Example 1.} We start with a simple example, using the same curve a Dembele uses in his Example 1. So let
+$E$ be the curve over $K = \Q( \sqrt 5)$ with $a$-invariants $[1, -(1+\varphi), \varphi, 0, 0]$, so
+\[
+    E := y^2 + xy + \varphi y = x^3 - (\varphi+1)x^2.
+\]
+Using Sage, we compute a basis for the period lattice of E (recall that we are setting a 
+distinguished embedding) and find one that is (approximately)
+\[
+(3.05217315335726, 2.39884476932372i).
+\]
+With the other embedding of $K$ into $\RR$ we find a basis for the period lattice of $\bar E$ as
+\[
+(8.43805988789973, 4.21902994394986 + 1.57216678613265i).
+\]
+So we have
+\begin{eqnarray*}
+    \Omegapp_E &\approx& 3.05217315335726 \times 8.43805988789973 \approx 25.7544198562683 \\
+    \Omegapm_E &\approx& 3.05217315335726 \times (2 \cdot 1.57216678613265 i) \approx 9.59705051446808i \\
+    \Omegamp_E &\approx& 2.39884476932372i \times 8.43805988789973 \approx 20.2415958253286i \\
+    \Omegamm_E &\approx& 2.39884476932372i \times (2 \cdot 1.57216678613265 i) \approx -7.54276814283759
+\end{eqnarray*}
+Note that here we have $c_4(E) = 16 \varphi + 25$ and $\Delta_E = 16 \varphi + 9$, from which we can compute
+$j(E) = c_4(E)^3/\Delta_E = \frac{1}{31}(106208\varphi - 54753)$, and find that
+\[
+    \sigma_1(j(E)) \approx 3777.26302829512, \ \ \  \sigma_2(j(E)) \approx -3883.65012506932.
+\]
+We can also compute these numbers from the mixed periods of $E$. Since $\sigma_1(\Delta) > 0$, we have
+\[
+    \sigma_1(j(E)) = j(\Omegamp_E/\Omegapp_E) \approx j(0.785946487565785i)
+\]
+If we compute this directly using $10$ terms in the Fourier expansion of the $j$-function, we will find that
+\[
+    j(0.785946487565785i) \approx 3777.26301983227,
+\]
+which is not too far from the actual $j$-invariant. We can do better however. Under the action of $\SL(2, \Z)$,
+$0.785946487565785i$ maps to $1.27235125523263i$, and if we compute the $j$-function here using ten terms
+we will find that
+\[
+    j(1.27235125523263i) \approx 3777.26302829512,
+\]
+which completely agrees with the $j$-invariant computed above. Similarly, since $\sigma_2(\Delta) < 0$,
+we can compute that
+\[
+    \sigma_2(j(E)) = j\left( \frac{1}{2}\left(1 + \Omegamm_E/\Omegapm_E\right)\right)
+            \approx j(0.5 + 0.186318514803048i).
+\]
+In this case if we try to compute the with ten terms in the Fourier expansion at $53$ bits of precision
+we will find that
+\[
+     j(0.5 + 0.186318514803048i) \approx -5.93248167367531\cdot 10^{10} + 0.0000675970580457112i,
+\]
+which is complete nonsense. We can do better by using something like $200$ terms and $200$ bits of precision, which will give
+\[
+    j(0.5 + 0.186318514803048i) \approx -3883.6501250693112
+\]
+or we just translate $0.5 + 0.186318514803048i$ to $0.5 + 1.34178828263132$, use ten terms at $53$ bits of
+precision, and find that
+\[
+    j(0.5 + 1.34178828263132) \approx -3883.65012506932.
+\]
+With this much precision for the two embeddings of $j(E)$, it is somewhat possible to recover $j(E)$ as
+an algebraic number, though we really only would have such confidence because we already know what $j(E)$ is.
+Set $j_1 = \sigma_1(j(E))$ and $j_2 = \sigma_2(j(E))$. If we compute the continued fraction expansion of
+$.5(j_1 + j_2)$, for example we will get the sequence of convergents
+\[
+    -54, -53, -\frac{266}{5}, -\frac{1383}{26}, -\frac{1649}{31},
+\]
+and the last one is in fact exactly $2\tr(j(E))$ However, it seems recognizing $j(E)$ directly this
+way would be fraught with precision issues. Instead we can use our knowledge of $\Delta_E$ to work
+backwards, and find that
+\[
+    \sigma_1(c_4) = \sigma_1(\Delta_E) \approx 50.8885438199983
+\]
+and
+\[
+    \sigma_2(c_4) = j_2 \sigma_2(\Delta_E) \approx 15.1114561800017.
+\]
+With these we can easily recognize $c_4$ as an algebraic integer. We compute
+\[
+    \tr(c_4) = 66
+\]
+and
+\[
+    \tr(c_4/\sqrt{5}) = (\sigma_1(c4) - \sigma_2(c4))/\sigma_1(\sqrt{5}) = 16,
+\]
+so $c_4 = 33 + 8\sqrt{5} = 33 + 8(2 \varphi - 1) = 25 + 16 \varphi$. We solve for
+$c_6 = \pm \sqrt(1728\Delta_E - c_4^3)$. There are two possibilities for $c_6$, so we try each
+of the two curves, and find that one of them is the curve that we are looking for.
+
+We still have not dealt with the issue of how we might find the periods of the curve without knowing
+the curve. In this case the functional equation for $L(E, s)$ has sign $+1$, so we will twist by characters
+$\chi$ such that $\chi(-N) = 1$. So we look through the prime ideals of $O_K$ in order of norm
+and we find that the characters with conductors $(3), (3 \varphi - 1), (3 \varphi - 2)$ and $(\varphi + 5)$
+suit our purposes. With these choices, we have
+\begin{eqnarray*}
+    \chi_{(3)}(\phi) = -1, \ \  && \ \ \chi_{(3)}(1 - \varphi) = -1 \\
+    \chi_{(3\varphi - 1)}(\phi) = 1, \ \  && \ \ \chi_{(3\varphi - 1)}(1 - \varphi) = -1 \\
+    \chi_{(3\varphi - 2)}(\phi) = -1, \ \  && \ \ \chi_{(3\varphi - 2)}(1 - \varphi) = 1 \\
+    \chi_{(\varphi + 1)}(\phi) = 1, \ \  && \ \ \chi_{(\varphi + 2)}(1 - \varphi) = 1.
+\end{eqnarray*}
+Thus, for example, $L(E, \chi_{(3)}, 1) \sqrt{5 N(3)}$ should be a multiple of $\Omegamm_E$. Indeed, using all
+of the primes of norm up to $40000$ we compute $ L(E, \chi_{(3)}, 1) \approx 1.12440948706034$, and
+$3 \sqrt {5} \times 1.12440948706034 \approx 7.54276814283777$, which we recognize as very close to
+$\Omegamm_E$.
+
+\textbf{Example 2.} We now proceed to a more complicated example. Suppose that we have found $a_\p$ for all
+primes of norm less than $40000$ for a Hilbert modular form over $K$ of level $30*a - 10$, with $\epsilon_f = 1$.
+We examine the characters with conductors up to $1500$ and taking at most $10$ of each type that we
+are looking for, we build the lists
+
+\begin{multline}
+S^{--} = \big\{\chi_{(a + 6)}, \chi_{(7)}, \chi_{(7a - 3)}, \chi_{(a + 10)}, \chi_{(-11a + 7)}, \\
+\chi_{(-14a + 5)}, \chi_{(-15a + 4)}, \chi_{(-15a + 11)}, \chi_{(15a - 8)}, \chi_{(-18a + 13)}\big\}
+\end{multline}
+\begin{multline}
+S^{-+} = \big\{\chi_{(a - 9)}, \chi_{(-8a + 5)}, \chi_{(a - 12)}, \chi_{(2a + 11)}, \chi_{(-12a + 5)}, \\
+\chi_{(3a + 13)}, \chi_{(13a - 6)}, \chi_{(a - 16)}, \chi_{(16a - 5)}, \chi_{(-3a - 17)}\big\}
+\end{multline}
+\begin{multline}
+S^{+-} = \big\{\chi_{(5a - 3)}, \chi_{(7a - 2)}, \chi_{(-8a + 3)}, \chi_{(a + 11)}, \chi_{(-2a + 13)}, \\
+\chi_{(2a + 13)}, \chi_{(13a - 7)}, \chi_{(a + 15)}, \chi_{(-2a + 17)}, \chi_{(-17a + 7)}\big\}
+\end{multline}
+\begin{multline}
+S^{++} = \big\{\chi_{(-a + 6)}, \chi_{(9a - 4)}, \chi_{(a - 14)}, \chi_{(a + 13)}, \chi_{(-17a + 5)}, \\
+\chi_{(a - 22)}, \chi_{(-3a + 25)}, \chi_{(4a + 25)}, \chi_{(-4a + 29)}, \chi_{(25a - 8)}\big\}
+\end{multline}
+
+For each of these characters we evaluate $L(f, \chi, 1)$ using lcalc, and multiply by the appropriate
+factors to get the lists $\mathcal{L}^{s,s'}$ above. Note that lcalc will warn us
+that we don't have enough coefficients for accurate evaluation. This is correct, and in particular the
+accuracy of the numbers in the following lists drops off as we more futher along the lists. So we
+get the following lists of approximate values.
+
+\begin{multline}
+\mathcal{L}^{--} = \big\{23.0447957401108,
+23.0447957401090,
+69.1343872203071,
+\\69.1343870414420,
+276.537547685983,
+0,
+69.1339752521539,
+\\69.1347565067475,
+92.1785740140933,
+69.1381805217699\big\}
+\end{multline}
+\begin{multline}
+\mathcal{L}^{-+} = \big\{13.8729392831410i,
+13.8729392838598i,
+115.607826237882i,
+\\226.591340602765i,
+41.6188067753373i,
+221.967022543403i,
+226.591333886957i,
+\\0,
+124.855687410063i,
+226.589793508735i\big\}
+\end{multline}
+\begin{multline}
+\mathcal{L}^{+-} = \big\{36.8547445634673i,
+12.2849148547115i,
+36.8547445497484i,
+\\12.2849138747566i,
+196.558637741332i,
+147.418978438534i,
+307.122767748292i,
+\\36.8546922087215i,
+110.564250431060i,
+0\big\}
+\end{multline}
+\begin{multline}
+\mathcal{L}^{++} = \big\{66.5595355493066,
+66.5595355094869,
+0,
+\\66.5595717095333,
+0,
+599.042164153531,
+266.230056409565,
+\\266.076837348988,
+66.5736728191717,
+61.5776839596031\big\}
+\end{multline}
+
+Recall now that these numbers are all supposed to be integer multiples of the mixed periods of the
+curve. The first number in each list is likely to be the most accurate, so we divide each list by the
+first number and get a list of what should be rational numbers. We will use these to determine a good guess
+for which integer to divide the first entry by.
+
+\begin{multline}
+ = \big\{1.00000000000000,
+1.00000000000008,
+0.333333333333455,
+\\0.333333334195858,
+0.0833333336935456,
+0.333335319660977,
+0.333331552818323,
+\\0.250001651539841,
+0.333315044830469\big\}
+\end{multline}
+\begin{multline}
+ = \big\{1.00000000000000,
+0.999999999948185,
+0.120000001164239,
+\\0.0612244900720257,
+0.333333422027897,
+0.0625000016857383,
+0.0612244918866227,
+\\0.111111792909987,
+0.0612249080963401\big\}
+\end{multline}
+\begin{multline}
+ = \big\{1.00000000000000,
+2.99999999994569,
+1.00000000037224,
+\\3.00000023925259,
+0.187499999933697,
+0.249999999686837,
+0.120000040484372,
+\\1.00000142057205,
+0.333333282862957\big\}
+\end{multline}
+\begin{multline}
+ = \big\{1.00000000000000,
+1.00000000059826,
+0.999999456723869,
+\\0.111109934378923,
+0.250007592857631,
+0.250151558521446,
+0.999787644736028,
+\\1.08090352331166\big\}
+\end{multline}
+
+Many of these are immediately recognizable as approximate rational numbers, while others take a little more effort.
+A hueristic attempt to recognize each one automatically by examining the continued fraction convergents
+and looking for big jumps in the denominators is likely to come up with lists of rational numbers that
+look like the following.
+
+\begin{equation*}
+\big\{1,
+1,
+\frac{1}{3},
+\frac{1}{3},
+\frac{1}{12},
+\frac{1}{3},
+\frac{1}{3},
+\frac{1}{4},
+\frac{1}{3}\big\}
+\end{equation*}
+\begin{equation*}
+\big\{1,
+1,
+\frac{3}{25},
+\frac{3}{49},
+\frac{1}{3},
+\frac{1}{16},
+\frac{3}{49},
+\frac{1}{9},
+\frac{3}{49}\big\}
+\end{equation*}
+\begin{equation*}
+\big\{1,
+3,
+1,
+3,
+\frac{3}{16},
+\frac{1}{4},
+\frac{3}{25},
+1,
+\frac{1}{3}\big\}
+\end{equation*}
+\begin{equation*}
+\big\{1,
+1,
+1,
+\frac{1}{9},
+\frac{1}{4},
+\frac{1}{4},
+1,
+\frac{8632075}{7985981}\big\}
+\end{equation*}
+These lists look reasonable except for the last entry in the final list. To examine it more closely,
+we look at the convergents of the continued fraction expansion of $1.08090352331166$, which look like
+\begin{multline}
+\big[1, \frac{13}{12}, \frac{27}{25}, \frac{40}{37}, \frac{147}{136}, \frac{334}{309}, \frac{1149}{1063},
+\frac{1483}{1372}, \frac{2632}{2435}, \frac{12011}{11112}, \frac{14643}{13547}, \frac{26654}{24659},
+\frac{41297}{38206}, \\ 
+\frac{67951}{62865}, \frac{109248}{101071}, \frac{177199}{163936}, \frac{286447}{265007}, \frac{463646}{428943},
+\frac{8168429}{7557038}, \frac{8632075}{7985981}, \\ \frac{34064654}{31514981}, \frac{42696729}{39500962},
+\frac{162154841}{150017867}\big].
+\end{multline}
+From this we can get an idea of what went wrong. We do not have enough precision for the denominator of
+the continued fraction expansion to jump significantly enough for us to correctly guess the correct fraction.
+The correct fraction is likely to be one of the first few. We have
+\[
+    13/12 = 1.08333\ldots,
+\]
+\[
+    27/25 = 1.08
+\]
+\[
+    40/37 = 1.081081\ldots,
+\]
+all of which are quite close to the value we are looking for. We choose $27/25$ as our guess for the correct
+fraction on the assumption that small primes and squares are most likely to appear as factors. (This is
+a somewhat weak justification, and difficult to automate.)
+
+Examining these denominators, we make the guesses
+\begin{eqnarray*}
+    \Omegamm_{E, \textrm{guess}} = \mathcal{L}^{--}_0 / 1 &=& 23.0447957401108/1 = -23.0447957401108 \\
+    \Omegamp_{E, \textrm{guess}} = \mathcal{L}^{-+}_0 / 3 &=& 13.8729392831410i/3 = 4.62431309438033i \\
+    \Omegapm_{E, \textrm{guess}} = \mathcal{L}^{+-}_0 / 3 &=& 36.8547445634673i/3 = 12.2849148544891i \\
+    \Omegapp_{E, \textrm{guess}} = \mathcal{L}^{++}_0 / 27 &=& 66.5595355493066/27 = 2.46516798330765.
+\end{eqnarray*}
+The actual periods will satisfy
+\[
+    \frac{\Omegamm_E \Omegapp_E}{\Omegamp_E \Omegapm_E} = 1,
+\]
+while in our case we have
+\[
+    \frac{\Omegamm_{E,\text{guess}} \Omegapp_{E, \text{guess}}}{\Omegamp_{E, \text{guess}} \Omegapm_{E,\text{guess}}} = 1.00000000027151,
+\]
+which is an indication that our guess is reasonable. (This relation could also be used to recognize that we
+should choose $27/25$ above, and is useful in making guesses in general.) With these we get a few possibilities
+for $\tau_E$ and $\tau_{\overline E}$. Translating these into the fundamental domain we get
+\begin{eqnarray}
+    t_1(E) &=& 1.87586124989975i \\
+    t_2(E) &=& -0.5 + 0.937930624949874i \\
+    t_1(\overline E) &=& 4.98339867208796i \\
+    t_1(\overline E) &=& -0.5 + 2.49169933604398i
+\end{eqnarray}
+and $4$ corresponding pairs of guesses for the embeddings of $j(E)$:
+\[
+(132195.763704925, 3.967003831510192 \cdot 10^{13})
+\]
+\[
+(132195.763704925, -6.297671571246 \cdot 10^{6} )
+\]
+\[
+(-15.100427892327, 3.967003831510192 \cdot 10^{13}
+\]
+\[
+(-15.100427892327, -6.297671571246 \cdot 10^{6} )
+\]
+(New idea:) It is hard to recognize any of these pairs as the embeddings of an algebraic number because the
+denominators involved are quite large. However, we know something about the denominator; namely, $j(E)N^m$
+is actually an algebraic integer for some power of $m$. So if we have enough precision, we should be able
+to test a few powers of $N$ and find this integer. Indeed, with the fourth pair of possibilities, we find
+that
+\[
+     -15.100427892327 \sigma_1(N)^3 -6297671.571246 \sigma_2(N)^3 \approx 146415110000
+\]
+and
+\[
+     -15.100427892327 \sigma_1(N)^3/\sqrt{5} + 629767.571246 \sigma_2(N)^3/\sqrt{5} \approx -65479601000,
+\]
+which suggests as a possibility for $j(E) N^3$
+\[
+    146415110000/2 - 65479601000\sqrt{5}/2 = -65479601000\varphi + 105947355500.
+\]
+This would give
+\[
+    j(E) = \frac{3748625197}{1331} \varphi - \frac{1213084615}{2662}.
+\]
+(This is in fact the correct $j$-invariant, and we should be able to construct a curve with this $j$
+and recognize it as a twist of the curve we are looking for\ldots)

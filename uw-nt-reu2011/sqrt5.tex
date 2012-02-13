@@ -1,0 +1,98 @@
+\documentclass{article} 
+
+\bibliographystyle{amsalpha} 
+
+\voffset=-0.2\textheight  \textheight=1.4\textheight
+%\hoffset=-0.2\textwidth \textwidth=1.4\textwidth
+%\voffset=-0.05\textheight \textheight=1.1\textheight
+\hoffset=-0.05\textwidth \textwidth=1.1\textwidth
+
+\include{macros}
+
+\usepackage{pdfsync}
+\usepackage{hyperref}
+
+
+\title{Elliptic Curves over $\Q(\sqrt{5})$}
+
+\author{Jon Bober, Alyson Deines, Joanna Gaski, Ariah Klages-Mundt,
+Ben LeVeque,\\Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, 
+William Stein\footnote{The work was supported by NSF 
+grants (mainly the FRG)...}\footnote{This is a {\em long} list of authors for a math
+paper.  Anybody who for some reason does not feel comfortable
+being a co-author, e.g., would rather be moved to acknowledgements, please let William know.}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract} 
+\end{abstract}
+
+% useful when working on the paper -- remove for publication, probably.
+\tableofcontents
+
+\section{Introduction}\label{sec:intro}
+
+Introduction and overview goes here.
+
+\noindent{\bf Acknowledgement: } Richard Taylor, Rado Kirov. 
+
+\section{Sorting and Labeling Curves}\label{sec:sort}
+    \input{sorting.tex}
+
+\section{Computing Hilbert Modular Forms}\label{sec:hmf}
+    \input{hmf.tex}
+
+\section{Finding Curves Associated to Hilbert Modular Forms}\label{sec:finding}
+ 
+\subsection{Naive Search}
+
+\subsection{Naive Search over Curves with Given $a_p$}
+    \input{search_methods/mod_jon.tex}
+
+\subsection{Integral Points (Cremona-Lingham)}
+    \input{search_methods/Cremona_Lingham.tex}
+
+\subsection{Torsion Families}
+    \input{search_methods/torsion_families.tex}
+
+\subsection{Using Special Values of $L$-functions and Periods}
+    \input{search_methods/dembele.tex}
+
+
+\section{Computing all Isogeny Classes}
+
+\section{Saturating Mordell-Weil Groups}
+
+\section{Computing $L$-series}
+
+\section{Modularity}
+
+(Statement of the conjecture.  Evidence we give.   What is known in this case (see email from Richard Taylor).)
+
+\section{Table 1: Curves with Norm Conductor up to $1000$}
+
+
+The actual tables will be sideways (landscape).... and depending on
+length maybe in another document.  This might just be a discussion of
+the tables.
+
+\section{Table 2: Mordell-Weil Generators}
+
+\section{Table 3: Hecke Eigenvalues}
+
+\section{Table 4: Birch and Swinnerton-Dyer Data}
+
+\section{Table 5: Parametrization Degrees}
+
+(We will remove this section if nobody finds an algorithm to compute
+these.  I don't know if there is an algorithm.  Note that one
+complication is that there is a different parameterization
+corresponding to each prime that exactly divides the level, and there
+is no parameteriziation in some cases, e.g., when the level is a
+perfect square.)
+
+
+
+\bibliography{biblio}
+\end{document}
