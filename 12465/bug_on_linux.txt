@@ -1,0 +1,19 @@
+ipdb> u
+> /mnt/usb1/scratch/wstein/sage-5.0.beta2-sage.math.washington.edu-x86_64-Linux/local/lib/python2.7/site-packages/sage/modular/hilbert/sqrt5_hmf.py(977)dual_eigenspace()
+    976                 T = H.hecke_matrix(P).transpose()
+--> 977                 V = (T - self.ap(P)).kernel_on(V)
+    978         raise RuntimeError, "unable to isolate 1-dimensional space"
+
+ipdb> print self
+Rational newform number 7 over QQ(sqrt(5)) in Quaternionic module of dimension 28, level 30*a-12 (of norm 1116=2^2*3^2*31) over QQ(sqrt(5))
+ipdb> print P
+Fractional ideal (-3*a + 2)
+ipdb> print V.dimension()
+4
+ipdb> print V
+Vector space of degree 28 and dimension 4 over Rational Field
+Basis matrix:
+[   1    0    0    0   -1  1/2 -1/2    0 -1/2  1/2    0    0  1/2  1/2    1    1   -1    0    0    0 -1/2    1   -1 -1/2   -1    0    0    0]
+[   0    1    1    0   -2  3/2 -1/2   -2 -1/2  3/2    0    0  3/2  3/2    1    0   -2    1    1    0 -1/2    1   -2 -1/2   -2   -2    3    3]
+[   0    0    0    1   -1    1   -1    0   -1    1    0    0    0    0   -1    0   -1    0    0    1    0    1    0    0    0    0    0    0]
+[   0    0    0    0    0    0    0    0    0    0    1    1    1    1    1    0    0    0    0    0   -1   -1   -1   -1   -1    0    0    0]

@@ -12,3 +12,4 @@ auto/
 .DS_Store
 *.aux
 .#*
+sync
