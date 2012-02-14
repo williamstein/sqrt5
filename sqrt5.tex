@@ -3,6 +3,26 @@
 \usepackage{hyperref}
 \newcommand{\n}{\mathfrak{n}}
 \newcommand{\cN}{\mathcal{N}}
+\newcommand{\ap}[1]{a_{\p_{#1}}}
+\newcommand{\Ebar}{\overline{E}}
+\newcommand{\round}[1]{\left\lfloor{#1}\right\rceil}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\OF}{\cO_F}
+
+%
+%Notatation:
+%   F = \Q(\sqrt 5)
+%   \cO_F = \OF = ring of integers in F
+%   \varphi = (1 + \sqrt 5)/2
+%   \sigma_1(\varphi) = 1.618...
+%   \sigma_2(\varphi) = -.618...
+%   \p = prime ideal in \cO_F
+%   \n is also an ideal
+%   \m is also an ideal
+%   \fc (frak c) is also an ideal
+%   \ap[n] = Fourier coefficient of f at \p_{n}
+%   galois conjugate of E = \Ebar
+
 
 \title{Elliptic Curves over $\Q(\sqrt{5})$}
 
@@ -318,11 +338,199 @@ implementation of this algorithm can be quite efficient.
 
 \subsection{Curves with good reduction outside $S$}
 
-\subsection{Special values of twisted $L$-series}
+
+
+\newcommand{\Omegap}{\Omega^+}
+\newcommand{\Omegam}{\Omega^-}
+\newcommand{\Omegapp}{\Omega^{++}}
+\newcommand{\Omegapm}{\Omega^{+-}}
+\newcommand{\Omegamp}{\Omega^{-+}}
+\newcommand{\Omegamm}{\Omega^{--}}
+
+\subsection{Special values of twisted $L$-series}\label{sec:specialvalues}
+In (INSERT REFERENCE), Lassina Dembele outlines some methods for finding
+modular elliptic curves from Hilbert modular forms over totally real
+fields. In the case of nonsquare level Dembele's method relies on computing
+or guessing periods of the curve from by using special values of
+$L$-functions of twists of the curve. In particular, the only inputs
+required are the level of the Hilbert modular form and its L-series. So
+we suppose that we know the level $\n = (N)$ of the form, where $N$ is
+totally positive, and that we have sufficiently many coefficients of its
+$L$-series $\ap{1}, \ap{2}, \ap{3}, \ldots$.
+
+Let $\sigma_1$ and $\sigma_2$ denote the two embeddings of $F$ into the
+real numbers, with $\sigma_1(\varphi) \approx 1.61803398874989\ldots$. For
+an elliptic curve $E$ over $F$ we get two two associated embeddings into
+the complex number, and hence a pair of period lattices. Let $\Omegap_E$
+and $\Omegam_E$, which will will refer to as the periods of $E$,
+be the least real and imaginary periods of the lattice
+that comes from the embedding $\sigma_1$. As the period lattices swap
+when $E$ is replaced with its conjugate curve, we let $\Omegap_{\Ebar}$
+and $\Omegam_{\Ebar}$ denote the least real and imaginary periods
+of the lattice under the other embedding.
+
+These periods will often occur together, so we write
+\begin{eqnarray*}
+\Omegapp_E &=& \Omegap_E\Omegap_{\Ebar} \\
+\Omegapm_E &=& \Omegap_E\Omegam_{\Ebar} \\
+\Omegamp_E &=& \Omegam_E\Omegap_{\Ebar} \\
+\Omegamm_E &=& \Omegam_E\Omegam_{\Ebar}.
+\end{eqnarray*}
+We will refer to these numbers as the mixed periods $E$.
+
+\subsubsection{Recovering the curve from its mixed periods}
+If we know these mixed periods to enough precision, it is not hard
+to recover the curve $E$. Absent the knowledge of the discriminant
+of the curve, we do not know the lattice type of the curve and its
+conjugate, but there are only a few possibilities for what they might
+be, so there are only a few possibilities for the $j$-invariant of
+$E$. Namely, $\sigma_1(j(E))$ is either $j(\tau_1(E))$ or $j(\tau_2(E))$
+and $\sigma_2(j(E))$ is either $j(\tau_1(\Ebar))$ or $j(\tau_2(\Ebar))$,
+where
+\begin{eqnarray*}
+    \tau_1(E) &=& \frac{\Omegamp_E}{\Omegapp_E} = \frac{\Omegam_E}{\Omegap_E} \\
+    \tau_2(E) &=& \frac{1}{2}\left(1 + \frac{\Omegamp_E}{\Omegapp_E}\right) = \frac{1}{2}\left(1 + \frac{\Omegam_E}{\Omegap_E}\right) \\
+    \tau_1(\Ebar) &=& \frac{\Omegapm_E}{\Omegapp_E} = \frac{\Omegam_E}{\Omegap_E} \\
+    \tau_2(\Ebar) &=& \frac{1}{2}\left(1 + \frac{\Omegapm_E}{\Omegapp_E}\right) = \frac{1}{2}\left(1 + \frac{\Omegam_{\Ebar}}{\Omegap_{\Ebar}}\right)
+\end{eqnarray*}
+and $j(\tau)$ is the modular $j$-function
+\[
+    j(\tau) = e^{-2\pi i \tau} + 744 + 196884e^{2\pi i \tau} + 21493760e^{4\pi i \tau} + \cdots
+\]
+We can try each pair of possible embeddings for $j(E)$ in turn, and recognize
+possibilities for $j(E)$ as an algebraic number. We then construct a curve $E'$
+with each possibility for $j(E)$. By computing a few $\ap{}(E)$, for example, we
+should be able to easily determine whether we have chosen the correct $j$-invariant.
+If we have $E'$ will be a twist of $E$, and we can recognize which twist it is
+in order to recover $E$.
+
+In practice, of course, we have limited precision, and as $j(E)$ will not be
+an algebraic integer it may not be feasible to directly determine it exactly,
+especially if it has a rather large denominator. Still, the above approach may be useful.
+
+To get around issues of limited precision, suppose that we have some extra information; 
+namely, the discriminant $\Delta_E$ of the curve we are looking for.  With $\Delta_E$ in
+hand we can directly determine which $\tau$ to choose: if $\sigma_1(\Delta_E) > 0$ then
+$\sigma_1(j(E)) = j(\tau_1(E))$, and if $\sigma_1(\Delta_E) < 0$ then $\sigma_1(j(E)) = j(\tau_2(E))$,
+and similarly for $\sigma_2$. We now compute $\sigma_1(c_4(E)) = (j(\tau) \sigma_1(\Delta_E))^{1/3}$
+and $\sigma_2(c_4(E)) = (j(\tau') \sigma_2(\Delta_E))^{1/3}$.
+
+With approximations of the two embeddings of $c_4$ in hand we can recognize $c_4$ approximately
+as an algebraic integer. Specifically, we compute
+\[
+    \alpha = \frac{\sigma_1(c_4) + \sigma_2(c_4)}{2}
+\]
+and
+\[
+    \beta = \frac{\sigma_1(c_4) - \sigma_2(c_4)}{2\sqrt{5}}
+\]
+Then $c_4 = \alpha + \beta\sqrt{5}$, and we can find $c_6$.
+
+\newcommand{\Deltaguess}{\Delta_{\textrm{guess}}}
+\newcommand{\cfourguess}{c_{4,\textrm{guess}}}
+\newcommand{\csixguess}{c_{6,\textrm{guess}}}
+\newcommand{\Eguess}{E_\textrm{guess}}
+
+In practice, there are two important difficulties we must overcome; we do not know
+$\Delta_E$ and it may be quite difficult to get high precision approximations to the
+mixed periods, and thus we may not be able to compute $c_4$ as easily as described
+above. Thus, we actually proceed by choosing a $\Deltaguess$, and from this guess we
+compute rational integers $\alpha$ and $\beta$ and an integer
+$a + b\varphi \approx \alpha + \beta\sqrt5$, arbitrarily rounding either $a$ or $b$ if necessary.
+Then we make some choice of search range $M$, and for each pair of integers $m$ and $n$,
+bounded in absolute value by $M$, we try each $\cfourguess = (a + m) + (b + n)\varphi$.
+
+Given $\cfourguess$, we attempt to solve
+\[
+    \csixguess = \pm \sqrt{ \cfourguess^3 - 1728 \Deltaguess },
+\]
+and, if we can, we use these to construct a curve $\Eguess$. If $\Eguess$ has
+the correct conductor and the correct Fourier coefficients, we declare that
+we have found the correct curve; otherwise, we proceed to the next guess.
+
+For a choice of $\Deltaguess$, we will generally start with the conductor $N_E$,
+and then continue by trying unit multiples and by adding in powers of factors of $N_E$.
+
+\subsubsection{Guessing the mixed periods}
+We have thus far ignored the issue of actually finding the mixed periods of the curve that
+we are looking for. Finding them presents an extra difficulty as our procedure involves
+even more guesswork. The idea, though, is to use special values of twists of the $L$-function
+$L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters over $\OF$,
+which are homomorphisms $\chi : (\OF/\fc)^\times \rightarrow \pm1$, extended to $\OF$ by
+lifting, analogous to Dirichlet characters over the integers.
+
+For a given $f$ and a primitive $\chi$, we can construct the twisted $L$-function
+\[
+    L(f, \chi, s) = \sum_{\m \subset \OF} \frac{\chi(m)a)_{\m}}{N(\m)^s},
+\]
+where $m$ is a totally positive generator of $\m$. (Note that $\chi$ is not well defined
+on ideals, but it is well defined on totally positive generators of ideals.) $L(f, \chi, s)$
+will satisfy a functional equation similar to that of $L(f, s)$, but the conductor is
+multiplied by $N(\fc)^2$ and the sign is multiplied by $\chi(-N)$. The key to finding the
+mixed periods of $E$ is contained in the following conjecture.
+\begin{conjecture}[REFERENCE]
+If $\chi$ is primitive with conductor $\fc$ relatively prime to the
+conductor of $E$, with $\chi(\varphi) = s'$ and
+$\chi(1 - \varphi) = s$, (where $s, s' \in \{+, -\} = \{\pm1\}$), then
+\[
+    \Omega^{s,s'}_E = c_\chi i^{ss'} \sqrt{5 N(\fc)\ \mathrm{gcd}(2, N(\fc))} L(E, \chi, 1)
+\]
+for some integer $c_\chi$. 
+\end{conjecture}
+\begin{remark}
+This statement has been specialized to $\Q(\sqrt 5)$, but the conjecture is more general.
+(TODO: I need to look at this more carefully to make sure that I have it correct. Instead
+of going through Dembele's statement, I plan on just looking at my code and seeing that
+things match up.) (Also: Perhaps note that this conjecture has been verified for many $E$
+and $\chi$, given that we have run this method on many curves.)
+\end{remark}
+
+\begin{remark}
+Contained in this conjecture is the obstruction to carrying out the method described here when 
+$N$ is a square: because of the sign of the functional equation, if $N$ is a square $L(E, \chi, 1)$
+will be nonvanishing only when $\chi(\varphi) = \chi(1 - \varphi)$, so we can only obtain
+information about either $\Omegamm$ and $\Omegapp$ or $\Omegamp$ and $\Omegapm$, and we need
+three of these values to find $E$.
+\end{remark}
+
+With this conjecture in place, we can describe a method for guessing the mixed periods of
+$E$. Techniques for getting around precision issues were somewhat discussed already, so
+we will mostly ignore them here. Now, to proceed, we construct four lists of characters
+up to some conductor bound $M$ (we are restricting to prime modulus here for simplicity,
+as primitivity is ensure, but this is not necessary):
+\[
+    S^{s,s'} = \{ \chi \bmod \p : \chi(\phi) = s', \chi(1 - \phi) = s,
+            (\p, \n) = 1, N(\p) < M, \chi(-N) = \epsilon_E\},
+\]
+Here $s, s' \in \{+, -\} = \pm 1$ again. We will consider these lists to be ordered by the
+norm conductors of the characters in increasing order, and index their elements as
+$\chi^{s,s'}_0, \chi^{s,s'}_1, \chi^{s,s'}_2, \ldots$. For each character we compute the central
+value of the twisted $L$-function to get four new lists
+\[
+    \mathcal{L}^{s,s'} = \{ i^{ss'}\sqrt{5 N(\p)\ \mathrm{gcd}(2, N(\p)) } L(E,\chi,1), \chi \in S^{s,s'}\} =
+        \{\mathcal{L}^{s,s'}_0, \mathcal{L}^{s,s'}_1, \ldots\}.
+\]
+These numbers should now all be integer multiple of the mixed periods, so to get an idea
+of which integer multiples they might be, we compute each of the ratios 
+\[
+    \frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k} = \frac{c_{\chi^{s,s'}_0}}{c_{\chi^{s,s'}_k}} \in \Q, k = 1, 2, \ldots.
+\]
+attempt to recognize these as rational number, and 
+choose as an initial guess
+\[
+    \Omega^{ss'}_{E, \mathrm{guess}} = \frac{\mathcal{L}^{s,s'}_0}{M^{s,s'}}
+\]
+where
+\[
+    M^{s,s'} = \mathrm{lcm}\left\{ \mathrm{numerator}\left(\frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k}\right),
+        k = 1,2, \ldots \right\}
+\]
+
+
+
+
 
 \subsection{Congruence families}
-
-
 
 \section{Enumerating the curves in an isogeny class}\label{sec:isoclass}
 
@@ -418,9 +626,9 @@ elliptic curves than any other quadratic field.
 \begin{proof}
 Let $K$ be a quadratic extension of $\Q$.
 Let $H_D$ denote the Hilbert class polynomial of the CM order
-$\O_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
+$\cO_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
 polynomial of the $j$-invariant $j_D$ of any elliptic curve $E=E_D$ with
-CM by $\O_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
+CM by $\cO_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
 $H_D$ is either linear or quadratic and has both roots in $K$.
 The $D$ for which $H_D$ is linear are the thirteen values
 $-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$.
