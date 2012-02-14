@@ -44,7 +44,7 @@
 
 \subsection{Elliptic Curves over $\Q$}
 Tables of elliptic curves over $\Q$ have been of great value in
-mathematical research.  Some of the first such tables, were those in
+mathematical research.  Some of the first such tables were those in
 Antwerp IV \cite{antwerpiv}, which included all elliptic curves over
 $\Q$ of conductor up to $200$, and also a table of all elliptic curves
 with bad reduction only at $2$ and $3$.  
@@ -263,6 +263,24 @@ to find $E_f$, which is not feasible.
 
 \subsection{Torsion families}\label{sec:torsion}
 
+Another method we employ, which makes use of a more directed naive search, is to use parametrizations of families of curves that have specific torsion structures. Sheldon Kamienny and Flilip Najman (\cite{kamienny-najman}) have shown that over $F$, the only torsion structures that appear are the following:
+
+\
+
+$\begin{array}{lll}
+\mathbb{Z}/m\mathbb{Z},   &1 \leq m \leq 10,& m = 12,\\
+\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2m\mathbb{Z}, &  1 \leq m \leq 4,&\\
+\mathbb{Z}/15\mathbb{Z}.&&
+\end{array}$
+
+\
+
+\noindent Over $\mathbb{Q}$, these families have explicit parametrizations (see \cite{kubert:torfam}) that take in either one or two integers and produce a curve with the given torsion structure. Over $\mathbb{Q}(\sqrt{5})$ though, these parametrizations (which now take elements in $\mathcal{O}_F$) may not be guaranteed to produce all curves with the given structure, and are therefore not a feasible approach for exhaustively finding large numbers of curves up to a certain norm conductor bound. However, this method can be a good place to start if the torsion structure of a target curve is known or guessed. For example, if we know the degrees of $p$-isogenies from an unknown curve $E$ (found using the Hecke eigenvalues of its corresponding newform), we can guess that $E$ may have a $p$-torsion point, which gives a strong indication of its torsion structure. Another advantage to this method is that with relatively small parameters we can find curves with very large coefficients -- curves that a reasonable naive search would miss.
+
+\
+
+\
+
 We can tell whether or not $\ell\mid \#E(F)_{\tor}$ for some
 $E$ in the isogeny class of $E_f$ using the following proposition.
 
@@ -278,6 +296,18 @@ Instead of searching through all curves as in Section~\ref{sec:naive},
 
 
 \subsection{Twisting}
+
+If $E$ is an elliptic curve defined over a number field $F$, then a \emph{twist} $E'$ of $E$ is a curve isomorphic to $E$ over some extension of $F$. A \emph{quadratic twist} of a curve $E$ is therefore a curve $E'$ isomorphic to $E$ by a map of degree 1 or 2. If we consider $E$ in the form
+\begin{equation}
+E:   y^2 = x^3 + ax^2 + bx + c, \nonumber
+\end{equation}
+then the quadratic twist of $E$ \emph{by} $d$, for any element $d \in K^*$, is given by the equation
+\begin{equation}
+E^d:   dy^2 = x^3 + ax^2 + bx + c, \nonumber
+\end{equation}
+and the isomorphism from $E$ to $E^d$ is given by the map $\tau_d = [0, a_1(\frac{r-1}{2}), a_3(\frac{r^3-1}{2}), r]$, where r is a root of $r^2 = \frac{1}{d}$ (see \cite{connell:handbook}).
+
+Our implementation of twisting to find new elliptic curves is fairly straightforward: loop through values of $i$ and $j$ up to a certain bound and twist the inputted curve $E$ by $d = i\varphi+j$. This method has similar advantages and disadvantages to the torsion family method; an advantage is that the result of a quadratic twist by $i\varphi+j$ can have vastly different coefficients than the original curve, including much larger values, but a significant disadvantage is that this method is still a naive search of sorts. However, if we are looking for a specific curve with norm conductor $N$, there is an intuitive bound on how high the norm of $d$ should be: the norm conductor of $E_d$ (denote as $||cond(E_d)||$) is divisible by $||d\cdot cond(E)||$. This tells us that if we are looking for curves with norm conductor up to a certain bound, we need not consider twists by elements of very large norm.
 
 \subsection{Curves with specified $a_\p$}
 
@@ -296,7 +326,7 @@ the number of curves to lift.
 
 While this method will eventually terminate just like naive
 enumeration, it suffers from the same issue of potentially being very
-slow due if all curves in the isogeny class have large
+slow if all curves in the isogeny class have large
 coefficients. However, often in practice defined equations for curves
 have relatively small coefficients, and because of its simplicity, an
 implementation of this algorithm can be quite efficient. 
@@ -534,7 +564,7 @@ case when $K$ is a quadratic field, as explained in
 \cite[\S2.3.4]{billerey:isog}.  Using this algorithm combined with
 Velu's formulas, we were able to enumerate {\em all}
 isomorphism classes of curves isogenous to the curves we found via the
-methods of Section~\ref{sec:finding}, and divide our curves up into
+methods of Section~\ref{sec:finding}, and thus divide our curves up into
 isogeny classes.
 
 
@@ -566,7 +596,7 @@ there are 5260 isogeny classes and 10283 isomorphism classes
 of elliptic curves over $\Q$ with conductor up to $1831$ [[double check!]].
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$\label{table:counts}}
+\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:counts}}
 \begin{tabular}{|c|c|c|c|}\hline
 rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smallest norm conductor\\\hline
  $0$ & $750$? & ? & 31\\\hline
@@ -654,8 +684,8 @@ $\Q(\sqrt{89})$ & $-267$ \\\hline
 & \\\hline
 \end{tabular}
 \end{center}
-The claim follows because the $\Q(\sqrt{5})$ row is largest, which
-contains $9$ entries.  There are thus $31 = 2\cdot 9 + 13$ distinct CM $j$-invariants
+The claim follows because the $\Q(\sqrt{5})$ row is largest,
+containing $9$ entries.  There are thus $31 = 2\cdot 9 + 13$ distinct CM $j$-invariants
 in $\Q(\sqrt{5})$.
 
 \end{proof}
