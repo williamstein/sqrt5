@@ -1,12 +1,13 @@
 \documentclass{amsart} 
 \include{macros}
+\usepackage{hyperref}
 \newcommand{\n}{\mathfrak{n}}
 \newcommand{\cN}{\mathcal{N}}
 
 \title{Elliptic Curves over $\Q(\sqrt{5})$}
 
-\author[Bober et al.]{Jon Bober, Alyson Deines, Joanna Gaski, Ari Klages-Mundt, Ben
-  Leveque, Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
+\author[Bober et al.]{Jon Bober, Alyson Deines, Joanna Gaski, Ariah Klages-Mundt, Ben
+  LeVeque, Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
   Stein}
 
 \begin{document}
@@ -28,21 +29,20 @@ Antwerp IV \cite{antwerpiv}, which included all elliptic curves over
 $\Q$ of conductor up to $200$, and also a table of all elliptic curves
 with bad reduction only at $2$ and $3$.  
 
-Cremona's book \cite{cremona:algs} gives a detailed
-description of algorithms that together  output a list of all
-elliptic curves over $\Q$ of any specific conductor, along with
+Cremona's book \cite{cremona:algs} gives a detailed 
+description of algorithms that together output a list of all
+elliptic curves over $\Q$ of any given conductor, along with
 extensive data about each curve.  The proof that his algorithm output
-{\em all} curves of given conductor had to wait for
-\cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
-computed tables \cite{cremona:onlinetables} of all elliptic curves
+{\em all} curves of given conductor had to wait for the proof of the
+full modularity theorem in \cite{breuil-conrad-diamond-taylor}.  
+Cremona has subsequently computed tables \cite{cremona:onlinetables} of all elliptic curves
 over $\Q$ of conductor up to $210,\!000$, including Mordell-Weil
 groups and other extensive data about each curve; his main current
 target is to reach conductor $234,\!446$, which is the smallest known
 conductor of a rank $4$ curve.
 
-In a different direction, Stein-Watkins (see
-\cite{stein-watkins:ants5, bmsw:bulletins}) created a table of
-136,832,795 elliptic curves over $\Q$ of conductor $\leq 10^8$, and a
+In a different direction, Stein-Watkins (see \cite{stein-watkins:ants5, bmsw:bulletins}) 
+created a table of 136,832,795 elliptic curves over $\Q$ of conductor $\leq 10^8$, and a
 table of 11,378,911 elliptic curves over $\Q$ of prime conductor $\leq
 10^{10}$. 
 % For each curve, these tables contain a numerical
@@ -61,29 +61,26 @@ for helpful conversations.
 \subsection{Why $\Q(\sqrt{5})$?}
 
 Like $\Q$, the field $F=\Q(\sqrt{5})$ is a totally real field, and
-many of the techniques that we have for studying elliptic curves over
-$\Q$ generalize to totally real
-fields.
-As is the case over $\Q$, there is a 
-notion of modularity coming from Shimura curve
-parametrizations and Hilbert modular forms, which is supported by
-theoretical evidence \cite{}.%something suggested by R. Taylor
+many of the theorems and ideas about elliptic curves over 
+$\Q$ have been generalized to totally real fields. As is the case over $\Q$, there is a 
+notion of modularity coming from Shimura curve parametrizations and Hilbert modular forms,
+ which is supported by theoretical evidence \cite{}.%something suggested by R. Taylor
 Moreover,  work \cite{zhang:heightsshimura} of Zhang has extended many results
 of Gross-Zagier \cite{gross-zagier} and Kolyvagin \cite{kolyvagin:mordellweil} 
 to the context of elliptic curves over totally real fields.
 
-If we order fields by absolute discriminant, then $F=\Q(\sqrt{5})$ is
-the next field after $\Q$.  That $5$ divides $\disc(F)=5$ thwarts
-attempts to easily generalize the full Taylor-Wiles method to elliptic
-curves over $F$, which makes this field even more interesting.  The
+Ordering number fields by the norm of their discriminant,  $F=\Q(\sqrt{5})$ having discriminant $5$ is
+the second in order, after $\Q$. That $5$ divides $\disc(F)=5$ thwarts
+attempts to easily generalize the method of Taylor-Wiles to elliptic
+curves over $F$, makes $\Q(\sqrt{5})$ even more interesting. The
 field $F$ also has $31$ CM $j$-invariants, which is far more than any
-other quadratic field (see Section~\ref{sec:cm}).  Let
-$\vphi=\frac{1+\sqrt{5}}{2}$.  The unit group $\{\pm 1\} \times
+other quadratic field (see Section~\ref{sec:cm}).  Letting
+$\vphi=\frac{1+\sqrt{5}}{2}$, we have that the unit group $\{\pm 1\} \times
 \langle \vphi \rangle$ of the ring $R=\cO_F=\Z[\vphi]$ of integers of
-$F$ is infinite, which leads to additional complications.  Finally,
-the totally real field $F$ has even degree $2$, which makes certain
+$F$ is infinite, leading to additional complications.  Finally,
+the $F$ has even degree $2$, which makes certain
 computations more difficult, since the cohomological techniques of
-\cite{greenberg-voight:shimura} are not available.
+\cite{greenberg-voight:shimura} are not applicable.
 
 
 \subsection{Modularity conjecture}\label{sec:mod}
@@ -118,16 +115,14 @@ $$
        \frac{1}{2}(\vphi i - \overline{\vphi} j + k), \,
        \frac{1}{2}(i + \vphi j - \overline{\vphi} k)\right].
 $$
-For any nonzero ideal $\n$ in the ring $R$ of integers of $F$,
-let $\P^1(R/\n)$ be the set of equivalence classes of column vectors
-with two coprime entries $a,b \in R/\n$ modulo the action of $(R/\n)^*$.
-The algebra $F[i,j,k]$ is unramified at all finite primes; in
+For any nonzero ideal $\n$ in $R$, the ring of integers of $F$,
+let $\P^1(R/\n)$ be represented by the set of equivalence classes of
+ column vectors with two coprime entries $a,b \in R/\n$ modulo the
+ action of $(R/\n)^*$. The algebra $F[i,j,k]$ is unramified at all finite primes; in
 particular, for each prime $\p\mid \n$, we may fix an isomorphism
 $F[i,j,k]\tensor F_{\p} \ncisom M_2(F_{\p})$, which induces a left
-action of $S^*$ on $\P^1(R/\n)$.
-The Jaquet-Langlands correspondence implies that
-the space of Hilbert modular forms with level 
-$\n$ and weight $(2,2)$ is
+action of $S^*$ on $\P^1(R/\n)$. The Jaquet-Langlands correspondence implies that
+the space of Hilbert modular forms with level $\n$ and weight $(2,2)$ is
 noncanonically isomorphic as a module over the Hecke algebra
 $$\T=\Z[T_\p :  \p \text{ nonzero prime ideal of }R]$$ 
 to the finite dimensional complex vector space $ V = \C[S^* \backslash
@@ -146,16 +141,16 @@ In order to compute $\P^1(R/\n)$ efficiently, we must be able to
 compute with $R/\n$ quickly.  To this end, we factor $\n =
 \prod_{i=1}^m \p_i^{e_i}$ and represent elements of $R/\n$ as
 $m$-tuples in $\bigoplus R/\p_i^{e_i}$, thus reducing to the prime
-power case.  To minimize dynamic memory allocation which speeds up the
+power case.  To minimize dynamic memory allocation, thus speeding up the
 code by an order of magnitude, we make some bounds on the size of
 $\n$; this is not a serious constraint, since the linear algebra
-needed to isolate eigenforms for levels beyond this bound would be
+needed to isolate eigenforms for levels beyond this bound is
 prohibitive.  We assume $m\leq 16$ and all $p_i^{e_i}\leq 2^{31}$,
 where $p_i$ is the residue characteristic of $\p_i$.  In all cases, we represent an
 element of $R/\p_i^{e_i}$ as a pair of (signed) 64-bit integers, and
 represent an element of $R/\n$ as an array of 16 pairs of 64-bit
 integers. We use this representation in all cases, even if $\n$ is
-divisible by less than $16$ primes; the speed gain coming from
+divisible by less than $16$ primes; the gain in speed coming from
 avoiding dynamic memory allocation more than compensates for the
 wasted memory.
 
@@ -181,7 +176,7 @@ since $R/\p^eR \isom (\Z/p^{f}\Z)[x]/(x^2-x-1)$.
 (a,b) + (c,d) &= (a+c \mod 5^f,\,\,\, b+d \mod 5^{f-1})\\
 (a,b)\cdot (c,d) &= (ac+5bd \mod 5^f,\,\,\, ad+bc \mod 5^{f-1}).
 \end{align*}
-The golden ratio in $R$ maps to $(1/2,1/2)$.
+ We find that $ \varphi \in R \mapsto (1/2,1/2)$.
 \end{itemize}
 
 
@@ -191,10 +186,9 @@ We use the bijection $\P^1(\R/\n) \isom \prod_{\p_i^{e_i}}
 $[(a,b)]$ of $\P^1(R/\p_i^{e_i})$ has a unique representative of the
 form $(1,b)$ or $(a,1)$ with $a$ divisible by $\p$, so it is straightforward
 to enumerate the elements of $\P^1(R/\p_i^{e_i})$ after choosing a way
-to enumerate the elements of $R/\p_i^{e_i}$.  Also, we put an element
+to enumerate the elements of $R/\p_i^{e_i}$. We put an element
 of $\P^1(R/\n)$ in the above canonical form by working with each factor
-individually. 
-
+individually.
 
 \subsubsection{Enumerating elements of $S$ of norm $\pi_p$ modulo $S^*$}
 [[TODO]]
@@ -207,38 +201,41 @@ and involves multiple ideas.
 \subsubsection{Enumerating rational newforms}
 
 
-
 \section{Strategies for finding an elliptic curve attached to a Hilbert modular form}\label{sec:finding}
-Let $f$ be a rational cuspidal Hilbert newforms of weight $(2,2)$ as
+In this section we describe various strategies to find an elliptic curve
+ associated to each of the Hilbert modular forms computed in Section 2.
+Let $f$ be a rational cuspidal Hilbert newform of weight $(2,2)$ as
 in Section~\ref{sec:hmf}.  According to Conjecture~\ref{conj:mod},
 there is some elliptic curve $E_f$ over $f$ such that $L(f,s) =
 L(E_f,s)$.  Note that $E_f$ is only well defined up to isogeny.
-Unlike the case for elliptic curves over $\Q$ (see
-\cite{cremona:algs}), there appears to be no {\em efficient} direct
-algorithm to find $E_f$.  Nonetheless, there are at least a half dozen
-approaches, which are each efficient in some cases.
+Unlike the case for elliptic curves over $\Q$ (see \cite{cremona:algs}), 
+there appears to be no {\em efficient} direct algorithm to find $E_f$.
+ Nonetheless, there are several approaches coming from various directions, 
+which are each efficient in some cases.
 
 Everywhere below, we continue to assume that Conjecture~\ref{conj:mod}
 is true and assume that we have computed (as in Section~\ref{sec:hmf})
 the Hecke eigenvalues $a_\p\in \Z$ of all rational Hilbert newforms of
 some level $\n$, for $\Norm(\p)\leq B$, where $B$ is large enough
-distinguish newforms.  In some cases we will need far more $a_{\p}$.
+distinguish newforms. In some cases we will need far more $a_{\p}$ in 
+order to distinguish between elements of our finite set of newforms and 
+furthermore, to compute with a sufficient degree of precision, 
+the L-function attached to each element.
 
 \subsection{Naive enumeration}\label{sec:naive}
 
-The most naive strategy is to systematically enumerate pairs $a,b\in
-R$, hence elliptic curves $E: y^2 = x^3 + ax + b$ over $F$, and for
-each curve compute some $L$-series coefficients $a_\p(E)$ at primes
-that do not divide the discriminant of the cubic by counting points
-modulo primes.  If all $a_\p(E)$ match with those of the input newform
-$f$, up to the bound $B$, we then compute the conductor $\cN_E$, and
-if it equals $\n$, we conclude by \cite{faltings:xx} that $E$ is in the isogeny class
+The most naive strategy is to systematically enumerate ordered pairs $(a,b) \in
+R^2$ (equivalently, elliptic curves $E:  y^2 = x^3 + ax + b$ over $F$) and for
+each curve, to compute $a_\p(E)$ at $\p$ not dividing $\text{Disc}(E)$ by counting points
+on $E$ reduced modulo $\p$.  If all the $a_\p(E)$ match with those of the input newform
+$f$ up to the bound $B$, we then compute the conductor $\cN_E$, and
+if it equals $\n$, we conclude from the sufficient largeness of $B$ that $E$ is in the isogeny class
 of $E_f$.
 
 Under our hypotheses, naive enumeration provides an algorithmic
 solution to the problem of finding $E_f$: it will terminate, and when
 it terminates it outputs a correct curve $E_f$. Unfortunately, it can
-be very slow because even if $\n$ is small, the simplest curve in the
+be extremely slow because even if $\n$ is small, the simplest curve in the
 isogeny class of $E_f$ may have very large coefficients, for example,
 if each coefficient is of the form $x+\vphi y$ with $x$ and $y$ having
 coefficients around $10^5$, then it would take about $10^{20}$ steps
@@ -301,30 +298,31 @@ implementation of this algorithm can be quite efficient.
 
 Given an elliptic curve $E/F$, we wish to find representative
 isomorphism classes for all elliptic curves $E'/F$ that are isogenous
-to $E$ via an isogeny defined over $F$.  The analogue of this problem
+to $E$ via an isogeny defined over $F$. The analogue of this problem
 over $\Q$ has an algorithmic solution as explained in
-\cite[\S3.8]{cremona:algs}; it relies on (1) Mazur's theorem
-\cite{mazur:rational} that if $\varphi:E\to E'$ is a $\Q$-rational
-isogeny of prime degree, then $\deg(\varphi)\leq 163$, and (2) formulas
-of Velu \cite{velu:isogenies} that provide a way to explicitly
-enumerate all $p$-isogenies with domain $E$.  Velu's formulas are
-valid for any number field, but so far there has not been an explicit
-generalization of Mazur's theorem for any number field other than
-$\Q$.  
+\cite[\S3.8]{cremona:algs}; it relies on:
+\begin{enumerate}
+\item  Mazur's theorem \cite{mazur:rational} 
+that if $\varphi:E\to E'$ is a $\Q$-rational isogeny of prime degree, 
+then $\deg(\varphi)\leq 163$
+\item Formulas of Velu \cite{velu:isogenies} 
+that provide a way to explicitly enumerate all $p$-isogenies (if any) with domain $E$.  
+Velu's formulas are valid for any number field, but so far there has not been an explicit
+generalization of Mazur's theorem for any number field other than $\Q$. 
+\end{enumerate}
 
 \begin{remark}
-  Assume the generalized Riemann hypothesis.  Then work of Eric Larson
-  and Dmitry Vaintrob (see \url{http://arxiv.org/abs/1110.0255})
-  implies that there is an explicitly computable constant $C$ such
-  that any prime degree isogeny over $F$ has degree at most $C$.
+  Assume the generalized Riemann hypothesis.  Then work of Larson-Vaintrob 
+  from \cite{larson-vaintrob} implies that there is an effectively computable constant $C_F$ 
+  such that any prime degree isogeny over $F$ has degree at most $C_F$.
 \end{remark}
 
-Since we are interested in specific elliptic curves, 
-we can use an algorithm in \cite{billerey:isog}  that takes as
-input a specific non-CM elliptic $E$ over a number field $K$, and
-outputs a finite list of primes $p$ such that $E$ might have a
-$p$-isogeny.  The algorithm is particularly easy to implement in the
-special case when $K$ is a quadratic field, as explained in
+Since we are interested in individual isogeny classes, 
+we can use the algorithm described in \cite{billerey:isog} that takes as
+input a specific non-CM elliptic curve $E$ over a number field $K$, and
+outputs a provably finite list of primes $p$ such that $E$ might have a
+$p$-isogeny. The algorithm is particularly easy to implement in the
+case when $K$ is a quadratic field, as explained in
 \cite[\S2.3.4]{billerey:isog}.  Using this algorithm combined with
 Velu's formulas, we were able to enumerate {\em all}
 isomorphism classes of curves isogenous to the curves we found via the
