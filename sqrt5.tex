@@ -526,9 +526,51 @@ where
         k = 1,2, \ldots \right\}
 \]
 
+\subsubsection{An example}
+We give now an example for an elliptic curve which we were able to find only by using
+this method. At level $\n = (-38\varphi + 26)$ we found a newform $f$, computed
+\begin{multline*}
+    a_{(2)}(f) = -1,\  a_{(-2\varphi + 1)}(f) = 1,\  a_{(3)}(f) = -1, \\ 
+    a_{(-3\varphi + 1)}(f) = -1,\  a_{(-3*a + 2)}(f) = -6, \cdots, a_{(200\varphi - 101)}(f) = 168
+\end{multline*}
+and determined, by examining the $L$-function, that the sign of the functional equation
+should be $-1$. (In fact, we do not really need to know the sign of the functional eqaution,
+as we would quickly determine that $+1$ is wrong when attempting to find the mixed periods.)
+Computing the sets of characters described above, and choosing the first $3$ of each, we
+have
+\begin{multline*}
+S^{--} = \{\chi_{(\varphi + 6)}, \chi_{(7)}, \chi_{(7\varphi - 4)}\}, \ \ 
+    S^{-+} = \{\chi_{(-3\varphi + 1)}, \chi_{(5 \varphi - 2)}, \chi_{(\varphi - 9)}\} \\
+S^{+-} = \{\chi_{(-4\varphi + 3)}, \chi_{(5\varphi - 3)}, \chi_{(-2\varphi + 13)} \} \ \ 
+    S^{++} = \{\chi_{(\varphi + 9)}, \chi_{(9\varphi - 5)}, \chi_{(\varphi + 13)} \}.
+\end{multline*}
 
+By using the $5133$ $a_{\p}(f)$ above as input to Rubinstein's lcalc, we compute the
+lists of approximate values
+\[
+\begin{split}
+\mathcal{L}^{--} &= \{-33.5784397861927, -3.73093775700518, -18.6546887333924 \} \\ 
+\mathcal{L}^{-+} &= \{18.2648617736017i, 32.8767511924049i, 3.65297284727497i \} \\
+\mathcal{L}^{+-} &= \{41.4805656925343i, 8.29611313844135i, 41.4804252145628i \} \\
+\mathcal{L}^{++} &= \{32.4909940826153, 162.454969943926, 162.455140176447 \}.
+\end{split}
+\]
+Note that lcalc will warn us that we do not have enough coefficients to obtain good
+accuracy, and we make no claim as far as the accuracy of these values is concerned.
+Hoping that the ends will justify the means, we proceed forward.
 
-
+Dividing each list by the first entry, and recognizing the quotients as rational
+numbers, we get the lists
+\[
+\begin{split}
+       \{1.000, 8.99999999280237, 1.80000000354261\}  &\approx \{1, 9, 9/5\}\\
+       \{1.000, 0.555555555556876, 4.99999932581674\} &\approx \{1, 5/9, 5\}\\
+       \{1.000, 5.00000000003948, 1.00000338660876\}  &\approx \{1, 5, 1\} \\ 
+       \{1.000, 0.200000000577576, 0.199999791002771\} &\approx \{1, 1/5, 1/5\}
+\end{split}
+\]
+which may give an indication of the accuracy of our values.
+.. .. .. 
 
 \subsection{Congruence families}
 
