@@ -338,8 +338,56 @@ implementation of this algorithm can be quite efficient.
 
 \subsection{Curves with good reduction outside $S$}
 
+We also employ an algorithm described by John Cremona and Mark Lingham
+in \cite{cremona-lingham}, which finds all elliptic curves with good
+reduction at primes outside of a finite set $\mathcal{S}$ of primes in
+$F$. A $\textsc{Magma}$ implementation of the desribed algorithm, which
+has intrinsic limitations over general number fields due to the
+difficulty of finding integral points on elliptic curves, is provided by
+Cremona.
 
+The algorithm computes the finite $m$-Selmer groups $F(\mathcal{S},m)$ of
+$F^*$, where
+\begin{equation*}
+  F(\mathcal{S},m) = \{x\in F^*/(F^*)^m \ | \ ord_\mathfrak{p}(x) 
+    \equiv 0 \ (mod \ m) \ \ \forall \mathfrak{p}\notin \mathcal{S}\}\text{,}
+\end{equation*}
+for $m = 2, 3, 4, 6, \text{and}\ 12$. From these it computes a finite set of
+possible $j$-invariants such that each elliptic curve with good reduction
+outside $\mathcal{S}$ has $j$-invariant in this set. These $j$-values are either
+$j=0,1728$, cases which can be treated directly, or $\mathcal{S}$-integers in
+$F$ satisfying $w \equiv j^2(j-1728)^3 \ (\text{mod} \ F^{*6})$ for
+$w\in F(\mathcal{S},6)_{12}$, where $F(\mathcal{S},m)_{mn}$ is the image of the
+natural map $F(\mathcal{S},mn) \rightarrow F(\mathcal{S},m)$. In the latter
+case $j$ is of the form $j = \frac{x^3}{w} = 1728 + \frac{y^2}{w}$, where
+$(x,y)$ is an $\mathcal{S}$-integral point on the elliptic curve
+$E_w: Y^2 = X^3 - 1728w$. From this set of $j$-invariants, we construct each
+curve with the desired reduction properties (indeed, there are finitely many
+by Shafarevich's Theorem): for each $j = \frac{x^3}{w}$ (excluding
+$j = 0, 1728$, which are treated separately), we choose $u_0 \in F^*$ s.t.
+$(3u_0)^6w \in F(\mathcal{S},12)$, and each curve is of the form
+$E: Y^2 = X^3 - 3xu_0^2X - 2yu_0^3$. We must also check that each curve
+found has good reduction at the primes above 2 and 3 (if these primes
+are not in $\mathcal{S}$).
 
+Finding all $\mathcal{S}$-integral points over $F$, which give the
+$j$-invariants, presents a problem. For example, one technique for finding
+integral points is to find the generators of the curve's Mordell-Weil group.
+This can be difficult if these generators have large coefficients (this makes
+them hard to find with reasonable search bounds) or when the curve's rank
+is high (in this case, there are multiple generators to find). Due to these
+limitations, Cremona gives a naive search to directly find
+$\mathcal{S}$-integral points within a given search region, and so the number
+of curves that the program finds (and the speed with which it finds them)
+depends on the search bounds. Searches such as these are generally less
+effective over general number fields than over $\mathbb{Q}$. Indeed, the
+program failed to find a number of curves that we knew to exist by looking
+at corresponding modular forms and that we eventually found using other
+methods. However, the algorithm was successful in that it found some curves
+with very large $a$-invariants, which would be virtually impossible to find
+using a naive search.
+
+\subsection{Special values of twisted $L$-series}\label{sec:specialvalues}
 \newcommand{\Omegap}{\Omega^+}
 \newcommand{\Omegam}{\Omega^-}
 \newcommand{\Omegapp}{\Omega^{++}}
@@ -351,7 +399,6 @@ implementation of this algorithm can be quite efficient.
 \newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
 \newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
-\subsection{Special values of twisted $L$-series}\label{sec:specialvalues}
 In (INSERT REFERENCE), Lassina Dembele outlines some methods for finding
 modular elliptic curves from Hilbert modular forms over totally real
 fields. In the case of nonsquare level Dembele's method relies on computing
