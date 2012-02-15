@@ -346,6 +346,10 @@ implementation of this algorithm can be quite efficient.
 \newcommand{\Omegapm}{\Omega^{+-}}
 \newcommand{\Omegamp}{\Omega^{-+}}
 \newcommand{\Omegamm}{\Omega^{--}}
+\newcommand{\OmegammEguess}{\Omega^{--}_{E, \mathrm{guess}}}
+\newcommand{\OmegampEguess}{\Omega^{-+}_{E, \mathrm{guess}}}
+\newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
+\newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
 \subsection{Special values of twisted $L$-series}\label{sec:specialvalues}
 In (INSERT REFERENCE), Lassina Dembele outlines some methods for finding
@@ -435,7 +439,7 @@ In practice, there are two important difficulties we must overcome; we do not kn
 $\Delta_E$ and it may be quite difficult to get high precision approximations to the
 mixed periods, and thus we may not be able to compute $c_4$ as easily as described
 above. Thus, we actually proceed by choosing a $\Deltaguess$, and from this guess we
-compute rational integers $\alpha$ and $\beta$ and an integer
+compute rational half-integers $\alpha$ and $\beta$ and an integer
 $a + b\varphi \approx \alpha + \beta\sqrt5$, arbitrarily rounding either $a$ or $b$ if necessary.
 Then we make some choice of search range $M$, and for each pair of integers $m$ and $n$,
 bounded in absolute value by $M$, we try each $\cfourguess = (a + m) + (b + n)\varphi$.
@@ -549,10 +553,10 @@ By using the $5133$ $a_{\p}(f)$ above as input to Rubinstein's lcalc, we compute
 lists of approximate values
 \[
 \begin{split}
-\mathcal{L}^{--} &= \{-33.5784397861927, -3.73093775700518, -18.6546887333924 \} \\ 
-\mathcal{L}^{-+} &= \{18.2648617736017i, 32.8767511924049i, 3.65297284727497i \} \\
-\mathcal{L}^{+-} &= \{41.4805656925343i, 8.29611313844135i, 41.4804252145628i \} \\
-\mathcal{L}^{++} &= \{32.4909940826153, 162.454969943926, 162.455140176447 \}.
+\mathcal{L}^{--} &= \{-33.5784397862407, -3.73093775400387, -18.6546887691646 \} \\ 
+\mathcal{L}^{-+} &= \{18.2648617736017i, 32.8767511924831i, 3.65297235421633i \} \\
+\mathcal{L}^{+-} &= \{41.4805656925342i, 8.29611313850694i, 41.4805677827298i\} \\
+\mathcal{L}^{++} &= \{32.4909970742969, 162.454985515474, 162.454973589303\}.
 \end{split}
 \]
 Note that lcalc will warn us that we do not have enough coefficients to obtain good
@@ -563,15 +567,52 @@ Dividing each list by the first entry, and recognizing the quotients as rational
 numbers, we get the lists
 \[
 \begin{split}
-       \{1.000, 8.99999999280237, 1.80000000354261\}  &\approx \{1, 9, 9/5\}\\
-       \{1.000, 0.555555555556876, 4.99999932581674\} &\approx \{1, 5/9, 5\}\\
-       \{1.000, 5.00000000003948, 1.00000338660876\}  &\approx \{1, 5, 1\} \\ 
-       \{1.000, 0.200000000577576, 0.199999791002771\} &\approx \{1, 1/5, 1/5\}
+       \{1.000, 9.00000000005519, 1.80000000009351\}  &\approx \{1, 9, 9/5\}\\
+       \{1.000, 0.555555555555555, 5.00000000068986 \} &\approx \{1, 5/9, 5\}\\
+       \{1.000, 4.99999999999994, 0.999999949610245 \}  &\approx \{1, 5, 1\} \\ 
+       \{1.000, 0.199999999822733, 0.200000014505165 \} &\approx \{1, 1/5, 1/5\}
 \end{split}
 \]
-which may give an indication of the accuracy of our values.
-.. .. .. 
-
+which may give an indication of the accuracy of our values. We now proceed with
+the guesses
+\begin{align*}
+\phantom{MMMMM} \OmegammEguess &\approx -33.5784397862407/9 &\approx&\  -3.73093775402141 \phantom{MMMMM} \\
+    \OmegampEguess &\approx 18.2648617736017i/5 &\approx&\  3.65297235472034i \\
+    \OmegapmEguess &\approx 41.4805656925342i/5 &\approx&\  8.29611313850683i \\
+    \OmegappEguess &\approx 32.4909970742969    &=&\  32.4909970742969.
+\end{align*}
+These cannot possibly be all correct, as $\Omegamm_E \Omegapp_E = \Omegamp_E \Omegapm_E$.
+Still, we can choose any three and get a reasonable guess, and in fact we may choose all
+possible triples, dividing some of the guesses by small rational numbers, and choosing the
+fourth guess to be consistent with the first three; we build a list of possible embeddings
+of $j(E)$, which will contain the possibility $\sigma_1(j(E)) \approx 1.365554233954 \times 10^{12}$,
+$\sigma_2(j(E)) \approx 221270.95861123$, which is a possibility if 
+\[\Omegamp_E = \OmegampEguess,\ 
+\Omegapm_E = \OmegapmEguess,\  \Omegamp_E = \frac{\OmegampEguess}{2},\  \Omegapp_E = \frac{\OmegappEguess}{8}.\]
+Cycling through many discriminants, we will eventually try
+\[
+    \Deltaguess = \varphi \cdot 2^5 \cdot (19\varphi - 13),
+\]
+which leads us to the guess
+\begin{align*}
+    \sigma_1(\cfourguess) &= (\sigma_1(j(E)) \sigma_1(\Deltaguess))^{1/3} \approx 107850.372979378 \\
+    \sigma_2(\cfourguess) &= (\sigma_2(j(E)) \sigma_2(\Deltaguess))^{1/3} \approx 476.625892034286.
+\end{align*}
+We have enough precision to easily recognize this as
+\[
+    \cfourguess = \frac{108327 + 48019 \sqrt5}{2} = 48019\varphi + 30154,
+\]
+and
+\[
+    \sqrt{\cfourguess^3 - 1728\Deltaguess}
+\]
+does in fact have two square roots: $\pm(15835084\varphi + 9796985)$. We try both of them, and
+the choice with the minus sign gives the curve with canonical model
+\[
+y^2 + \varphi xy + \varphi y = x^3 + \left(\varphi - 1\right)x^2 + \left(-1001 \varphi - 628\right)x + \left(17899 \varphi + 11079\right),
+\]
+which has the correct conductor. We compute a few values of $a_\p$ for this curve, and it turns
+out to be the one that we are looking for.
 \subsection{Congruence families}
 
 \section{Enumerating the curves in an isogeny class}\label{sec:isoclass}
