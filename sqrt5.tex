@@ -24,7 +24,7 @@
 %   galois conjugate of E = \Ebar
 
 
-\title{Elliptic Curves over $\Q(\sqrt{5})$}
+\title{A Database of Elliptic Curves over $\Q(\sqrt{5})$---First Report}
 
 \author[Bober et al.]{Jon Bober, Alyson Deines, Joanna Gaski, Ariah Klages-Mundt, Ben
   LeVeque, Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
@@ -49,17 +49,17 @@ Antwerp IV \cite{antwerpiv}, which included all elliptic curves over
 $\Q$ of conductor up to $200$, and also a table of all elliptic curves
 with bad reduction only at $2$ and $3$.  
 
-Cremona's book \cite{cremona:algs} gives a detailed 
-description of algorithms that together output a list of all
-elliptic curves over $\Q$ of any given conductor, along with
-extensive data about each curve.  The proof that his algorithm output
-{\em all} curves of given conductor had to wait for the proof of the
-full modularity theorem in \cite{breuil-conrad-diamond-taylor}.  
-Cremona has subsequently computed tables \cite{cremona:onlinetables} of all elliptic curves
+Cremona's book \cite{cremona:algs} gives a detailed description of
+algorithms that together output a list of all elliptic curves over
+$\Q$ of any given conductor, along with extensive data about each
+curve.  The proof that his algorithm output {\em all} curves of given
+conductor had to wait for the proof of the full modularity theorem in
+\cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
+computed tables \cite{cremona:onlinetables} of all elliptic curves
 over $\Q$ of conductor up to $210,\!000$, including Mordell-Weil
-groups and other extensive data about each curve; his main current
-target is to reach conductor $234,\!446$, which is the smallest known
-conductor of a rank $4$ curve.
+groups and other extensive data about each curve; he expects to soon
+reach his current target, conductor $234,\!446$, which is the smallest
+known conductor of a rank $4$ curve.
 
 In a different direction, Stein-Watkins (see \cite{stein-watkins:ants5, bmsw:bulletins}) 
 created a table of 136,832,795 elliptic curves over $\Q$ of conductor $\leq 10^8$, and a
@@ -68,7 +68,7 @@ table of 11,378,911 elliptic curves over $\Q$ of prime conductor $\leq
 % For each curve, these tables contain a numerical
 %approximation of $\ord_{s=1} L(E,s)$, and some other data, though the
 %actual ranks of every one of these curves has not been determined.
-There are also many curves of large discriminant missing from the
+There are many curves of large discriminant missing from the
 Stein-Watkins tables, since these tables are made by enumerating
 curves with relatively small defining equations, and discarding those
 of large conductor, rather than systematically finding all curves of
@@ -81,26 +81,30 @@ for helpful conversations.
 \subsection{Why $\Q(\sqrt{5})$?}
 
 Like $\Q$, the field $F=\Q(\sqrt{5})$ is a totally real field, and
-many of the theorems and ideas about elliptic curves over 
-$\Q$ have been generalized to totally real fields. As is the case over $\Q$, there is a 
-notion of modularity coming from Shimura curve parametrizations and Hilbert modular forms,
- which is supported by theoretical evidence \cite{}.%something suggested by R. Taylor
-Moreover,  work \cite{zhang:heightsshimura} of Zhang has extended many results
-of Gross-Zagier \cite{gross-zagier} and Kolyvagin \cite{kolyvagin:mordellweil} 
-to the context of elliptic curves over totally real fields.
+many of the theorems and ideas about elliptic curves over $\Q$ have
+been generalized to totally real fields. As is the case over $\Q$,
+there is a notion of modularity coming from Shimura curve
+parametrizations and Hilbert modular forms, which is supported by
+computational and theoretical evidence \cite{}.
+Moreover, work of Zhang \cite{zhang:heightsshimura}  has extended many
+results of Gross-Zagier \cite{gross-zagier} and Kolyvagin
+\cite{kolyvagin:mordellweil} to the context of elliptic curves over
+totally real fields.
 
-Ordering number fields by the norm of their discriminant,  $F=\Q(\sqrt{5})$ having discriminant $5$ is
-the second in order, after $\Q$. That $5$ divides $\disc(F)=5$ thwarts
-attempts to easily generalize the method of Taylor-Wiles to elliptic
-curves over $F$, makes $\Q(\sqrt{5})$ even more interesting. The
-field $F$ also has $31$ CM $j$-invariants, which is far more than any
-other quadratic field (see Section~\ref{sec:cm}).  Letting
-$\vphi=\frac{1+\sqrt{5}}{2}$, we have that the unit group $\{\pm 1\} \times
-\langle \vphi \rangle$ of the ring $R=\cO_F=\Z[\vphi]$ of integers of
-$F$ is infinite, leading to additional complications.  Finally,
-the $F$ has even degree $2$, which makes certain
-computations more difficult, since the cohomological techniques of
-\cite{greenberg-voight:shimura} are not applicable.
+If we order totally real number fields $K$ by the absolute value of
+their discriminant, then $F=\Q(\sqrt{5})$ comes next after $\Q$ (the
+Minkowski bound implies that $|D_K| \geq (n^n/n!)^2$, where
+$n=[K:\Q]$, so if $n\geq 3$ then $|D_K|>20$). That $5$ divides
+$\disc(F)=5$ thwarts attempts to easily generalize the method of
+Taylor-Wiles to elliptic curves over $F$, which makes $\Q(\sqrt{5})$
+even more interesting. The field $F$ also has $31$ CM $j$-invariants,
+which is far more than any other quadratic field (see
+Section~\ref{sec:cm}).  Letting $\vphi=\frac{1+\sqrt{5}}{2}$, we have
+that the unit group $\{\pm 1\} \times \langle \vphi \rangle$ of the
+ring $R=\cO_F=\Z[\vphi]$ of integers of $F$ is infinite, leading to
+additional complications.  Finally, $F$ has even degree $2$, which
+makes certain computations more difficult, since the cohomological
+techniques of \cite{greenberg-voight:shimura} are not available. 
 
 
 \subsection{Modularity conjecture}\label{sec:mod}
@@ -110,10 +114,10 @@ The following conjecture is open:
   of $L$-functions associated to cuspidal Hilbert modular newforms
   over $F$ of weight $(2,2)$ with rational Hecke eigenvalues.
 \end{conjecture}
-Given the huge amount of progress on modularity theorems, we are
-optimistic that Conjecture~\ref{conj:mod} will be proved.  {\em We
-  thus officially assume Conjecture~\ref{conj:mod} for the rest of
-  this paper.}
+Given the huge amount of progress on modularity theorems initiated by
+\cite{wiles:fermat}, we are optimistic that Conjecture~\ref{conj:mod}
+will be proved.  {\em We thus officially assume
+  Conjecture~\ref{conj:mod} for the rest of this paper.}
 
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
@@ -124,54 +128,76 @@ algorithm and address how to create a fast implementation.
 
 \subsection{Hilbert modular forms and quaternion 
 algebras}\label{sec:dembele}
-We recall Dembele's algebraic approach
-\cite{dembele:hilbert5} via the Jacquet-Langlands correspondence to
-Hilbert modular forms of weight $(2,2)$ over $F$.
-The Hamiltonian quaternion algebra $F[i,j,k]$ over $F$ is ramified
-exactly at the two infinite places, and contains the maximal order
+Dembele \cite{dembele:hilbert5} introduced an algebraic approach via
+the Jacquet-Langlands correspondence to computing Hilbert modular
+forms of weight $(2,2)$ over $F$.  The Hamiltonian quaternion algebra
+$F[i,j,k]$ over $F$ is ramified exactly at the two infinite places,
+and contains the maximal order
 $$
  S = R\left[\frac{1}{2}(1-\overline{\vphi} i + \vphi j),\,
        \frac{1}{2}(-\overline{\vphi} i + j + \vphi k),\,
        \frac{1}{2}(\vphi i - \overline{\vphi} j + k), \,
        \frac{1}{2}(i + \vphi j - \overline{\vphi} k)\right].
 $$
-For any nonzero ideal $\n$ in $R$, the ring of integers of $F$,
-let $\P^1(R/\n)$ be represented by the set of equivalence classes of
+For any nonzero ideal $\n$ in $R=\cO_F$,
+let $\P^1(R/\n)$ by the set of equivalence classes of
  column vectors with two coprime entries $a,b \in R/\n$ modulo the
- action of $(R/\n)^*$. The algebra $F[i,j,k]$ is unramified at all finite primes; in
-particular, for each prime $\p\mid \n$, we may fix an isomorphism
+ action of $(R/\n)^*$.  We use the notation $[a:b]$
+to denote the equivalence class of 
+$\left(\begin{smallmatrix}a\\b\end{smallmatrix}\right)$.
+The algebra $F[i,j,k]$ is unramified at all finite primes and ramified
+at the two real infinite primes; in
+particular, for each prime $\p\mid \n$, we may fix a choice of isomorphism
 $F[i,j,k]\tensor F_{\p} \ncisom M_2(F_{\p})$, which induces a left
 action of $S^*$ on $\P^1(R/\n)$. The Jaquet-Langlands correspondence implies that
-the space of Hilbert modular forms with level $\n$ and weight $(2,2)$ is
+the space of Hilbert modular forms of level $\n$ and weight $(2,2)$ is
 noncanonically isomorphic as a module over the Hecke algebra
 $$\T=\Z[T_\p :  \p \text{ nonzero prime ideal of }R]$$ 
 to the finite dimensional complex vector space $ V = \C[S^* \backslash
 \P^1(R/\n)].  $ The action of $T_{\p}$, for $p\nmid \n$, is
 $T_{\p}([x]) = \sum [\alpha x]$, where the sum is over the classes
-$[\alpha]\in S/S^*$ with $N_{\text{red}}(\alpha)=\pi_p$ (reduced quaternion norm),
-where $\pi_p$ is a totally positive generator of~$\p$.
+$[\alpha]\in S/S^*$ with $N_{\text{red}}(\alpha)=\pi_{\p}$ (reduced quaternion norm),
+where $\pi_{\p}$ is a fixed choice of totally positive generator of~$\p$.
 
 \subsection{An Algorithm}
 
-In this section we describe an efficient algorithm based on
-the isomorphism of Section~\ref{sec:dembele}.
+In this section we describe an efficient algorithm to compute $V$ as
+a $\T$-module.
 
-\subsubsection{Computing with $R/\n$}
-In order to compute $\P^1(R/\n)$ efficiently, we must be able to
-compute with $R/\n$ quickly.  To this end, we factor $\n =
-\prod_{i=1}^m \p_i^{e_i}$ and represent elements of $R/\n$ as
-$m$-tuples in $\bigoplus R/\p_i^{e_i}$, thus reducing to the prime
-power case.  To minimize dynamic memory allocation, thus speeding up the
-code by an order of magnitude, we make some bounds on the size of
-$\n$; this is not a serious constraint, since the linear algebra
+\subsubsection{Computing with $\P^1(R/\n)$}
+When $\n=\p^e$ is a prime power, it is
+straightforward to efficiently enumerate representative elements of
+$\P^1(R/\p^e)$, since each element $[x:y]$ of $\P^1(R/\p^e)$ has a
+unique representative of the form $[1:b]$ or $[a:1]$ with $a$
+divisible by $\p$, and these are all distinct.  It is easy 
+to put  any $[x:y]$ 
+in this canonical form and enumerate the elements of $\P^1(R/\p^e)$, after
+choosing a way to enumerate the elements of $R/\p^e$.
+An enumeration of $R/\p^e$ is easy to give
+once we decide on how to represent $R/\p^e$.
+
+In general, factor $\n = \prod_{i=1}^m \p_i^{e_i}$. 
+We have a bijection $\P^1(R/\n) \isom \prod_{i=1}^m
+\P^1(R/\p_i^{e_i})$, which allows us to reduce to the prime power
+case, at the expense of having to compute the bijection 
+$R/\n \isom \prod R/\p_i^{e_i}$.
+To this end, we {\em represent elements} of $R/\n$ as
+$m$-tuples in $\prod R/\p_i^{e_i}$, thus making
+computation of the bijection trivial.  
+
+To minimize dynamic memory allocation, thus speeding up the
+code by an order of magnitude, in the implementation
+we make some arbitrary
+bounds; this is not a serious constraint, since the linear algebra
 needed to isolate eigenforms for levels beyond this bound is
-prohibitive.  We assume $m\leq 16$ and all $p_i^{e_i}\leq 2^{31}$,
-where $p_i$ is the residue characteristic of $\p_i$.  In all cases, we represent an
-element of $R/\p_i^{e_i}$ as a pair of (signed) 64-bit integers, and
+prohibitive. We assume $m\leq 16$ and each individual 
+$p_i^{e_i}\leq 2^{31}$, where $p_i$ is the residue characteristic of $\p_i$.  
+In all cases, we represent an
+element of $R/\p_i^{e_i}$ as a pair of  64-bit integers, and
 represent an element of $R/\n$ as an array of 16 pairs of 64-bit
 integers. We use this representation in all cases, even if $\n$ is
-divisible by less than $16$ primes; the gain in speed coming from
-avoiding dynamic memory allocation more than compensates for the
+divisible by less than $16$ primes; the gain in speed coming
+from avoiding dynamic memory allocation more than compensates for the
 wasted memory.
 
 Let $\p^e$ be one of the prime power factors of $\n$, and let $p$ be the residue
@@ -200,15 +226,6 @@ since $R/\p^eR \isom (\Z/p^{f}\Z)[x]/(x^2-x-1)$.
 \end{itemize}
 
 
-\subsubsection{Computing $\P^1(R/\n)$}
-We use the bijection $\P^1(\R/\n) \isom \prod_{\p_i^{e_i}}
-\P^1(R/\p_i^{e_i})$ to reduce to the prime power case.  Each element
-$[(a,b)]$ of $\P^1(R/\p_i^{e_i})$ has a unique representative of the
-form $(1,b)$ or $(a,1)$ with $a$ divisible by $\p$, so it is straightforward
-to enumerate the elements of $\P^1(R/\p_i^{e_i})$ after choosing a way
-to enumerate the elements of $R/\p_i^{e_i}$. We put an element
-of $\P^1(R/\n)$ in the above canonical form by working with each factor
-individually.
 
 \subsubsection{Enumerating elements of $S$ of norm $\pi_p$ modulo $S^*$}
 [[TODO]]
@@ -338,7 +355,7 @@ implementation of this algorithm can be quite efficient.
 
 \subsection{Curves with good reduction outside $S$}
 
-We also employ an algorithm described by John Cremona and Mark Lingham
+We also employ an algorithm described by Cremona and Lingham
 in \cite{cremona-lingham}, which finds all elliptic curves with good
 reduction at primes outside of a finite set $\mathcal{S}$ of primes in
 $F$. A $\textsc{Magma}$ implementation of the desribed algorithm, which

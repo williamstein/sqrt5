@@ -37,10 +37,10 @@ TODO LIST
 
 [ ] (william) delete section 6.3
 
-[ ] (william) add a remark to residue rings section explaining why our
+[x] (william) add a remark to residue rings section explaining why our
     choice of representation is adapted to this problem.
 
-[ ] (william) fix notation in residue ring section to not conflict. 
+[x] (william) fix notation in residue ring section to not conflict. 
 
 [ ] (mainly ashwath) table of all curves with nontrivial conjectural sha.
     as corollary -- BSD appears to be true for these curves. we mostly
