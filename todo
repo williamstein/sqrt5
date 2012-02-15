@@ -29,7 +29,7 @@ example.  So if we take the best curve from each isogeny class up to
 1831, what is the worst one, i.e., with "biggest coefficients" in some
 sense?
 
-[ ] (ben) reference and comments for conjecture 3.2 need to be fixed
+[ ] (jon) reference and comments for conjecture 3.2 need to be fixed
 
 [ ] (william) reference for Dembele's "An algorithm for modular elliptic curves..." in 3.6
 
@@ -54,6 +54,8 @@ sense?
     as corollary -- BSD appears to be true for these curves. we mostly
     checked the full conjecture, right, using the L-function to compute
     the order of sha? (By "we", I mean "someone", but not me.)
+
+[ ] (Ben) Maybe need a better reference to give all families than Kubert?
 
 [ ] (aly) include more tables, with information up to rank 2
 
