@@ -253,63 +253,91 @@ which are each efficient in some cases.
 Everywhere below, we continue to assume that Conjecture~\ref{conj:mod}
 is true and assume that we have computed (as in Section~\ref{sec:hmf})
 the Hecke eigenvalues $a_\p\in \Z$ of all rational Hilbert newforms of
-some level $\n$, for $\Norm(\p)\leq B$, where $B$ is large enough
-distinguish newforms. In some cases we will need far more $a_{\p}$ in 
-order to distinguish between elements of our finite set of newforms and 
-furthermore, to compute with a sufficient degree of precision, 
-the L-function attached to each element.
+some level $\n$, for $\Norm(\p)\leq B$ a good prime, where $B$ is
+large enough distinguish newforms. In some cases we will need far more
+$a_{\p}$ in order to distinguish between elements of our finite set of
+newforms and furthermore, to compute with a sufficient degree of
+precision, the $L$-function attached to each element.  We will also
+need the $a_{\p}$ for  bad $\p$ in a few cases, which we obtain
+using the functional equation for the $L$-function.
 
-\subsection{Naive enumeration}\label{sec:naive}
+\subsection{Extremely naive enumeration}\label{sec:naive}
 
-The most naive strategy is to systematically enumerate ordered pairs $(a,b) \in
-R^2$ (equivalently, elliptic curves $E:  y^2 = x^3 + ax + b$ over $F$) and for
-each curve, to compute $a_\p(E)$ at $\p$ not dividing $\text{Disc}(E)$ by counting points
-on $E$ reduced modulo $\p$.  If all the $a_\p(E)$ match with those of the input newform
-$f$ up to the bound $B$, we then compute the conductor $\cN_E$, and
-if it equals $\n$, we conclude from the sufficient largeness of $B$ that $E$ is in the isogeny class
-of $E_f$.
+The most naive strategy is to systematically enumerate 
+ elliptic curves $E: y^2 = x^3 + ax + b$, with $a,b\in R$,
+and for each curve, to compute $a_\p(E)$ for $\p$ not
+dividing $\Disc(E)$ by counting points on $E$ reduced modulo $\p$.  If
+all the $a_\p(E)$ match with those of the input newform $f$ up to the
+bound $B$, we then compute the conductor $\cN_E$, and if it equals
+$\n$, we conclude from the sufficient largeness of $B$ that $E$ is in
+the isogeny class of $E_f$.
 
 Under our hypotheses, naive enumeration provides an algorithmic
 solution to the problem of finding $E_f$: it will terminate, and when
-it terminates it outputs a correct curve $E_f$. Unfortunately, it can
-be extremely slow because even if $\n$ is small, the simplest curve in the
-isogeny class of $E_f$ may have very large coefficients, for example,
-if each coefficient is of the form $x+\vphi y$ with $x$ and $y$ having
-coefficients around $10^5$, then it would take about $10^{20}$ steps
-to find $E_f$, which is not feasible.
+it terminates it outputs a correct curve $E_f$. Naive enumeration can
+be extremely slow because even if $\n$ is small, the simplest curve in
+the isogeny class of $E_f$ may have large coefficients.  For example,
+the curve
+$$y^2 = x^3 + \left(186921 a - 301671\right)x + \left(47055384 a -
+74637018\right),
+$$
+has
+conductor $\n = -38 \vphi + 10$, with norm $1724$.
+We would take an enormous amount of time to find it: it
+would take about $10^{15}$ {\em years} to consider all curves with
+coefficients $a,b$ of the form $w+z\vphi$ with $|w|,|z| <10^8$, 
+if we consider a billion curves per second.
+
+
 
 \subsection{Torsion families}\label{sec:torsion}
 
-Another method we employ, which makes use of a more directed naive search, is to use parametrizations of families of curves that have specific torsion structures. Sheldon Kamienny and Flilip Najman (\cite{kamienny-najman}) have shown that over $F$, the only torsion structures that appear are the following:
+Another method, which makes use of a more directed naive search, is to
+use parametrizations of families of curves that have specific torsion
+structures.  Kamienny and Najman show in \cite{kamienny-najman} that
+over $F$ the only torsion structures that appear are the following:
 
-\
-
-$\begin{array}{lll}
+$$\begin{array}{lll}
 \mathbb{Z}/m\mathbb{Z},   &1 \leq m \leq 10,& m = 12,\\
 \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2m\mathbb{Z}, &  1 \leq m \leq 4,&\\
 \mathbb{Z}/15\mathbb{Z}.&&
-\end{array}$
+\end{array}$$
+Over $\mathbb{Q}$, these families have explicit
+parametrizations (see \cite{kubert:torfam}) that take in either one or
+two integers and produce a curve with the given torsion
+structure. 
+Over $\mathbb{Q}(\sqrt{5})$ though, these parametrizations
+(which now take elements in $\mathcal{O}_F$) may not be guaranteed to
+produce all curves with the given structure [[TODO: really?  I would think
+they do (william)]], and are therefore not a feasible approach for exhaustively
+finding large numbers of curves up to a certain norm conductor
+bound. 
 
-\
-
-\noindent Over $\mathbb{Q}$, these families have explicit parametrizations (see \cite{kubert:torfam}) that take in either one or two integers and produce a curve with the given torsion structure. Over $\mathbb{Q}(\sqrt{5})$ though, these parametrizations (which now take elements in $\mathcal{O}_F$) may not be guaranteed to produce all curves with the given structure, and are therefore not a feasible approach for exhaustively finding large numbers of curves up to a certain norm conductor bound. However, this method can be a good place to start if the torsion structure of a target curve is known or guessed. For example, if we know the degrees of $p$-isogenies from an unknown curve $E$ (found using the Hecke eigenvalues of its corresponding newform), we can guess that $E$ may have a $p$-torsion point, which gives a strong indication of its torsion structure. Another advantage to this method is that with relatively small parameters we can find curves with very large coefficients -- curves that a reasonable naive search would miss.
-
-\
-
-\
-
-We can tell whether or not $\ell\mid \#E(F)_{\tor}$ for some
-$E$ in the isogeny class of $E_f$ using the following proposition.
-
-\begin{proposition}
- TODO: Explain how to tell if $\ell\mid \#E(F)_{\tor}$.
+We use the following proposition to determine in which family to
+search.
+\begin{proposition}\label{prop:ptor}
+Let $\ell$ be a prime and $E$ a curve over $F$.
+Then $\ell \mid \# E'(F)_{\tor}$ for some curve $E'$ in the isogeny class
+of $E$ if and only if $\ell \mid \Norm(\p)+1 - a_{\p}$ for all good
+odd primes $\p$.
 \end{proposition}
 \begin{proof}
-  Use Galois representations, and also Katz's theorem.
+First suppose $\ell  \mid \# E'(F)_{\tor}$. 
+The reduction map on torsion modulo any good odd prime is injective
+(see \cite[Appendix]{katz:torsion}), 
+so $\ell \mid \#E'(\F_\p) = \Norm(\p)+1 - a_{\p}$.
+The converse statement is one of the main results
+of \cite{katz:torsion}.
 \end{proof}
 
-Instead of searching through all curves as in Section~\ref{sec:naive},
-...
+By applying Proposition~\ref{prop:ptor} for all $a_{\p}$ with $\p$ up
+to some bound, we can decide whether or not it is {\em likely} that
+some curve in the isogeny class of $E$ contains an $F$-rational
+$p$-torsion point.  If this is the case, then we search over those
+families of curves with rational $p$-torsion.  With a relatively small
+search space, we thus find many curves with large coefficients more
+quickly than with the algorithm of Section~\ref{sec:naive}.
+
 
 
 \subsection{Twisting}
