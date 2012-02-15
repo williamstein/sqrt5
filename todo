@@ -1,0 +1,37 @@
+
+- Figure out problems with isogeny code, draw an isogeny graph 
+
+- write an abstract
+- fill in acknowledgement for NFS
+- bottom of page 1, "is supported by theorectical evidence" (citation needed?)
+- clean up references a bit (maybe by grabbing bibtex entries from mathscinet)
+- sections 2.2.3, 2.2.4, 2.2.5...
+- fill in proposition 3.1
+- reference for Dembele's "An algorithm for modular elliptic curves..." in 3.6
+- reference and comments for conjecture 3.2 need to be fixed
+- clean up the table's section a bit (probably just want to write a few
+    sentences at the beginning that say something like "we list a bunch of
+    tables with..."
+- maybe do something about table 6.5 (CM curves), because it is too wide, and
+    it will get even wider if we change a to \varphi, which we should do
+- section 6.3?
+- include more tables, with information up to rank 2
+- mention somewhat that BSD appears to be true for these curves. we mostly
+    checked the full conjecture, right, using the L-function to compute
+    the order of sha? (By "we", I mean "someone", but not me.)
+
+things to have tables of (or information about):
+    - # of curves with each torsion group (mostly done for 199)
+    - # of curves with each rank (may not need to be a separate table,
+        since it is not much information (done for 199)
+    - # of isogeny classes of each size (done for 199)
+    - a list of curves, or something like that, with nontrivial sha
+ 
+    other interesting statistics?
+
+    - maybe a table with the number of isogeny/isomorphism
+        classes of curves with norm conductor <= N * 100, for N = 1 .. 18,
+        or something like that
+
+    - information about the distribution of a_p for a few small p
+    - 
