@@ -58,7 +58,7 @@ curve.  The proof that his algorithm output {\em all} curves of given
 conductor had to wait for the proof of the full modularity theorem in
 \cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
 computed tables \cite{cremona:onlinetables} of all elliptic curves
-over $\Q$ of conductor up to $210,\!000$, including Mordell-Weil
+over $\Q$ of conductor up to $220,\!000$, including Mordell-Weil
 groups and other extensive data about each curve; he expects to soon
 reach his current target, conductor $234,\!446$, which is the smallest
 known conductor of a rank $4$ curve.
@@ -418,9 +418,20 @@ using a naive search.
 \newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
 \newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
-In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele outlines some methods for finding
-modular elliptic curves from Hilbert modular forms over totally real
-fields. In the case of nonsquare level \dembele's method relies on computing
+In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele outlines
+some methods for finding
+modular elliptic curves from Hilbert modular forms over real quadratic
+fields. Formally, these methods are not proven to be any better than a direct
+search procedure, as they involve making a large number of guesses, and a
+priori we do not know just how many guesses we will need to make.
+The method requires many Fourier coefficients of the modular form $f$ that we
+have started with, and computing these takes a lot of time. However,
+this method certainly works extremely well in many cases, and after tuning
+it by using large tables of curves that we had already computed, we we able
+to use it to find more curves which we would have had no hope of finding
+otherwise; we will give an example of one of these curves later.
+
+In the case of nonsquare level \dembele's method relies on computing
 or guessing periods of the curve from by using special values of
 $L$-functions of twists of the curve. In particular, the only inputs
 required are the level of the Hilbert modular form and its L-series. So
@@ -522,9 +533,17 @@ $L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters ov
 which are homomorphisms $\chi : (\OF/\fc)^\times \rightarrow \pm1$, extended to $\OF$ by
 lifting, analogous to Dirichlet characters over the integers.
 
+In the case of odd prime
+conductor, which we will stick to here, there is just a single primitive quadratic character,
+which is the quadratic residue symbol. A simple way of computing it is by making a
+table of squares, or by choosing a primitive root of $g \in (\OF/\fc)^\times$, assigning
+$\chi(g) = -1$, and again making a table by extending multiplicatively. Alternatively,
+one could use a reciprocity formula as described in \cite{boylan-skoruppa:hecke-gauss-sums}.
+For general conductor, one can compute with products of characters of prime conductor.
+
 For a given $f$ and a primitive $\chi$, we can construct the twisted $L$-function
 \[
-    L(f, \chi, s) = \sum_{\m \subset \OF} \frac{\chi(m)a{_{\m}}}{N(\m)^s},
+    L(f, \chi, s) = \sum_{\m \subseteq \OF} \frac{\chi(m)a{_{\m}}}{N(\m)^s},
 \]
 where $m$ is a totally positive generator of $\m$. (Note that $\chi$ is not well defined
 on ideals, but it is well defined on totally positive generators of ideals.) $L(f, \chi, s)$
@@ -766,7 +785,7 @@ Here we do know the number of isogeny and isomorphism classes.
 
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:counts}}
+\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:rank-counts}}
 \begin{tabular}{|c|c|c|c|}\hline
 rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smallest norm conductor\\\hline
  $0$ & $62$ & $257$ & $31$\\\hline
@@ -798,7 +817,7 @@ total & $64$ & $263$ & - \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:counts}}
+\caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:isogeny-counts}}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
 size & 1 & 2 & 3 & 4 & 6 & 8 & 10 & 11 & total \\ \hline
 number of isogeny classes & 2 & 21 & 2 & 20 & 8 & 9 & 1 & 1 & 64 \\\hline
@@ -838,7 +857,7 @@ number of isogeny classes & 2 & 21 & 2 & 20 & 8 & 9 & 1 & 1 & 64 \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:counts}}
+\caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:torsion-counts}}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
 torsion order & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 12 & 15 & 16 \\\hline
 number of curves& 27 & 82 & 11 & 4 & 12 & 47 & 6 & 19 & 4 & 2 & 9 & 1 & 2 \\\hline
@@ -855,7 +874,7 @@ conductor which has norm conductor 81.
 
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:counts}}
+\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:cm-counts}}
 \small
 \begin{tabular}{|c|l|l|}\hline
 Norm & $a$-invariants & $j$-invariant \\\hline
