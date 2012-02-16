@@ -32,3 +32,16 @@ def quadratic_twists(E, B):
                             Ed = E.quadratic_twist(d).global_minimal_model()
                             if Ed.conductor().norm() <= B:
                                 yield Ed, d
+
+
+def aplist(E, B):
+    from psage.ellcurve.lseries.aplist_sqrt5 import aplist
+    return aplist(E,B)
+
+def LSeries(E):
+    from psage.lseries.eulerprod import LSeries
+    return LSeries(E)
+
+def primes_of_bounded_norm(B):
+    from psage.number_fields.sqrt5 import primes_of_bounded_norm
+    return primes_of_bounded_norm(B)
