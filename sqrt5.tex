@@ -340,17 +340,63 @@ quickly than with the algorithm of Section~\ref{sec:naive}.
 
 \subsection{Twisting}
 
-If $E$ is an elliptic curve defined over a number field $F$, then a \emph{twist} $E'$ of $E$ is a curve isomorphic to $E$ over some extension of $F$. A \emph{quadratic twist} of a curve $E$ is therefore a curve $E'$ isomorphic to $E$ by a map of degree 1 or 2. If we consider $E$ in the form
-\begin{equation}
-E:   y^2 = x^3 + ax^2 + bx + c, \nonumber
-\end{equation}
-then the quadratic twist of $E$ \emph{by} $d$, for any element $d \in K^*$, is given by the equation
-\begin{equation}
-E^d:   dy^2 = x^3 + ax^2 + bx + c, \nonumber
-\end{equation}
-and the isomorphism from $E$ to $E^d$ is given by the map $\tau_d = [0, a_1(\frac{r-1}{2}), a_3(\frac{r^3-1}{2}), r]$, where r is a root of $r^2 = \frac{1}{d}$ (see \cite{connell:handbook}).
+Let $E$ be an elliptic curve $F$. A \emph{twist} $E'$ of $E$ is a
+curve over $F$ that is isomorphic to $E$ over some extension of $F$. A
+\emph{quadratic twist} is a twist in which the extension has degree
+$2$.  We can use twisting to find curves that may otherwise be
+difficult to find as follows: starting with a known elliptic curve $E$
+of some (small) conductor, we compute its twists of conductor up to
+some prespecified bound, and add them to our table.
 
-Our implementation of twisting to find new elliptic curves is fairly straightforward: loop through values of $i$ and $j$ up to a certain bound and twist the inputted curve $E$ by $d = i\varphi+j$. This method has similar advantages and disadvantages to the torsion family method; an advantage is that the result of a quadratic twist by $i\varphi+j$ can have vastly different coefficients than the original curve, including much larger values, but a significant disadvantage is that this method is still a naive search of sorts. However, if we are looking for a specific curve with norm conductor $N$, there is an intuitive bound on how high the norm of $d$ should be: the norm conductor of $E_d$ (denote as $||cond(E_d)||$) is divisible by $||d\cdot cond(E)||$. This tells us that if we are looking for curves with norm conductor up to a certain bound, we need not consider twists by elements of very large norm.
+More explicitly, if $E$ is given by $y^2=x^3+ax+b$ and $d\in F^*$,
+then the twist $E^d$ of $E$ by $d$ is given by $dy^2=x^3+ax+b$; in
+particular, we may assume that $d$ is square free.  The following
+is well known:
+\begin{proposition}
+If $\n$ is the
+conductor of $E$ and $d \in F^*$ is coprime to $\n$, then the
+conductor of $E^d$ is divisible by $d^2\n$.
+\end{proposition}
+\begin{proof}
+There are choices of Weierstrass equations such that 
+$\Delta(E^d) = 2^{12} d^6 \Delta(E)$, where $\Delta$
+is the discriminant.
+%var('a1,a2,a3,a4,a6,d')
+%E = EllipticCurve([a1,a2,a3,a4,a6])
+%factor(E.quadratic_twist(d).discriminant() / E.discriminant())
+Thus the curve $E^d$ has bad reduction at each prime that divides $d$,
+because twisting introduces a $6$th power of the squarefree $d$ into
+the discriminant, and $d$ is coprime to $\Delta(E)$, so no change of
+Weierstrass equation can remove this $6$th power.  Moreover, $E^d$ is
+isomorphic to $E$ over an extension of the base field, so $E^d$ has
+potentially good reduction at each prime dividing $d$.  Thus the
+reduction at each prime dividing $d$ is additive.  The conductor is
+unchanged at the primes dividing $\n$ because of the formula relating
+the conductor, discriminant and reduction type (see \cite[App.~C,\S15]{silverman:aec}), that formation of
+N\'eron models commutes with unramified base change, and the fact that
+at the primes that divide $\n$ the minimal discriminant of $E^d$ is
+the same as that of $E$.
+\end{proof}
+To find all twists $E^d$ with norm conductor at most $B$, we twist $E$
+by all $d$ of the form $\pm \vphi^{\delta} d_0 d_1$, where $\delta\in
+\{0,1\}$, $d_0$ is a product of a fixed choice of generators for
+the prime divisors of $\n$, 
+$d_1$ is a squarefree product of a fixed choice of generators of 
+primes not dividing $\n$, and
+$|\Norm(d_1)| \leq \sqrt{B/C}$, where $C$ is the norm of the product of
+the primes that exactly divide $\n$.
+
+For example, let $E$ be the curve $y^2 + xy + \vphi{}y = x^3 +
+\left(-\vphi{} - 1\right)x^2 $ of conductor $5\vphi - 3$ of norm $31$.
+Following the above strategy, to find twists of norm conductor $\leq
+1831$, we have $C=31$ and twist by squarefree positive $d_1$ with
+$|\Norm(d_1)| \leq \sqrt{B/C} = 7.6\ldots$.  Thus $d_1 \in \{1, 2,
+\vphi, 2\vphi\}$.  Running through all possibilities for
+$\vphi^{\delta} d_0 d_1$, we find in most cases that the norm
+conductor is larger than $1831$.  We find the curve $E^{-\vphi-2}$ of
+norm conductor $775$ and the curve $E^{5\vphi-3}$ of norm conductor
+$961$.  Other twists have larger norm conductors, e.g., $E^2$ has norm
+conductor $126976=2^{12}\cdot 31$.
 
 \subsection{Curves with specified $a_\p$}
 
