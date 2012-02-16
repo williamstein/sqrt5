@@ -1,0 +1,22 @@
+The statistics for now are as follows (will be TeXed up once the rest are done!)
+
+Order of Sha Number Of Curves
+       1       3191
+       4        84
+       9        43
+       16       16
+       25       2
+       36       2
+     Total     3338
+
+1. First curve with sha 4: [1, 1, 1, -110, -880]
+
+2. First (Galois conjugate pair) with sha 9: [a + 1, -a, 1, -54686*a - 35336, -7490886*a - 4653177] and [a, 0, 1, 54685*a - 90021, 7490886*a - 12144063]
+
+3. First (Galois conjugate pair) with sha 16: [1, a, a + 1, -4976733*a -
+3075797, -6393196918*a - 3951212998] and [1, -a + 1, a, 4976732*a -
+8052529, 6393196917*a - 10344409915]
+
+4. First curve with sha 25: [0, -1, 1, -7820, -263580]
+
+6. First (and only!) (Galois conjugate pair) with sha 36: [1, a, a + 1, -1326668*a - 819998, -880354256*a - 544089077] and [1, -a + 1, a, 1326667*a - 2146665, 880354255*a - 1424443332]
