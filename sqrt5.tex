@@ -8,7 +8,7 @@
 \newcommand{\round}[1]{\left\lfloor{#1}\right\rceil}
 \newcommand{\fc}{\mathfrak{c}}
 \newcommand{\OF}{\cO_F}
-
+\newcommand{\dembele}{Demb\'el{\'e}\xspace}
 %
 %Notatation:
 %   F = \Q(\sqrt 5)
@@ -22,6 +22,8 @@
 %   \fc (frak c) is also an ideal
 %   \ap[n] = Fourier coefficient of f at \p_{n}
 %   galois conjugate of E = \Ebar
+%   \dembele = Dembele
+
 
 
 \title{A Database of Elliptic Curves over $\Q(\sqrt{5})$---First Report}
@@ -122,13 +124,13 @@ will be proved.  {\em We thus officially assume
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
-We describe Dembele's approach to computing Hilbert modular forms over
+We describe \dembele's approach to computing Hilbert modular forms over
 $F$, but with additional remarks that fill in missing details in the
 algorithm and address how to create a fast implementation.
 
 \subsection{Hilbert modular forms and quaternion 
 algebras}\label{sec:dembele}
-Dembele \cite{dembele:hilbert5} introduced an algebraic approach via
+\dembele \cite{dembele:hilbert5} introduced an algebraic approach via
 the Jacquet-Langlands correspondence to computing Hilbert modular
 forms of weight $(2,2)$ over $F$.  The Hamiltonian quaternion algebra
 $F[i,j,k]$ over $F$ is ramified exactly at the two infinite places,
@@ -416,9 +418,9 @@ using a naive search.
 \newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
 \newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
-In (INSERT REFERENCE), Lassina Dembele outlines some methods for finding
+In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele outlines some methods for finding
 modular elliptic curves from Hilbert modular forms over totally real
-fields. In the case of nonsquare level Dembele's method relies on computing
+fields. In the case of nonsquare level \dembele's method relies on computing
 or guessing periods of the curve from by using special values of
 $L$-functions of twists of the curve. In particular, the only inputs
 required are the level of the Hilbert modular form and its L-series. So
@@ -528,22 +530,36 @@ where $m$ is a totally positive generator of $\m$. (Note that $\chi$ is not well
 on ideals, but it is well defined on totally positive generators of ideals.) $L(f, \chi, s)$
 will satisfy a functional equation similar to that of $L(f, s)$, but the conductor is
 multiplied by $N(\fc)^2$ and the sign is multiplied by $\chi(-N)$. The key to finding the
-mixed periods of $E$ is contained in the following conjecture.
-\begin{conjecture}[REFERENCE]
-If $\chi$ is primitive with conductor $\fc$ relatively prime to the
+mixed periods of $E$ is contained in the following conjecture that \dembele has distilled
+from \cite{bertolini-darmon-green}.
+\begin{conjecture}
+If $\chi$ is a primitive quadratic character with conductor $\fc$ relatively prime to the
 conductor of $E$, with $\chi(\varphi) = s'$ and
 $\chi(1 - \varphi) = s$, (where $s, s' \in \{+, -\} = \{\pm1\}$), then
 \[
-    \Omega^{s,s'}_E = c_\chi i^{ss'} \sqrt{5 N(\fc)\ \mathrm{gcd}(2, N(\fc))} L(E, \chi, 1)
+    \Omega^{s,s'}_E = c_\chi \tau(\overline\chi) L(E, \chi, 1)\sqrt5,
 \]
-for some integer $c_\chi$. 
+for some integer $c_\chi$, where $\tau(\chi)$ is the Gauss sum
+\[
+    \tau(\chi) = \sum_{\alpha \bmod \fc} \chi(\alpha) \exp\left(2 \pi i \Tr\left(\alpha/m\sqrt{5}\right) \right),
+\]
+with $m$ a totally positive generator of $\fc$.
 \end{conjecture}
 \begin{remark}
-This statement has been specialized to $\Q(\sqrt 5)$, but the conjecture is more general.
-(TODO: I need to look at this more carefully to make sure that I have it correct. Instead
-of going through Dembele's statement, I plan on just looking at my code and seeing that
-things match up.) (Also: Perhaps note that this conjecture has been verified for many $E$
-and $\chi$, given that we have run this method on many curves.)
+This statement has been specialized to $\Q(\sqrt 5)$, but not very much. In the more general
+case of a real quadractic field, $5$ is replaced by the discriminant, and $\phi$ is replaced
+by a fundamental unit.
+The Gauss sum is more innocuous than it seems. For odd conductor $\fc$ it is of size
+$\sqrt{N(\fc)}$, while for an even conductor it is of size $\sqrt{2 N(\fc) }$.
+Its sign is a $4$-th root of unity, and whether it is real or imaginary can be deduced
+directly from the conjecture, as it matches with the sign of $\Omega^{s,s'}_E$. In particular,
+$\tau(\chi)$ is real when $\chi(-1) = 1$ and imaginary when $\chi(-1) = -1$, which is a
+condition on $N(\fc) \bmod 4$, as $\chi(-1) \equiv N(\fc) \pmod 4$. This can all be deduced,
+for example, from \cite{boylan-skoruppa:hecke-gauss-sums}.
+
+Also, note that \dembele writes this conjecture with an additional factor of $4\pi^2$;
+this factor does not occur with the definition of $L(f, s)$ that we have given.
+
 \end{remark}
 
 \begin{remark}
