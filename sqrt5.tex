@@ -8,7 +8,7 @@
 \newcommand{\round}[1]{\left\lfloor{#1}\right\rceil}
 \newcommand{\fc}{\mathfrak{c}}
 \newcommand{\OF}{\cO_F}
-
+\newcommand{\dembele}{Demb\'el{\'e}\xspace}
 %
 %Notatation:
 %   F = \Q(\sqrt 5)
@@ -22,6 +22,8 @@
 %   \fc (frak c) is also an ideal
 %   \ap[n] = Fourier coefficient of f at \p_{n}
 %   galois conjugate of E = \Ebar
+%   \dembele = Dembele
+
 
 
 \title{A Database of Elliptic Curves over $\Q(\sqrt{5})$---First Report}
@@ -56,7 +58,7 @@ curve.  The proof that his algorithm output {\em all} curves of given
 conductor had to wait for the proof of the full modularity theorem in
 \cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
 computed tables \cite{cremona:onlinetables} of all elliptic curves
-over $\Q$ of conductor up to $210,\!000$, including Mordell-Weil
+over $\Q$ of conductor up to $220,\!000$, including Mordell-Weil
 groups and other extensive data about each curve; he expects to soon
 reach his current target, conductor $234,\!446$, which is the smallest
 known conductor of a rank $4$ curve.
@@ -124,13 +126,13 @@ will be proved.  {\em We thus officially assume
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
-We describe Dembele's approach to computing Hilbert modular forms over
+We describe \dembele's approach to computing Hilbert modular forms over
 $F$, but with additional remarks that fill in missing details in the
 algorithm and address how to create a fast implementation.
 
 \subsection{Hilbert modular forms and quaternion 
 algebras}\label{sec:dembele}
-Dembele \cite{dembele:hilbert5} introduced an algebraic approach via
+\dembele \cite{dembele:hilbert5} introduced an algebraic approach via
 the Jacquet-Langlands correspondence to computing Hilbert modular
 forms of weight $(2,2)$ over $F$.  The Hamiltonian quaternion algebra
 $F[i,j,k]$ over $F$ is ramified exactly at the two infinite places,
@@ -440,9 +442,20 @@ using a naive search.
 \newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
 \newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
-In (INSERT REFERENCE), Lassina Dembele outlines some methods for finding
-modular elliptic curves from Hilbert modular forms over totally real
-fields. In the case of nonsquare level Dembele's method relies on computing
+In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele outlines
+some methods for finding
+modular elliptic curves from Hilbert modular forms over real quadratic
+fields. Formally, these methods are not proven to be any better than a direct
+search procedure, as they involve making a large number of guesses, and a
+priori we do not know just how many guesses we will need to make.
+The method requires many Fourier coefficients of the modular form $f$ that we
+have started with, and computing these takes a lot of time. However,
+this method certainly works extremely well in many cases, and after tuning
+it by using large tables of curves that we had already computed, we we able
+to use it to find more curves which we would have had no hope of finding
+otherwise; we will give an example of one of these curves later.
+
+In the case of nonsquare level \dembele's method relies on computing
 or guessing periods of the curve from by using special values of
 $L$-functions of twists of the curve. In particular, the only inputs
 required are the level of the Hilbert modular form and its L-series. So
@@ -544,30 +557,52 @@ $L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters ov
 which are homomorphisms $\chi : (\OF/\fc)^\times \rightarrow \pm1$, extended to $\OF$ by
 lifting, analogous to Dirichlet characters over the integers.
 
+In the case of odd prime
+conductor, which we will stick to here, there is just a single primitive quadratic character,
+which is the quadratic residue symbol. A simple way of computing it is by making a
+table of squares, or by choosing a primitive root of $g \in (\OF/\fc)^\times$, assigning
+$\chi(g) = -1$, and again making a table by extending multiplicatively. Alternatively,
+one could use a reciprocity formula as described in \cite{boylan-skoruppa:hecke-gauss-sums}.
+For general conductor, one can compute with products of characters of prime conductor.
+
 For a given $f$ and a primitive $\chi$, we can construct the twisted $L$-function
 \[
-    L(f, \chi, s) = \sum_{\m \subset \OF} \frac{\chi(m)a{_{\m}}}{N(\m)^s},
+    L(f, \chi, s) = \sum_{\m \subseteq \OF} \frac{\chi(m)a{_{\m}}}{N(\m)^s},
 \]
 where $m$ is a totally positive generator of $\m$. (Note that $\chi$ is not well defined
 on ideals, but it is well defined on totally positive generators of ideals.) $L(f, \chi, s)$
 will satisfy a functional equation similar to that of $L(f, s)$, but the conductor is
 multiplied by $N(\fc)^2$ and the sign is multiplied by $\chi(-N)$. The key to finding the
-mixed periods of $E$ is contained in the following conjecture.
-\begin{conjecture}[REFERENCE]
-If $\chi$ is primitive with conductor $\fc$ relatively prime to the
+mixed periods of $E$ is contained in the following conjecture that \dembele has distilled
+from \cite{bertolini-darmon-green}.
+\begin{conjecture}
+If $\chi$ is a primitive quadratic character with conductor $\fc$ relatively prime to the
 conductor of $E$, with $\chi(\varphi) = s'$ and
 $\chi(1 - \varphi) = s$, (where $s, s' \in \{+, -\} = \{\pm1\}$), then
 \[
-    \Omega^{s,s'}_E = c_\chi i^{ss'} \sqrt{5 N(\fc)\ \mathrm{gcd}(2, N(\fc))} L(E, \chi, 1)
+    \Omega^{s,s'}_E = c_\chi \tau(\overline\chi) L(E, \chi, 1)\sqrt5,
 \]
-for some integer $c_\chi$. 
+for some integer $c_\chi$, where $\tau(\chi)$ is the Gauss sum
+\[
+    \tau(\chi) = \sum_{\alpha \bmod \fc} \chi(\alpha) \exp\left(2 \pi i \Tr\left(\alpha/m\sqrt{5}\right) \right),
+\]
+with $m$ a totally positive generator of $\fc$.
 \end{conjecture}
 \begin{remark}
-This statement has been specialized to $\Q(\sqrt 5)$, but the conjecture is more general.
-(TODO: I need to look at this more carefully to make sure that I have it correct. Instead
-of going through Dembele's statement, I plan on just looking at my code and seeing that
-things match up.) (Also: Perhaps note that this conjecture has been verified for many $E$
-and $\chi$, given that we have run this method on many curves.)
+This statement has been specialized to $\Q(\sqrt 5)$, but not very much. In the more general
+case of a real quadractic field, $5$ is replaced by the discriminant, and $\phi$ is replaced
+by a fundamental unit.
+The Gauss sum is more innocuous than it seems. For odd conductor $\fc$ it is of size
+$\sqrt{N(\fc)}$, while for an even conductor it is of size $\sqrt{2 N(\fc) }$.
+Its sign is a $4$-th root of unity, and whether it is real or imaginary can be deduced
+directly from the conjecture, as it matches with the sign of $\Omega^{s,s'}_E$. In particular,
+$\tau(\chi)$ is real when $\chi(-1) = 1$ and imaginary when $\chi(-1) = -1$, which is a
+condition on $N(\fc) \bmod 4$, as $\chi(-1) \equiv N(\fc) \pmod 4$. This can all be deduced,
+for example, from \cite{boylan-skoruppa:hecke-gauss-sums}.
+
+Also, note that \dembele writes this conjecture with an additional factor of $4\pi^2$;
+this factor does not occur with the definition of $L(f, s)$ that we have given.
+
 \end{remark}
 
 \begin{remark}
@@ -784,7 +819,7 @@ Here we do know the number of isogeny and isomorphism classes.
 
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:counts}}
+\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:rank-counts}}
 \begin{tabular}{|c|c|c|c|}\hline
 rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smallest norm conductor\\\hline
  $0$ & $62$ & $257$ & $31$\\\hline
@@ -887,7 +922,7 @@ conductor which has norm conductor 81.
 
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:counts}}
+\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:cm-counts}}
 \small
 \begin{tabular}{|c|l|l|}\hline
 Norm & $a$-invariants & $j$-invariant \\\hline
