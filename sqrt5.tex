@@ -968,33 +968,36 @@ Table~\ref{table:total-counts} gives the number of curves and isogeny
 classes we found. Note that in these counts we do not exclude
 conjugate curves, i.e., if $\sigma$ denotes the nontrivial element of
 $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$ separately if they
-are not isomorphic.  Table~\ref{table:increasing-counts} refines this
+are not isomorphic. Table~\ref{table:increasing-counts} refines this
 data further, giving the number of curves and classes up to a given
-norm conductor bound.    Note that the first curve of rank $1$ has
+norm conductor bound. Note that the first curve of rank $1$ has
 norm conductor $199$, and there are no curves of norm conductor $200$.
 Table~\ref{table:isogeny-sizes} gives counts of the number of isogeny
 classes of curves in our data of each size; note that we find some
 isogeny classes of cardinality $10$, which is bigger than what one
 observes with elliptic curves over $\QQ$.
 Table~\ref{table:torsion} gives the number of curves with each
-torsion structure of norm conductor up to 1831, along with an example
-curve (that need not have minimal conductor) with that torsion
-structure.   
+torsion structure, along with an example curve (that need not have
+minimal conductor) with that torsion structure.
+Table~\ref{table:degree} gives the number of curves and classes with
+isogenies of each degree; note that we do not see all possible isogeny
+degrees. For example, unlike $\Q$, $X_0(19)$ has rank 1 over $F$ so we
+know there are infinitely many curves over $F$ with degree 19 isogenies.
 
 We computed the invariants in the Birch and Swinnerton-Dyer conjecture
 for our curves, and solved for the conjectural order of $\Sha$;
-Table~\ref{table:sha-counts} gives the number of curves in our data
-having each order of $\Sha$, and Table~\ref{table:sha} gives a minimal
-conductor curve exhibiting each of these orders. 
+Table~\ref{table:sha} gives the number of curves in our data
+having each order of $\Sha$ as well as a minimal conductor curve
+exhibiting each of these orders. 
 
- Tables~\ref{table:CM-j-invariants}--\ref{table:CM-curves} contain
+Tables~\ref{table:CM-j-invariants}--\ref{table:CM-curves} contain
 a list of all CM elliptic curves appearing in our tables. 
 
 
 
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
+\caption{Curves over $\Q(\sqrt{5})$\label{table:total-counts}}
 \begin{tabular}{|c|c|c|c|}\hline
 \textbf{rank} & \textbf{\#isog} & \textbf{\#isom} & \textbf{smallest $\Norm(\n)$} \\\hline
  $0$  & $745$  & $2174$ & $31$\\\hline
@@ -1038,7 +1041,7 @@ total & $1414$ & $3368$ & - \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{Torsion subgroups for curves with norm conductor up through 1831\label{table:torsion}}
+\caption{Torsion subgroups\label{table:torsion}}
 \begin{tabular}{|c|c|l|c|}\hline
 \textbf{torsion structure} & \textbf{\#isom} & \textbf{example curve} & $\Norm(\n)$ \\\hline
 1                    & 296  & $[0,-1,1,-8,-7]$                      & 225 \\\hline
@@ -1063,7 +1066,7 @@ $\Z/8\Z\oplus\Z/2\Z$ & 2    & $[1,1,1,-5,2]$                        & 45  \\\hli
 
 \begin{center}
 \begin{table}[h]
-\caption{Torsion subgroups for curves with norm conductor up through 1831\label{table:degree}}
+\caption{Isogeny degrees\label{table:degree}}
 \begin{tabular}{|c|c|c|l|c|}\hline
 \textbf{degree} & \textbf{\#isog} & \textbf{\#isom} & \textbf{example curve} & $\Norm(\n)$ \\\hline
 None & 498 & 498  & $[\varphi+1,1,1,0,0]$ & 991 \\\hline
@@ -1077,8 +1080,8 @@ None & 498 & 498  & $[\varphi+1,1,1,0,0]$ & 991 \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{First curve with given $\#\Sha$\label{table:sha}}
-\begin{tabular}{|c|c|c|c|}
+\caption{$\Sha$\label{table:sha}}
+\begin{tabular}{|c|c|l|c|}
 \hline 
 $\#\Sha$ & \textbf{\#isom} & \textbf{first curve having $\#\Sha$}& $\Norm(\n)$ \\
 \hline 
@@ -1103,9 +1106,9 @@ For elliptic curves of norm conductor up to 1831, 9 of these $j$-invariants occu
 
 \begin{center}
 \begin{table}[h]
-\caption{CM $j$-invariants for curves of norm conductor up to 1831\label{table:CM-j-invariants}}
+\caption{CM $j$-invariants\label{table:CM-j-invariants}}
 \begin{tabular}{|c|l|}\hline
-{\bf label} &{\bf $j$-invariant} \\\hline
+\textbf{label} & \textbf{$j$-invariant} \\\hline
 $j_1$ & $-12288000$ \\\hline
 $j_2$ & $0$ \\\hline
 $j_3$ & $ 287496$ \\\hline
