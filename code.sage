@@ -172,7 +172,7 @@ def potential_isogeny_degrees(E, B=None, C=100):
             r.append(ell)
     return r
 
-def compute_isogeny_class(E):            # Returns isogeny class and adjacency matrix
+def isogeny_class(E):            # Returns isogeny class and adjacency matrix
     E = E.change_ring(F)
     curve_list = [E]
     i = 0
@@ -220,12 +220,12 @@ def verify_allcurves():
     line = infile.readline()
     count = 0
     while line != '':
-        isogeny_class = []
+        my_isogeny_class = []
         ideal_name, label, norm, ideal, ainvs = line.split()
         current_isogeny_label = ideal_name + '.' + label[0]
         isomorphism_label = label[1:]
         E = EllipticCurve(eval(ainvs))
-        isogeny_class.append(E)
+        my_isogeny_class.append(E)
         line = infile.readline()
         while line != '':
             ideal_name, label, norm, ideal, ainvs = line.split()
@@ -233,23 +233,24 @@ def verify_allcurves():
             isomorphism_label = label[1:]
             E = EllipticCurve(eval(ainvs))
             if isogeny_label == current_isogeny_label:
-                isogeny_class.append(E)
+                my_isogeny_class.append(E)
             else:
                 # check and then break!
-                isogeny_class2, isogeny_matrix = compute_isogeny_class(isogeny_class[0])
-                isogeny_class2 = [canonical_model(E) for E in isogeny_class2]
+                my_isogeny_class2, isogeny_matrix = isogeny_class(my_isogeny_class[0])
+                my_isogeny_class2 = [canonical_model(E) for E in my_isogeny_class2]
 
-                isogeny_class2_ainvs = [str(E.ainvs()) for E in isogeny_class2]
-                isogeny_class_ainvs = [str(E.ainvs()) for E in isogeny_class]
+                my_isogeny_class2_ainvs = [str(E.ainvs()) for E in my_isogeny_class2]
+                my_isogeny_class_ainvs = [str(E.ainvs()) for E in my_isogeny_class]
                 
-                isogeny_class2_ainvs.sort()
-                isogeny_class_ainvs.sort()
+                my_isogeny_class2_ainvs.sort()
+                my_isogeny_class_ainvs.sort()
 
-                if isogeny_class_ainvs != isogeny_class2_ainvs:
+                if my_isogeny_class_ainvs != my_isogeny_class2_ainvs:
                     print current_isogeny_label
 
                 count = count + 1
                 print count,
+                sys.stdout.flush()
                 #for isomorphism_label, E in isogeny_class:
                 #    print >> outfile, current_isogeny_label, isomorphism_label, E.ainvs()
                 #print >> outfile
