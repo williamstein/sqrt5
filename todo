@@ -1,31 +1,12 @@
 TODO LIST
 
-[ ] (andrew) How was curve found in "Extremely naive enumeration" section?
-
-[ ] (andrew) Is it really impossible to find the example using
-L-functions (very end of section 3) using mod-jon?
-
-[ ] (everybody) Figure out problems with isogeny code, then draw an
-    isogeny graph
+[ ] (jon & andrew) table of how many isogeny classes have each prime isogeny degree
 
 [ ] (william or Jon) write an abstract
-
-[ ] (william) fill in acknowledgement for NSF
 
 [ ] (anybody) clean up the table's section a bit (probably just want
     to write a few sentences at the beginning that say something like
     "we list a bunch of tables with..."
-
-[ ] (anybody) do something about table 6.5 (CM curves), because it is
-    too wide; e.g., put the j-invariants in a different table or the
-    text, since there are only 2 of them, and they are repeated a
-    bunch.  Then use extra space to give the *actual* conductor (not
-    just the norm).
-
-[ ] (mainly ashwath) table of all curves with nontrivial conjectural sha.
-    as corollary -- BSD appears to be true for these curves. we mostly
-    checked the full conjecture, right, using the L-function to compute
-    the order of sha? (By "we", I mean "someone", but not me.)
 
 [ ] (Ben) Maybe need a better reference to give all families than Kubert?
 
@@ -50,6 +31,31 @@ L-functions (very end of section 3) using mod-jon?
       for the curves in our data set, here is how many have a_2 = -2,
       -1, 0, 1, 2, etc.
 
+
+[x] (andrew) How was curve found in "Extremely naive enumeration" section?
+
+[x] (andrew) Is it really impossible to find the example using
+L-functions (very end of section 3) using mod-jon?
+
+[X] (andrew) Is it really impossible to find the example using
+L-functions (very end of section 3) using mod-jon? 
+A. Yes it really is impossible
+
+[X] (everybody) Figure out problems with isogeny code, then draw an
+    isogeny graph
+
+[X] (william) fill in acknowledgement for NSF
+
+[X] (anybody) do something about table 6.5 (CM curves), because it is
+    too wide; e.g., put the j-invariants in a different table or the
+    text, since there are only 2 of them, and they are repeated a
+    bunch.  Then use extra space to give the *actual* conductor (not
+    just the norm).
+
+[X] (mainly ashwath) table of all curves with nontrivial conjectural sha.
+    as corollary -- BSD appears to be true for these curves. we mostly
+    checked the full conjecture, right, using the L-function to compute
+    the order of sha? (By "we", I mean "someone", but not me.)
 
 [x] (anybody) example where Cremona-Lingham is useful.
 
