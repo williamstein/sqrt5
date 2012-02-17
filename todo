@@ -1,8 +1,10 @@
 TODO LIST
 
-[ ] (andrew) How was curve found in "Extremely naive enumeration" section?
+[ ] (jon & andrew) table of how many isogeny classes have each prime isogeny degree
 
-[ ] (andrew) Is it really impossible to find the example using
+[x] (andrew) How was curve found in "Extremely naive enumeration" section?
+
+[x] (andrew) Is it really impossible to find the example using
 L-functions (very end of section 3) using mod-jon?
 
 [ ] (everybody) Figure out problems with isogeny code, then draw an
