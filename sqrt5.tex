@@ -136,9 +136,9 @@ curves that kickstarted this project.
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
-In this section, we describe \dembele's approach to computing Hilbert modular forms over
-$F$, but with additional remarks that fill in missing details in the
-algorithm and address how to create a fast implementation.
+In Section~\ref{sec:dembele} we sketch \dembele's approach to computing Hilbert
+modular forms over $F$, then in Section~\ref{sec:p1rn} we make
+some remarks about our fast implementation. 
 
 \subsection{Hilbert modular forms and quaternion 
 algebras}\label{sec:dembele}
@@ -173,14 +173,14 @@ $T_{\p}([x]) = \sum [\alpha x]$, where the sum is over the classes
 $[\alpha]\in S/S^*$ with $N_{\text{red}}(\alpha)=\pi_{\p}$ (reduced quaternion norm),
 where $\pi_{\p}$ is a fixed choice of totally positive generator of~$\p$.
 
-\subsection{Remarks on Computing with $\P^1(R/\n)$}
+\subsection{Remarks on Computing with $\P^1(R/\n)$}\label{sec:p1rn}
 
 In order to implement the algorithm sketched in
 Section~\ref{sec:dembele}, it is critical that we can compute with
 $\P^1(R/\n)$ very, very quickly.  For example, to apply the method of
 Section~\ref{sec:specialvalues} below, in some cases we have to
 compute tens of thousands of Hecke operators.  Thus in this section we
-make some additional remarks about how we did this fast
+make some additional remarks about this fast
 implementation.
 
 When $\n=\p^e$ is a prime power, it is
@@ -267,6 +267,8 @@ newforms and furthermore, to compute with a sufficient degree of
 precision, the $L$-function attached to each element.  We will also
 need the $a_{\p}$ for bad $\p$ in a few cases, which we obtain
 using the functional equation for the $L$-function.
+
+[[TODO: Write here put: In Section... we ...]]
 
 \subsection{Extremely naive enumeration}\label{sec:naive}
 
