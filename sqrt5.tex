@@ -129,11 +129,22 @@ Given the huge amount of progress on modularity theorems initiated by
 will be proved.  {\em We thus officially assume
   Conjecture~\ref{conj:mod} for the rest of this paper.} \\
 
+In Section~\ref{sec:hmf} we sketch how to compute Hilbert modular
+forms using arithmetic in quaternion
+algebras. Section~\ref{sec:finding} gives numerous methods for finding
+an elliptic curve corresponding to a Hilbert modular form.
+Section~\ref{sec:isoclass} addresses how to find all curves that are
+isogenous to a given curve.  We discuss some related projects in
+Section~\ref{sec:future}.  Finally, Section~\ref{sec:tables} contains
+tables that summarize various information about our
+dataset, which can be downloaded from
+\url{http://wstein.org/papers/sqrt5}.
+
 {\bf Acknowledgements.} We would like to thank John Cremona, Tom
-Fisher, Noam Elkies, and Richard Taylor for helpful conversations.  We
-would like to especially thank Joanna Gaski for providing (via the
-method of Section~\ref{sec:naive}) the explicit table of elliptic
-curves that kickstarted this project.
+Fisher, Noam Elkies, Richard Taylor, and John Voight for helpful
+conversations.  We would like to especially thank Joanna Gaski for
+providing (via the method of Section~\ref{sec:naive}) an explicit
+table of elliptic curves that kickstarted this project.
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
@@ -269,7 +280,21 @@ precision, the $L$-function attached to each element.  We will also
 need the $a_{\p}$ for bad $\p$ in a few cases, which we obtain
 using the functional equation for the $L$-function.
 
-[[TODO: Write here put: In Section... we ...]]
+In Section~\ref{sec:naive} we give a very simple enumeration method
+for finding curves, then in Section~\ref{sec:sieve} we refine it by
+taking into account point counts modulo primes; together, these two
+methods found a substantial fraction of our curves.
+Sections~\ref{sec:torsion} and \ref{sec:congfam} describe methods for
+searching in certain families of curves, e.g., curves with a torsion
+point of given order or curves with a given irreducible mod $\ell$
+Galois representation.  Section~\ref{sec:twisting} is about how to
+find all twists of a curve with bounded norm conductor.  In
+Section~\ref{sec:cremona-lingham} we mention the Cremona-Lingham
+algorithm, which relies on computing all $S$-integral points on many
+auxiliary curves.  Finally, Section~\ref{sec:specialvalues} explains
+in detail an algorithm of \dembele{} that uses  explicit
+computations with special values of $L$-functions to find curves.
+
 
 \subsection{Extremely naive enumeration}\label{sec:naive}
 
@@ -287,7 +312,7 @@ terminating algorithm to find all $E_f$. However, it can be extremely slow
 of $E_f$ has large coefficients.  For example, using this search method it would be infeasible to find the curve \eqref{equation:fisher-curve}
 computed by Fisher using the visibility of \Sha$[7]$.
 
-\subsection{Sieved enumeration}
+\subsection{Sieved enumeration}\label{sec:sieve}
 
 A refinement to the approach discussed above uses the $a_\p$ values to impose
 congruence conditions modulo $\p$ on $\#\tilde E(R/\p)$.
@@ -352,7 +377,27 @@ $$y^2 + \vphi{}y = x^3 + \left(27 \vphi{} - 43\right)x + \left(-80 \vphi{} + 128
 $$ with norm conductor $145$ by searching for curves with torsion subgroup $\Z/7\Z$.
 
 
-\subsection{Twisting}
+\subsection{Congruence families}\label{sec:congfam}
+Suppose that we are searching for a curve $E$ and we already know
+another curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
+some prime and $E[\ell]$ irreducible.  If $\ell=7,11$ then we can use
+techniques of Fisher \cite{fisher:families_cong} to attempt to search
+through the finitely many curves with mod~$\ell$ Galois representation
+isomorphic to $E[\ell]$.
+We used this approach to find the curve $E$ given by
+\begin{equation}\label{equation:fisher-curve}
+y^2 + \vphi{}xy = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-257364 \vphi{} - 159063\right)x + \left(-75257037 \vphi{} - 46511406\right)
+\end{equation}
+with conductor $-38 \vphi + 10$, which has norm $1476$.  Given just the $a_{\p}$, we noticed that
+$E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
+used a \textsc{Magma} program to find rational points on a certain
+quartic surface that parametrize curves with the same $E'[7]$.
+Fortunately, our curve $E$ was amongst those curves.
+We had already found $E'$ via a naive search, since it is given
+by the equation $y^2 + \left(\vphi{} + 1\right)y = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-2 \vphi{}\right)x$.
+
+
+\subsection{Twisting}\label{sec:twisting}
 
 Let $E$ be an elliptic curve $F$. A \emph{twist} $E'$ of $E$ is a
 curve over $F$ that is isomorphic to $E$ over some extension of $F$. A
@@ -427,7 +472,7 @@ $961$. Other twists have larger norm conductors, e.g., $E^2$ has norm
 conductor $126976=2^{12}\cdot 31$.
 
 
-\subsection{Curves with good reduction outside $S$}
+\subsection{Curves with good reduction outside $S$}\label{sec:cremona-lingham}
 
 We use the algorithm of Cremona and Lingham from
 \cite{cremona-lingham} to find all elliptic curves $E$ having good
@@ -440,25 +485,6 @@ found several curves not found by other methods, e.g.,
 $y^2 + \left(\vphi{} +  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} - 
  39\right)x + \left(-143 \vphi{} - 4\right)$ 
 having norm conductor $1331$.
-
-\subsection{Congruence families}
-Suppose that we are searching for a curve $E$ and we already know
-another curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
-some prime and $E[\ell]$ irreducible.  If $\ell=7,11$ then we can use
-techniques of Fisher \cite{fisher:families_cong} to attempt to search
-through the finitely many curves with mod~$\ell$ Galois representation
-isomorphic to $E[\ell]$.
-We used this approach to find the curve $E$ given by
-\begin{equation}\label{equation:fisher-curve}
-y^2 + \vphi{}xy = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-257364 \vphi{} - 159063\right)x + \left(-75257037 \vphi{} - 46511406\right)
-\end{equation}
-with conductor $-38 \vphi + 10$, which has norm $1476$.  Given just the $a_{\p}$, we noticed that
-$E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
-used a \textsc{Magma} program to find rational points on a certain
-quartic surface that parametrize curves with the same $E'[7]$.
-Fortunately, our curve $E$ was amongst those curves.
-We had already found $E'$ via a naive search, since it is given
-by the equation $y^2 + \left(\vphi{} + 1\right)y = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-2 \vphi{}\right)x$.
 
 
 %Found using Cremona-Lingham:
@@ -828,7 +854,7 @@ generalization of Mazur's theorem for any number field other than $\Q$.
   such that any prime degree isogeny over $F$ has degree at most $C_F$.
 \end{remark}
 
-Since we are interested in individual isogeny classes, 
+Since we are interested in specific isogeny classes, 
 we can use the algorithm described in \cite{billerey:isog} that takes as
 input a specific non-CM elliptic curve $E$ over a number field $K$, and
 outputs a provably finite list of primes $p$ such that $E$ might have a
@@ -844,16 +870,16 @@ isogeny classes.
 \section{Related future projects}\label{sec:future}
 
 It would be natural to extend the tables to the first known curve of
-rank $3$, which may be the known one of norm conductor $163^2=26569$.
-It would also be interesting to make a table in the style of
-\cite{stein-watkins:ants5}, and compute analytic ranks of the large
-number of curves that we would find; this would benefit from
-Sutherland's smalljac program, which has very fast code for computing
-$L$-series coefficients.  Some aspects of the tables could also be
-generalized to modular abelian varieties $A_f$ attached to Hilbert
-modular newforms with not-necessarily-rational Hecke eigenvalues; in
-particular, we could enumerate the $A_f$ up to some norm conductor,
-and numerically compute their analytic ranks.
+rank $3$ over $F$, which may be the curve $y^2 + y = x^3 -2x + 1$ of
+norm conductor $163^2=26569$.  It would also be interesting to make a
+table in the style of \cite{stein-watkins:ants5}, and compute analytic
+ranks of the large number of curves that we would find; this would
+benefit from Sutherland's {\tt smalljac} program, which has very fast code
+for computing $L$-series coefficients.  Some aspects of the tables
+could also be generalized to modular abelian varieties $A_f$ attached
+to Hilbert modular newforms with not-necessarily-rational Hecke
+eigenvalues; in particular, we could enumerate the $A_f$ up to some
+norm conductor, and numerically compute their analytic ranks.
 
 \section{Tables}\label{sec:tables}
 
@@ -870,7 +896,7 @@ separately if they are not isomorphic.
 \begin{table}
 \caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
 \begin{tabular}{|c|c|c|c|}\hline
-{\bf rank} & $\#\{${\bf isogeny classes }$\}$ &  $\#\{$ {\bf isom. classes }$\}$ &{\bf smallest $\Norm(\n_E)$} \\\hline
+{\bf rank} & $\#\{${\bf{} isogeny classes }$\}$ &  $\#\{${\bf{} isom. classes }$\}$ &{\bf smallest $\Norm(\n_E)$} \\\hline
  $0$  & $745$  & $2172$ & $31$\\\hline
  $1$  & $667$  & $1190$ & $199$ \\\hline
  $2$  & $2$    & $2$    & $1831$ \\\hline
@@ -909,6 +935,11 @@ total & $1414$ & $3364$ & - \\\hline
 \end{tabular}
 \end{table}
 \end{center}
+
+In Table~\ref{table:tor-counts} we give the number of curves with each
+torsion structure of norm conductor up to 1831, along with an example
+curve (that need not have minimal conductor) with that torsion
+structure.
 
 \begin{center}
 \begin{table}[h]
