@@ -856,7 +856,7 @@ and numerically compute their analytic ranks.
 As explained in Sections~\ref{sec:finding} and \ref{sec:isoclass},
 assuming Conjecture~\ref{conj:mod}, we found the complete list of
 elliptic curves with norm conductor up to $1831$, which is the first
-norm conductor of a rank $2$ curve over $F$.  Table~\ref{table:counts}
+norm conductor of a rank $2$ curve over $F$.  Table~\ref{table:increasing-counts}
 summarizes the number of curves we found.  Note that in these counts
 we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
 nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
@@ -864,7 +864,7 @@ separately if they are not isomorphic.
 
 \begin{center}
 \begin{table}[h]
-\caption{Counts of isogeny and isomorphism classes with bounded norm conductors and specified ranks\label{table:counts}}
+\caption{Counts of isogeny and isomorphism classes with bounded norm conductors and specified ranks\label{table:increasing-counts}}
 \begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|} \cline{2-11}
 &\multicolumn{10}{|c|}{\textbf{norm conductor bound}} \\\cline{2-11}
 & 200 & 400 & 600 & 800 & 1000 & 1200 & 1400 & 1600 & 1800 & 1831\\\hline\hline
@@ -880,6 +880,17 @@ separately if they are not isomorphic.
 \multicolumn{1}{|l|}{\textbf{total}} & 263 & 639 & 982 & 1370 & 1646 & 2035 & 2454 & 2942 & 3306 & 3368 \\\hline
 \end{tabular}
 \end{table}
+
+\begin{table}
+\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
+\begin{tabular}{|c|c|c|c|}\hline
+{\bf rank} & $\#\{${\bf isogeny classes }$\}$ &  $\#\{$ {\bf isom. classes }$\}$ &{\bf smallest norm conductor} \\\hline
+ $0$  & $745$  & $2172$ & $31$\\\hline
+ $1$  & $667$  & $1190$ & $199$ \\\hline
+ $2$  & $2$    & $2$    & $1831$ \\\hline
+total & $1414$ & $3364$ & - \\\hline
+\end{tabular}
+\end{table}
 \end{center}
 
 \begin{center}
@@ -887,7 +898,7 @@ separately if they are not isomorphic.
 \caption{Conjectural $\#\Sha$ for curves with norm conductor up through 1831\label{table:sha-counts}}
 \begin{tabular}{|l|c|c|c|c|c|c|}\hline
 $\#\Sha$                       & 1    & 4  & 9  & 16 & 25 & 36 \\\hline
-$\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
+$\#\{$ {\bf isom. classes }$\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -897,7 +908,7 @@ $\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
 \caption{First curve with given $\#\Sha$\label{table:sha}}
 \begin{tabular}{|c | c | c |}
 \hline 
-$n$ & First curve $E$ having $|\Sha(E/F)| = n$ & Norm of conductor of $E$ \\
+\textbf{\emph{n}} &{\bf First curve $E$ having $|\Sha(E/F)| = n$ }& {\bf Norm of conductor of $E$} \\
 \hline 
 1 & $[1,\vphi{}+1,\vphi{},\vphi{},0]$ & 31 \\\hline 
 4 & $[1, 1, 1, -110, -880]$ & 45 \\\hline 
@@ -913,6 +924,102 @@ $n$ & First curve $E$ having $|\Sha(E/F)| = n$ & Norm of conductor of $E$ \\
 \end{table}
 \end{center}
 
+There are only 31 possible j-invariants for elliptic curves over $F$.  
+For elliptic curves of norm conductor up to 1831, 9 of these j-invariants occur:
+%[-12288000, 0, 287496, 1728, -85995*a - 52515, 16554983445*a +
+%10231546590, 85995*a - 138510, -16554983445*a + 26786530035, 54000]
+
+\begin{center}
+\begin{table}[h]
+\caption{CM j-invariants for curves of norm conductor up to 1831\label{table:CM-j-invariants}}
+\begin{tabular}{|c|l|}\hline
+{\bf label} &{\bf j-invariant} \\\hline
+$j_1$ & $-12288000$ \\\hline
+$j_2$ & $0$ \\\hline
+$j_3$ & $ 287496$ \\\hline
+$j_4$ & $1728$ \\\hline
+$j_5$ & $-85995\vphi - 52515$ \\\hline
+$j_6$ & $85995\vphi - 138510$ \\\hline
+$j_7$ & $16554983445\vphi + 10231546590$ \\\hline
+$j_8$ & $-16554983445\vphi + 26786530035$ \\\hline
+$j_9$ & $-54000$ \\\hline
+\end{tabular}
+\end{table}
+\end{center}
+
+
+%this table ***INCLUDES*** all the missing curves.
+\begin{center}
+\begin{table}[h]
+\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 1831 \label{table:CM-curves}}
+\begin{tabular}{|c|l|l|l|}\hline
+{\bf Conductor} & {\bf a-invariants} & {\bf j-invariant} &{\bf rank} \\\hline
+ $9$ & $\left[1, -1, \vphi, -2\vphi, \vphi \right]$ & $j_5$ & 0 \\\hline %good
+ %['81a', 'a1', 81, 9, [1, -1, a, -2*a, a]] -85995*a - 52515 0
+ $9$ & $\left[1, -1, \vphi + 1, \vphi - 2, -2\vphi + 1\right]$ & $j_6$ & 0 \\\hline  %good
+ %['81a', 'a2', 81, 9, [1, -1, a + 1, a - 2, -2*a + 1]] 85995*a - 138510 0
+$9$ & $\left[\vphi, -\vphi - 1, \vphi, -128\vphi - 80, 921\vphi + 569\right]$ & $j_7$ & 0 \\\hline %good
+%['81a', 'a3', 81, 9, [a, -a - 1, a, -128*a - 80, 921*a + 569]] 16554983445*a + 10231546590 0
+$9$ & $\left[\vphi + 1, 1, 0, 129\vphi - 207, -793\vphi + 1283\right]$ & $j_8$ & 0\\\hline %good
+%['81a', 'a4', 81, 9, [a + 1, 1, 0, 129*a - 207, -793*a + 1283]] -16554983445*a + 26786530035 0
+$9$ & $\left[\vphi, -\vphi - 1, \vphi + 1, -1153\vphi - 719, -21854\vphi - 13501\right]$ & $j_7$& 0 \\\hline %good
+%['81a', 'a5', 81, 9, [a, -a - 1, a + 1, -1153*a - 719, -21854*a - 13501]] 16554983445*a + 10231546590 0
+$9$ & $\left[\vphi + 1, 1, 1, 1153\vphi - 1871, 23006\vphi - 37225\right]$ & $j_8$ & 0 \\\hline %good
+%['81a', 'a6', 81, 9, [a + 1, 1, 1, 1153*a - 1871, 23006*a - 37225]] -16554983445*a + 26786530035 0
+$9$ & $\left[1, -1, \vphi, 13\vphi - 15, 20\vphi - 26\right]$ & $j_6$& 0 \\\hline %good
+%['81a', 'a7', 81, 9, [1, -1, a, 13*a - 15, 20*a - 26]] 85995*a - 138510 0
+$9$ & $\left[1, -1, \vphi + 1, -14\vphi - 2, -21\vphi - 6\right]$ & $j_5$ & 0 \\\hline %good
+%['81a', 'a8', 81, 9, [1, -1, a + 1, -14*a - 2, -21*a - 6]] -85995*a - 52515 0
+$27$ & $\left[0, 0, 1, -30, 63\right]$ & $j_1$ & 1 \\\hline %good
+%['729a', 'a1', 729, 27, [0, 0, 1, -30, 63]] -12288000 1
+ $27$ & $\left[0, 0, 1, 0, 0\right]$ & $j_2$ & 1 \\\hline %good
+ %['729a', 'a2', 729, 27, [0, 0, 1, 0, 0]] 0 1
+$27$ & $\left[0, 0, 1, 0, -7\right]$ & $j_2$ & 1 \\\hline %good
+%['729a', 'a3', 729, 27, [0, 0, 1, 0, -7]] 0 1
+$27$ & $\left[0, 0, 1, -270, -1708\right]$ & $j_1$ & 1\\\hline %good
+%['729a', 'a4', 729, 27, [0, 0, 1, -270, -1708]] -12288000 1
+$27$ & $\left[0, 0, \vphi + 1, 0, -\vphi \right]$ & $j_2$& 0 \\\hline %good
+%['729a', 'd1', 729, 27, [0, 0, a + 1, 0, -a]] 0 0
+$27$ & $\left[0, 0, \vphi + 1, 0, 6\vphi - 145\right]$ & $j_2$ & 0\\\hline %good
+%['729a', 'd2', 729, 27, [0, 0, a + 1, 0, 6*a - 14]] 0 0
+$27$ & $\left[0, 0, \vphi, 0, -7\vphi - 7\right]$ & $j_2$ & 0 \\\hline %good
+%[729, 27, 0, 0, [0, 0, a, 0, -7*a - 7]]
+$27$ & $\left[0, 0, \vphi, 0, 0\right]$ & $j_2$ & 0 \\\hline %good
+%[729, 27, 0, 0, [0, 0, a, 0, 0]]
+$32$ & $\left[0, 0, 0, -11, 14\right]$ & $j_3$& 0 \\\hline %good
+%['1024a', 'a1', 1024, 32, [0, 0, 0, -11, 14]] 287496 0
+$32$ & $\left[0, 0, 0, -1, 0\right]$ & $j_4$ & 0 \\\hline %good
+%['1024a', 'a2', 1024, 32, [0, 0, 0, -1, 0]] 1728 0
+$32$ & $\left[0, 0, 0, -11, -14\right]$ & $j_3$ & 0 \\\hline %good
+%['1024a', 'a3', 1024, 32, [0, 0, 0, -11, -14]] 287496 0
+ $32$ & $\left[0, 0, 0, 4, 0\right]$ & $j_4$ & 0 \\\hline %good
+ %['1024a', 'a4', 1024, 32, [0, 0, 0, 4, 0]] 1728 0
+$32$ & $\left[0, 0, 0, -\vphi - 1, 0\right]$ & $j_4$ & 0 \\\hline %good
+%['1024a', 'j1', 1024, 32, [0, 0, 0, -a - 1, 0]] 1728 0
+$32$ & $\left[0, 0, 0, -11\vphi - 11, -28\vphi - 14\right]$ & $j_3$ & 0\\\hline %good
+%['1024a', 'j2', 1024, 32, [0, 0, 0, -11*a - 11, -28*a - 14]] 287496 0
+$32$ & $\left[0, 0, 0, -11\vphi - 11, 28\vphi + 14\right]$ & $j_3$& 0 \\\hline %good
+%['1024a', 'j3', 1024, 32, [0, 0, 0, -11*a - 11, 28*a + 14]] 287496 0
+$32$ & $\left[0, 0, 0, 4\vphi + 4, 0\right]$ & $j_4$ & 0\\\hline %good
+%['1024a', 'j4', 1024, 32, [0, 0, 0, 4*a + 4, 0]] 1728 0
+$36$ & $\left[0, 0, 0, -15, 2\right]$ & $j_9$& 0 \\\hline %good
+%['1296a', 'b1', 1296, 36, [0, 0, 0, -15, 22]] 54000 0
+$36$ & $\left[0, 0, 0, 0, 1\right]$ & $j_2$ & 0 \\\hline %good
+%['1296a', 'b2', 1296, 36, [0, 0, 0, 0, 1]] 0 0
+$36$ & $\left[0, 0, 0, -135, -594\right]$ & $j_9$ & 0 \\\hline %good
+%['1296a', 'b3', 1296, 36, [0, 0, 0, -135, -594]] 54000 0
+$36$ & $\left[0, 0, 0, 0, -27\right]$ & $j_2$ & 0 \\\hline %good
+%['1296a', 'b4', 1296, 36, [0, 0, 0, 0, -27]] 0 0
+\end{tabular}
+\end{table}
+\end{center}
+
+
+
+\vspace{10mm}
+
+
+
 
 \subsection{Up to norm conductor  $199$}\label{sec:to199}
 
@@ -920,6 +1027,17 @@ For curves up to norm conductor 199,
 there is lots of available data.  
 Here we do know the number of isogeny and isomorphism classes.
 
+\begin{center}
+\begin{table}[h]
+\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:rank-counts}}
+\begin{tabular}{|c|c|c|c|}\hline
+{\bf rank} & $\#\{$ {\bf isogeny classes }$\}$ &  $\#\{$ {\bf isom. classes }$\}$ &{\bf smallest norm conductor}\\\hline
+ $0$ & $62$ & $257$ & $31$\\\hline
+ $1$ & $2$ & $6$ & $199$\\\hline
+total & $64$ & $263$ & - \\\hline
+\end{tabular}
+\end{table}
+\end{center}
 %We also know the number of isogeny classes of a given size:
 
 %\begin{center}
@@ -944,8 +1062,8 @@ Here we do know the number of isogeny and isomorphism classes.
 \begin{table}[h]
 \caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:isogeny-sizes}}
 \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}\hline
-size                           & 1 & 2  & 3 & 4  & 6 & 8 & 10 & total \\ \hline
-$\#\{\text{ isogeny classes }\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
+{\bf size}                           & 1 & 2  & 3 & 4  & 6 & 8 & 10 & total \\ \hline
+$\#\{ $ {\bf isogeny classes } $\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -982,7 +1100,7 @@ $\#\{\text{ isogeny classes }\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
 \begin{table}[h]
 \caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:tor-counts}}
 \begin{tabular}{|l|c|}\hline
-torsion structure    & $\#\{\text{ isom. classes }\}$ \\\hline
+{\bf torsion structure}    & {\bf $\#\{\text{ isom. classes }\}$} \\\hline
 1                    & 27 \\\hline
 $\Z/2\Z$             & 82 \\\hline
 $\Z/3\Z$             & 11 \\\hline
@@ -1004,30 +1122,10 @@ $\Z/8\Z\oplus\Z/2\Z$ & 2  \\\hline
 \end{center}
 
 
-
-
 We can compute all possible $j$-invariants for which an elliptic curve
 over $F$ with have CM (see Section~\ref{sec:cm}).  For curves of norm
 conductor up through 199, we find 8 curves with CM, all with the same
 conductor which has norm conductor 81.
-
-\begin{center}
-\begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:cm-counts}}
-\small
-\begin{tabular}{|c|l|l|}\hline
-Norm & $a$-invariants & $j$-invariant \\\hline
- $81$ & $\left[1, -1, \vphi, -2\vphi, \vphi\right]$ & $-85995\vphi - 52515$ \\\hline
- $81$ & $\left[1, -1, \vphi + 1, \vphi - 2, -2\vphi + 1\right]$ & $-85995\vphi - 52515$ \\\hline
-$81$ & $\left[1, -1, \vphi, 13\vphi - 15, 20\vphi - 26\right]$ & $-85995\vphi - 52515$ \\\hline
-$81$ & $\left[1, -1, \vphi + 1, -14\vphi - 2, -21\vphi - 6\right]$ & $-85995\vphi - 52515$ \\\hline
-$81$ & $\left[\vphi, -\vphi - 1, \vphi, -128\vphi - 80, 921\vphi + 569\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-$81$ & $\left[\vphi + 1, 1, 0, 129\vphi - 207, -793\vphi + 1283\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-$81$ & $\left[\vphi, -\vphi - 1, \vphi + 1, -1153\vphi - 719, -21854\vphi - 13501\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-$81$ & $\left[\vphi + 1, 1, 1, 1153\vphi - 1871, 23006\vphi - 37225\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-\end{tabular}
-\end{table}
-\end{center}
 
 %['81a', 'a1', 81, 9, [1, -1, a, -2*a, a]] -85995*a - 52515
 %['81a', 'a2', 81, 9, [1, -1, a + 1, a - 2, -2*a + 1]] 85995*a - 138510
@@ -1037,8 +1135,6 @@ $81$ & $\left[\vphi + 1, 1, 1, 1153\vphi - 1871, 23006\vphi - 37225\right]$ & $1
 %['81a', 'a6', 81, 9, [a + 1, 1, 1, 1153*a - 1871, 23006*a - 37225]] -16554983445*a + 26786530035
 %['81a', 'a7', 81, 9, [1, -1, a, 13*a - 15, 20*a - 26]] 85995*a - 138510
 %['81a', 'a8', 81, 9, [1, -1, a + 1, -14*a - 2, -21*a - 6]] -85995*a - 52515
-
-
 
 
 \subsection{CM elliptic curves over $F$}\label{sec:cm}
@@ -1090,7 +1186,7 @@ we obtain the following table:
 
 \begin{center}
 \begin{tabular}{|c|l|}\hline
-Field & $D$ so $H_D$ has roots in field\\\hline
+{\bf Field} & $D$ so $H_D$ has roots in field \\\hline
 $\Q(\sqrt{2})$ & $-24,-32,-64,-88$ \\\hline
 $\Q(\sqrt{3})$ & $-36,-48$ \\\hline
 $\Q(\sqrt{5})$ & $-15,-20,-35,-40,-60,$ \\
@@ -1101,7 +1197,7 @@ $\Q(\sqrt{13})$ & $-52,-91,-403$ \\\hline
 $\Q(\sqrt{17})$ & $-51,-187$ \\\hline
 \end{tabular}
 \begin{tabular}{|c|l|}\hline
-Field & $D$ so $H_D$ has roots in field\\\hline
+{\bf Field} & $D$ so $H_D$ has roots in field\\\hline
 $\Q(\sqrt{21})$ & $-147$ \\\hline
 $\Q(\sqrt{29})$ & $-232$ \\\hline
 $\Q(\sqrt{33})$ & $-99$ \\\hline
