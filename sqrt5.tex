@@ -146,6 +146,7 @@ Fisher, Noam Elkies, Richard Taylor, and John Voight for helpful
 conversations.  We would especially like to thank Joanna Gaski for
 providing (via the method of Section~\ref{sec:naive}) the explicit
 table of elliptic curves that kickstarted this project.
+We used Sage \cite{sage} extensively throughout this project.
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
@@ -272,12 +273,13 @@ Everywhere below, we continue to assume that Conjecture~\ref{conj:mod}
 is true and assume that we have computed (as in Section~\ref{sec:hmf})
 the Hecke eigenvalues $a_\p\in \Z$ of all rational Hilbert newforms of
 some level $\n$, for $\Norm(\p)\leq B$ a good prime, where $B$ is
-large enough to distinguish newforms. In some cases we will need far more
-$a_{\p}$ in order to distinguish between elements of our finite set of
-newforms and furthermore, to compute with a sufficient degree of
-precision, the $L$-function attached to each element.  We will also
-need the $a_{\p}$ for bad $\p$ in a few cases, which we obtain
-using the functional equation for the $L$-function.
+large enough to distinguish newforms. In some cases we will need far
+more $a_{\p}$ in order to compute with the $L$-function attached to a
+newform.  We will also need the $a_{\p}$ for bad $\p$ in a few cases,
+which we obtain using the functional equation for the $L$-function (as
+an application of Dokchitser's algorithm \cite{dokchitser:lfun}).
+
+
 
 In Section~\ref{sec:naive} we give a very simple enumeration method
 for finding curves, then in Section~\ref{sec:sieve} we refine it by
@@ -315,8 +317,8 @@ computed by Fisher using the visibility of \Sha$[7]$.
 
 A refinement to the approach discussed above uses the $a_\p$ values to impose
 congruence conditions modulo $\p$ on $\#\tilde E(R/\p)$.
-Letting $f$ be a newform computed in \ref{sec:hmf} with Hecke eigenvalues
-$a_\p$, we know that $\#\tilde E_f(R/\p)=\bN(\p)+1-a_{\p}$.
+If $f$ is a newform with Hecke eigenvalues
+$a_\p$, then $\#\tilde E_f(R/\p)=\bN(\p)+1-a_{\p}$.
 Given $\p$ not dividing the level $\n$, we can find all elliptic curves
 modulo $\p$ with the specified number of points, especially when $\bN(\p) +1 - a_\p$ has
 few prime factors. We impose these congruence conditions at multiple primes $\p_i$,
@@ -388,7 +390,7 @@ y^2 + \vphi{}xy = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-257364 \vphi{} - 15
 \end{equation}
 with conductor $-38 \vphi + 10$, which has norm $1476$.  Given just the $a_{\p}$, we noticed that
 $E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
-used a \textsc{Magma} program to find rational points on a certain
+used a \textsc{Magma} \cite{magma} program to find rational points on a certain
 quartic surface that parametrize curves with the same $E'[7]$.
 Fortunately, our curve $E$ was amongst those curves.
 We had already found $E'$ via a naive search, since it is given
@@ -549,17 +551,15 @@ just how many guesses we will need to make. And unlike other methods
 described in this paper, this method requires many Hecke eigenvalues,
 and computing these takes a lot of time. However, this method
 certainly works extremely well in many cases, and after tuning it by
-using large tables of curves that we had already computed, we we able
+using large tables of curves that we had already computed, we are able
 to use it to find more curves that we would have had no hope of
 finding otherwise; we will give an example of one of these curves
-later.  This section is longer than the others, because we created the
-first general implementation of the algorithm from
-\cite{dembele:elliptic-curves-quadratic-fields}.
+later. 
 
 When the level $\n$ is not square, \dembele's method relies on computing
 or guessing periods of the curve by using special values of
 $L$-functions of twists of the curve. In particular, the only inputs
-required are the level of the Hilbert modular form and its L-series. So
+required are the level of the Hilbert modular form and its $L$-series. So
 we suppose that we know the level $\n = (N)$ of the form, where $N$ is
 totally positive, and that we have sufficiently many coefficients of its
 $L$-series $\ap{1}, \ap{2}, \ap{3}, \ldots$.
@@ -573,7 +573,7 @@ be the least real and imaginary periods of the lattice
 which come from the embedding $\sigma_1$, and as the period lattices are interchanged
 when $E$ is replaced with its conjugate curve, we let $\Omegap_{\Ebar}$
 and $\Omegam_{\Ebar}$ denote the least real and imaginary periods
-of the lattice under the embedding associated to $\sigma_2$.
+of the lattice under the embedding $\sigma_2$.
 
 For ease, we write
 \begin{align*}
@@ -595,9 +595,9 @@ where
     \tau_1(E) &= \frac{\Omegamp_E}{\Omegapp_E} = \frac{\Omegam_E}{\Omegap_E}&  \tau_2(E) &= \frac{1}{2}\left(1 + \frac{\Omegamp_E}{\Omegapp_E}\right) = \frac{1}{2}\left(1 + \frac{\Omegam_E}{\Omegap_E}\right) \\
     \tau_1(\Ebar) &= \frac{\Omegapm_E}{\Omegapp_E} = \frac{\Omegam_E}{\Omegap_E} &    \tau_2(\Ebar) &= \frac{1}{2}\left(1 + \frac{\Omegapm_E}{\Omegapp_E}\right) = \frac{1}{2}\left(1 + \frac{\Omegam_{\Ebar}}{\Omegap_{\Ebar}}\right)
 \end{align*}
-and $j(\tau)$ is the modular $j$-function
+and $j(\tau)$ is the familiar
 \[
-    j(\tau) = e^{-2\pi i \tau} + 744 + 196884e^{2\pi i \tau} + 21493760e^{4\pi i \tau} + \cdots
+    j(\tau) = e^{-2\pi i \tau} + 744 + 196884e^{2\pi i \tau} + 21493760e^{4\pi i \tau} + \cdots.
 \]
 We try each pair of possible embeddings for $j(E)$ in turn, and recognize
 possibilities for $j(E)$ as an algebraic number. We then construct curves $E'$
@@ -607,7 +607,7 @@ in which case $E'$ will be a twist of $E$. We can then recognize which twist it 
 in order to recover $E$.
 
 In practice, of course, as we have limited precision, and as $j(E)$ will not be
-an algebraic integer it may not be feasible to directly determine its exact value,
+an algebraic integer, it may not be feasible to directly determine its exact value,
 especially if its denominator is large.
 %Still, the above approach may be useful. UNNECESSARY?
 
@@ -638,7 +638,7 @@ mixed periods, and thus we may not be able to easily compute $c_4$. Thus, we act
 proceed by choosing a $\Deltaguess$ from which we
 compute half-integers $\alpha$ and $\beta$ and an integer
 $a + b\varphi \approx \alpha + \beta\sqrt5$, arbitrarily rounding either $a$ or $b$ if necessary.
-We then make some choice of search range $M$, and for each pair of integers $m$ and $n$,
+We then make some choice of search range $M$, and for each pair of integers $m$ and~$n$,
 bounded in absolute value by $M$, we try each $\cfourguess = (a + m) + (b + n)\varphi$.
 
 Given $\cfourguess$, we attempt to solve
@@ -739,7 +739,7 @@ value of the twisted $L$-function to get four new lists
 These numbers should now all be integer multiples of the mixed periods, so to get an idea
 of which integer multiples they might be, we compute each of the ratios 
 \[
-    \frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k} = \frac{c_{\chi^{s,s'}_0}}{c_{\chi^{s,s'}_k}} \in \Q, k = 1, 2, \ldots,
+    \frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k} = \frac{c_{\chi^{s,s'}_0}}{c_{\chi^{s,s'}_k}} \in \Q,\quad  k = 1, 2, \ldots,
 \]
 attempt to recognize these as rational numbers, and 
 choose as an initial guess
@@ -748,14 +748,14 @@ choose as an initial guess
 \]
 
 \subsubsection{An example}
-We give now an example for an elliptic curve which we were able to find only by using
+We give an example of an elliptic curve that we were only able to find by using
 this method. At level $\n = (-38\varphi + 26)$ we found a newform $f$, computed
 \begin{multline*}
     a_{(2)}(f) = -1,\  a_{(-2\varphi + 1)}(f) = 1,\  a_{(3)}(f) = -1, \\ 
-    a_{(-3\varphi + 1)}(f) = -1,\  a_{(-3*a + 2)}(f) = -6, \cdots, a_{(200\varphi - 101)}(f) = 168
+    a_{(-3\varphi + 1)}(f) = -1,\  a_{(-3\vphi + 2)}(f) = -6, \cdots, a_{(200\varphi - 101)}(f) = 168
 \end{multline*}
 and determined, by examining the $L$-function, that the sign of the functional equation
-should be $-1$. (In fact, we do not really need to know the sign of the functional eqaution,
+should be $-1$. (In fact, we do not really need to know the sign of the functional equation,
 as we would quickly determine that $+1$ is wrong when attempting to find the mixed periods.)
 Computing the sets of characters described above, and choosing the first $3$ of each, we
 have
@@ -766,7 +766,7 @@ S^{+-} = \{\chi_{(-4\varphi + 3)}, \chi_{(5\varphi - 3)}, \chi_{(-2\varphi + 13)
     S^{++} = \{\chi_{(\varphi + 9)}, \chi_{(9\varphi - 5)}, \chi_{(\varphi + 13)} \}.
 \end{multline*}
 
-By using the $5133$ $a_{\p}(f)$ above as input to Rubinstein's lcalc, we compute the
+By using the $5133$ $a_{\p}(f)$ above as input to Rubinstein's lcalc \cite{lcalc}, we compute the
 lists of approximate values
 \[
 \begin{split}
@@ -840,8 +840,8 @@ over $\Q$ has an algorithmic solution as explained in
 \cite[\S3.8]{cremona:algs}; it relies on:
 \begin{enumerate}
 \item  Mazur's theorem \cite{mazur:rational} 
-that if $\varphi:E\to E'$ is a $\Q$-rational isogeny of prime degree, 
-then $\deg(\varphi)\leq 163$
+that if $\psi:E\to E'$ is a $\Q$-rational isogeny of prime degree, 
+then $\deg(\psi)\leq 163$
 \item Formulas of Velu \cite{velu:isogenies} 
 that provide a way to explicitly enumerate all $p$-isogenies (if any) with domain $E$.  
 Velu's formulas are valid for any number field, but so far there has not been an explicit
