@@ -281,16 +281,10 @@ largeness of $B$ that $E$ is in the isogeny class of $E_f$.
 Under our hypotheses, this approach provides a deterministic and 
 terminating algorithm to find all $E_f$. However, it can be extremely slow
  when $\n$ is small but the simplest curve in the isogeny class 
-of $E_f$ has large coefficients.  For example, the elliptic curve given by 
-$$y^2 + \varphi xy  + (\varphi+1)y = x^3 + (\varphi-1)x^2 + (3904\varphi-6577)x + (53806\varphi-88477)$$ having 
- conductor $\n = -38 \vphi + 10$ and norm $1476$ was computed by Fisher
- using the visibility of \Sha$[7]$. (HOW DO WE CITE HIM??) 
-On the other hand, naive enumeration would take about $10^{15}$ {\em years} to
- search for all elliptic curves with coefficients $a,b$ of the form
- $w+z\vphi$ with $|w|,|z| <10^8$, at the speed of a billion curves per second.
+of $E_f$ has large coefficients.  For example, using this search method it would be infeasible to find the curve \eqref{equation:fisher-curve}
+computed by Fisher using the visibility of \Sha$[7]$.
 
-
-\subsection{Curves with specified $a_\p$}
+\subsection{Sieved enumeration}
 
 A refinement to the approach discussed above uses the $a_\p$ values to impose
 congruence conditions modulo $\p$ on $\#\tilde E(R/\p)$.
@@ -299,7 +293,7 @@ $a_\p$, we know that $\#\tilde E_f(R/\p)=\bN(\p)+1-a_{\p}$.
 Given $\p$ not dividing the level $\n$, we can find all elliptic curves
 modulo $\p$ with the specified number of points, especially when $\bN(\p) +1 - a_\p$ has
 few prime factors. We impose these congruence conditions at multiple primes $\p_i$,
-use the Chinese Remainder Theorem, and lift the resulting curves modulo $R/ (\small\prod \p_i)$
+use the Chinese Remainder Theorem, and lift the resulting curves modulo $R/ (\prod \p_i)$
 to non-singular curves over $R$.
 
 While this method, like the previous one, will eventually terminate, it too is very
@@ -435,9 +429,9 @@ We use the algorithm of Cremona and Lingham from
 reduction at primes outside of a finite set $\mathcal{S}$ of primes in
 $F$. This algorithm has limitations over a general number
 fields due to the difficulty of finding a generating set for $E(K)$ and
-points on $E$ defined over $\cO_K$ and was in general not as successful.
-Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we found 
-a few dozen curves, eg.,  
+points on $E$ defined over $\cO_K$.
+Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we 
+found several curves not found by other methods, e.g.,  
 $y^2 + \left(\vphi{} +  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} - 
  39\right)x + \left(-143 \vphi{} - 4\right)$ 
 having norm conductor $1331$.
@@ -445,20 +439,22 @@ having norm conductor $1331$.
 \subsection{Congruence families}
 Suppose that we are searching for a curve $E$ and we already know
 another curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
-some prime and $E[\ell]$ irreducible.  If $\ell=5,7$ then we can use
-techniques of Fisher and Stoll \cite{} to attempt to search through
-the finitely many curves with mod~$\ell$ Galois representation
+some prime and $E[\ell]$ irreducible.  If $\ell=7,11$ then we can use
+techniques of Fisher \cite{fisher:families_cong} to attempt to search
+through the finitely many curves with mod~$\ell$ Galois representation
 isomorphic to $E[\ell]$.
-
-For example, we used this approach to find the curve $E$ given by
-$$
+We used this approach to find the curve $E$ given by
+\begin{equation}\label{equation:fisher-curve}
 y^2 + \vphi{}xy = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-257364 \vphi{} - 159063\right)x + \left(-75257037 \vphi{} - 46511406\right)
-$$
-with norm conductor 1476.  Given just the $a_{\p}$, we noticed that
+\end{equation}
+with conductor $-38 \vphi + 10$, which has norm $1476$.  Given just the $a_{\p}$, we noticed that
 $E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
 used a \textsc{Magma} program to find rational points on a certain
 quartic surface that parametrize curves with the same $E'[7]$.
 Fortunately, our curve $E$ was amongst those curves.
+We had already found $E'$ via a naive search, since it is given
+by the equation $y^2 + \left(\vphi{} + 1\right)y = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-2 \vphi{}\right)x$.
+
 
 %Found using Cremona-Lingham:
 %   1331 (33*a-11) (\varphi+1,-1,1,-19*\varphi-39,-143\varphi-4)
