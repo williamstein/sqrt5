@@ -126,7 +126,7 @@ The following conjecture is open:
 \end{conjecture}
 Given the huge amount of progress on modularity theorems initiated by
 \cite{wiles:fermat}, we are optimistic that Conjecture~\ref{conj:mod}
-will be proved.  {\em We thus officially assume
+will be proved.  {\em We officially assume
   Conjecture~\ref{conj:mod} for the rest of this paper.} \\
 
 In Section~\ref{sec:hmf} we sketch how to compute Hilbert modular
@@ -895,11 +895,11 @@ separately if they are not isomorphic.
 \begin{table}
 \caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
 \begin{tabular}{|c|c|c|c|}\hline
-{\bf rank} & $\#\{${\bf{} isogeny classes }$\}$ &  $\#\{${\bf{} isom. classes }$\}$ &{\bf smallest $\Norm(\n_E)$} \\\hline
- $0$  & $745$  & $2172$ & $31$\\\hline
- $1$  & $667$  & $1190$ & $199$ \\\hline
+\textbf{rank} & \textbf{\#isog} & \textbf{\#isom} & \textbf{smallest $\Norm(\n)$} \\\hline
+ $0$  & $745$  & $2174$ & $31$\\\hline
+ $1$  & $667$  & $1192$ & $199$ \\\hline
  $2$  & $2$    & $2$    & $1831$ \\\hline
-total & $1414$ & $3364$ & - \\\hline
+total & $1414$ & $3368$ & - \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -942,35 +942,39 @@ structure.
 
 \begin{center}
 \begin{table}[h]
-\caption{Torsion subgroups for curves with norm conductor up through 1831\label{table:tor-counts}}
-\begin{tabular}{|l|c|c|}\hline
-torsion structure    & $\#\{\text{ isom. classes }\}$ & example curve \\\hline
-1                    & 296  & $[0,-1,1,-8,-7]$   \\\hline
-$\Z/2\Z$             & 1453 & $[\vphi,-1,0,-\vphi-1,\vphi-3]$     \\\hline
-$\Z/3\Z$             & 202  & $[1,0,1,-1,-2]$ \\\hline
-$\Z/4\Z$             & 243  & $[\vphi+1,\vphi-1,\vphi,0,0]$ \\\hline
-$\Z/2\Z\oplus\Z/2\Z$ & 312  & $[0,\vphi+1,0,\vphi,0]$ \\\hline
-$\Z/5\Z$             & 56   & $[0,-\vphi+1,1,1,0]$ \\\hline
-$\Z/6\Z$             & 183  & $[1,\vphi,1,\vphi-1,0]$ \\\hline
-$\Z/7\Z$             & 13   & $[0,\vphi-1,\vphi+1,0,-\vphi]$ \\\hline
-$\Z/8\Z$             & 21   & $[1,\vphi+1,\vphi,\vphi,0]$ \\\hline
-$\Z/4\Z\oplus\Z/2\Z$ & 51   & $[\vphi+1,0,0,-4,-3\vphi-2]$ \\\hline
-$\Z/9\Z$             & 6    & $[\vphi,-\vphi+1,1,-1,0]$ \\\hline
-$\Z/10\Z$            & 12   & $[\vphi+1,\vphi,\vphi,0,0]$ \\\hline
-$\Z/12\Z$            & 6    & $[\vphi,\vphi+1,0,2\vphi-3,-\vphi+2]$ \\\hline
-$\Z/6\Z\oplus\Z/2\Z$ & 11   & $[0,1,0,-1,0]$ \\\hline
-$\Z/15\Z$            & 1    & $[1,1,1,-3,1]$ \\\hline
-$\Z/8\Z\oplus\Z/2\Z$ & 2    & $[1,1,1,-5,2]$ \\\hline
+\caption{Torsion subgroups for curves with norm conductor up through 1831\label{table:torsion}}
+\begin{tabular}{|l|c|c|c|}\hline
+\textbf{torsion structure} & \textbf{\#isom} & \textbf{example curve} & $\Norm(\n)$ \\\hline
+1                    & 296  & $[0,-1,1,-8,-7]$                      & 225 \\\hline
+$\Z/2\Z$             & 1453 & $[\vphi,-1,0,-\vphi-1,\vphi-3]$       & 164 \\\hline
+$\Z/3\Z$             & 202  & $[1,0,1,-1,-2]$                       & 100 \\\hline
+$\Z/4\Z$             & 243  & $[\vphi+1,\vphi-1,\vphi,0,0]$         & 79  \\\hline
+$\Z/2\Z\oplus\Z/2\Z$ & 312  & $[0,\vphi+1,0,\vphi,0]$               & 256 \\\hline
+$\Z/5\Z$             & 56   & $[1,1,1,22,-9]$                       & 100 \\\hline
+$\Z/6\Z$             & 183  & $[1,\vphi,1,\vphi-1,0]$               & 55  \\\hline
+$\Z/7\Z$             & 13   & $[0,\vphi-1,\vphi+1,0,-\vphi]$        & 41  \\\hline
+$\Z/8\Z$             & 21   & $[1,\vphi+1,\vphi,\vphi,0]$           & 31  \\\hline
+$\Z/4\Z\oplus\Z/2\Z$ & 51   & $[\vphi+1,0,0,-4,-3\vphi-2]$          & 99  \\\hline
+$\Z/9\Z$             & 6    & $[\vphi,-\vphi+1,1,-1,0]$             & 76  \\\hline
+$\Z/10\Z$            & 12   & $[\vphi+1,\vphi,\vphi,0,0]$           & 36  \\\hline
+$\Z/12\Z$            & 6    & $[\vphi,\vphi+1,0,2\vphi-3,-\vphi+2]$ & 220 \\\hline
+$\Z/6\Z\oplus\Z/2\Z$ & 11   & $[0,1,0,-1,0]$                        & 80  \\\hline
+$\Z/15\Z$            & 1    & $[1,1,1,-3,1]$                        & 100 \\\hline
+$\Z/8\Z\oplus\Z/2\Z$ & 2    & $[1,1,1,-5,2]$                        & 45  \\\hline
 \end{tabular}
 \end{table}
 \end{center}
 
 \begin{center}
 \begin{table}[h]
-\caption{Conjectural $\#\Sha$ for curves with norm conductor up through 1831}\label{table:sha-counts}
-\begin{tabular}{|l|c|c|c|c|c|c|}\hline
-\#\Sha                       & 1    & 4  & 9  & 16 & 25 & 36 \\\hline
-$\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
+\caption{Torsion subgroups for curves with norm conductor up through 1831\label{table:degree}}
+\begin{tabular}{|l|c|c|c|c|}\hline
+\textbf{degree} & \textbf{\#isog} & \textbf{\#isom} & \textbf{example curve} & $\n$ \\\hline
+None & 498 & 498  & \\\hline
+2    & 652 & 2298 & \\\hline
+3    & 289 & 950  & \\\hline
+5    & 65  & 158  & \\\hline
+7    & 19  & 38   & \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -978,19 +982,19 @@ $\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
 \begin{center}
 \begin{table}[h]
 \caption{First curve with given $\#\Sha$\label{table:sha}}
-\begin{tabular}{|c | c | c |}
+\begin{tabular}{|c|c|c|c|}
 \hline 
-$n$ &{\bf First curve $E$ having $|\Sha(E/F)| = n$ }& {\bf Norm of conductor of $E$} \\
+$\#\Sha$ & \textbf{\#isom} & \textbf{first curve having $\#\Sha$}& $\Norm(\n)$ \\
 \hline 
-1 & $[1,\vphi{}+1,\vphi{},\vphi{},0]$ & 31 \\\hline 
-4 & $[1, 1, 1, -110, -880]$ & 45 \\\hline 
-9 & $[\vphi{}+1,-\vphi{},1,-54686\vphi{}-35336,$& \\
-  & $\qquad\qquad\qquad -7490886\vphi{}-4653177]$ & 76 \\\hline 
-16 & $[1,\vphi{},\vphi{}+1,-4976733\vphi{}-3075797,$&\\
-   & $\qquad\qquad\qquad -6393196918\vphi{}-3951212998]$ & 45 \\\hline 
-25 & $[0, -1, 1, -7820, -263580]$ & 121 \\\hline 
-36 & $[1,-\vphi{}+1,\vphi{},1326667\vphi{}-2146665,$ & \\
-   & $\qquad\qquad\qquad 880354255\vphi{}-1424443332]$ & 1580 \\
+1  & 3191 & $[1,\vphi+1,\vphi,\vphi,0]$ & 31 \\\hline 
+4  & 84   & $[1, 1, 1, -110, -880]$ & 45 \\\hline 
+9  & 43   & $[\vphi+1,-\vphi,1,-54686\vphi-35336,$& \\
+  & & $\qquad\qquad\qquad -7490886\vphi-4653177]$ & 76 \\\hline 
+16 & 16   & $[1,\vphi,\vphi+1,-4976733\vphi-3075797,$&\\
+  & & $\qquad\qquad\qquad -6393196918\vphi-3951212998]$ & 45 \\\hline 
+25 & 2    & $[0, -1, 1, -7820, -263580]$ & 121 \\\hline 
+36 & 2    & $[1,-\vphi+1,\vphi,1326667\vphi-2146665,$ & \\
+  & & $\qquad\qquad\qquad880354255\vphi-1424443332]$ & 1580 \\
 \hline
 \end{tabular}
 \end{table}
