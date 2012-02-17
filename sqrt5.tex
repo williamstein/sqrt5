@@ -103,16 +103,17 @@ totally real fields.
 If we order totally real number fields $K$ by the absolute value of
 their discriminant, then $F=\Q(\sqrt{5})$ comes next after $\Q$ (the
 Minkowski bound implies that $|D_K| \geq (n^n/n!)^2$, where
-$n=[K:\Q]$, so if $n\geq 3$ then $|D_K|>20$). Since $5$ divides
-$\disc(F)=5$,  the method of Taylor-Wiles does not generalize easily to elliptic
- curves over $F$, thus making $\Q(\sqrt{5})$ even more interesting. 
+$n=[K:\Q]$, so if $n\geq 3$ then $|D_K|>20$). That $5$ divides
+$\disc(F)=5$ thwarts attempts to easily generalize the
+method of Taylor-Wiles to elliptic curves over $F$, which makes
+$\Q(\sqrt{5})$ even more interesting.
 The field $F$ also has $31$ CM $j$-invariants, which is far more than
  any other quadratic field (see Section~\ref{sec:cm}).  Letting
  $\vphi=\frac{1+\sqrt{5}}{2}$, we have that the group of units
  $\{\pm 1\} \times \langle \vphi \rangle$ of the
 ring $R=\cO_F=\Z[\vphi]$ of integers of $F$ is infinite, leading to
 additional complications.  Finally, $F$ has even degree, which
-makes certain computations more difficult, since the cohomological
+makes certain computations more difficult, as the cohomological
 techniques of \cite{greenberg-voight:shimura} are not available. 
 
 
@@ -262,7 +263,7 @@ In this section we describe various strategies to find an elliptic curve
 Let $f$ be a rational cuspidal Hilbert newform of weight $(2,2)$ as
 in Section~\ref{sec:hmf}.  According to Conjecture~\ref{conj:mod},
 there is some elliptic curve $E_f$ over $f$ such that $L(f,s) =
-L(E_f,s)$.  Note that $E_f$ is only well defined up to isogeny.
+L(E_f,s)$.  (Note that $E_f$ is only well defined up to isogeny.)
 Unlike the case for elliptic curves over $\Q$ (see \cite{cremona:algs}), 
 there appears to be no {\em efficient} direct algorithm to find $E_f$.
  Nonetheless, there are several approaches coming from various directions, 
@@ -302,7 +303,7 @@ The most naive strategy is to systematically enumerate
 and for each $E$, to compute $a_\p(E)$ for $\p$ not dividing $\Disc(E)$
  by counting points on $E$ reduced modulo $\p$.  If all the $a_\p(E)$ match
  with those of the input newform $f$ up to the bound $B$, we then compute
- the conductor $\cN_E$, and if it equals $\n$, we conclude from the sufficient 
+ the conductor $\n_E$, and if it equals $\n$, we conclude from the sufficient 
 largeness of $B$ that $E$ is in the isogeny class of $E_f$.
 
 Under our hypotheses, this approach provides a deterministic and 
@@ -657,12 +658,12 @@ We have thus far ignored the issue of actually finding the mixed periods of the 
 we are looking for. Finding them presents an extra difficulty as our procedure involves
 even more guesswork. The idea is to use special values of twists of the $L$-function
 $L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters over $\OF$,
-which are homomorphisms $\chi : (\OF/\fc)^\times \rightarrow \pm1$, pulled back to $\OF$.
+which are homomorphisms $\chi : (\OF/\fc)^* \rightarrow \pm1$, pulled back to $\OF$.
 
 In the case of odd prime conductor, which we will stick to here, there is
 just a single primitive quadratic character, namely the quadratic residue symbol.
 A simple way to compute it is by making a
-table of squares, or by choosing a primitive root of $g \in (\OF/\fc)^\times$, assigning
+table of squares, or by choosing a primitive root of $g \in (\OF/\fc)^*$, assigning
 $\chi(g) = -1$, and again making a table by extending multiplicatively. Alternatively,
 one could use a reciprocity formula as described in \cite{boylan-skoruppa:hecke-gauss-sums}.
 For general conductor, one can compute with products of characters having prime conductor.
