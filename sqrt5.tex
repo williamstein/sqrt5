@@ -281,8 +281,7 @@ largeness of $B$ that $E$ is in the isogeny class of $E_f$.
 Under our hypotheses, this approach provides a deterministic and 
 terminating algorithm to find all $E_f$. However, it can be extremely slow
  when $\n$ is small but the simplest curve in the isogeny class 
-of $E_f$ has large coefficients.  For example, this search method would likely take
-over $10^{15}$ years to find the curve \eqref{equation:fisher-curve}
+of $E_f$ has large coefficients.  For example, using this search method it would be infeasible to find the curve \eqref{equation:fisher-curve}
 computed by Fisher using the visibility of \Sha$[7]$.
 
 \subsection{Curves with specified $a_\p$}
@@ -430,9 +429,9 @@ We use the algorithm of Cremona and Lingham from
 reduction at primes outside of a finite set $\mathcal{S}$ of primes in
 $F$. This algorithm has limitations over a general number
 fields due to the difficulty of finding a generating set for $E(K)$ and
-points on $E$ defined over $\cO_K$ and was in general not as successful.
-Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we found 
-a few dozen curves, eg.,  
+points on $E$ defined over $\cO_K$.
+Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we 
+found several curves not found by other methods, e.g.,  
 $y^2 + \left(\vphi{} +  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} - 
  39\right)x + \left(-143 \vphi{} - 4\right)$ 
 having norm conductor $1331$.
@@ -440,12 +439,11 @@ having norm conductor $1331$.
 \subsection{Congruence families}
 Suppose that we are searching for a curve $E$ and we already know
 another curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
-some prime and $E[\ell]$ irreducible.  If $\ell=5,7$ then we can use
-techniques of Fisher and Stoll \cite{} to attempt to search through
-the finitely many curves with mod~$\ell$ Galois representation
+some prime and $E[\ell]$ irreducible.  If $\ell=7,11$ then we can use
+techniques of Fisher \cite{fisher:families_cong} to attempt to search
+through the finitely many curves with mod~$\ell$ Galois representation
 isomorphic to $E[\ell]$.
-
-For example, we used this approach to find the curve $E$ given by
+We used this approach to find the curve $E$ given by
 \begin{equation}\label{equation:fisher-curve}
 y^2 + \vphi{}xy = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-257364 \vphi{} - 159063\right)x + \left(-75257037 \vphi{} - 46511406\right)
 \end{equation}
@@ -454,6 +452,9 @@ $E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
 used a \textsc{Magma} program to find rational points on a certain
 quartic surface that parametrize curves with the same $E'[7]$.
 Fortunately, our curve $E$ was amongst those curves.
+We had already found $E'$ via a naive search, since it is given
+by the equation $y^2 + \left(\vphi{} + 1\right)y = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-2 \vphi{}\right)x$.
+
 
 %Found using Cremona-Lingham:
 %   1331 (33*a-11) (\varphi+1,-1,1,-19*\varphi-39,-143\varphi-4)
