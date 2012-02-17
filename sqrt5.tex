@@ -867,6 +867,84 @@ methods of Section~\ref{sec:finding}, and thus divide our curves up into
 isogeny classes.
 
 
+\section{CM elliptic curves over $F$}\label{sec:cm}
+
+In this section we make some general remarks about CM elliptic curves
+over $F$.  The main surprise is that there are $31$ distinct
+$\Qbar$-isomorphism classes of CM elliptic curves defined over $F$,
+more than for any other quadratic field.
+
+\begin{proposition}
+The field $F$ has more isomorphism classes of CM
+elliptic curves than any other quadratic field.
+\end{proposition}
+\begin{proof}
+Let $K$ be a quadratic extension of $\Q$.
+Let $H_D$ denote the Hilbert class polynomial of the CM order
+$\cO_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
+polynomial of the $j$-invariant $j_D$ of any elliptic curve $E=E_D$ with
+CM by $\cO_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
+$H_D$ is either linear or quadratic and has both roots in $K$.
+The $D$ for which $H_D$ is linear are the thirteen values
+$-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$.
+According to \cite{cremona:abvar}, the
+$D$ for which $H_D$ is quadratic are the following $29$
+discriminants
+\begin{align*}
+&-15, -20, -24, -32, -35, -36, -40, -48, -51, -52, -60, \\
+&-64, -72, -75, -88, -91, -99, -100, -112, -115, -123, \\
+&-147, -148, -187, -232, -235, -267, -403, -427
+\end{align*}
+%z = list(reversed(sorted([D*f^2 for D,f in cm_orders(2)]))); z 
+%len(z)
+ 
+By computing discriminants of these Hilbert class polynomials,
+we obtain the following table:
+% w = {}
+% for D, f in cm_orders(2):
+%     m = hilbert_class_polynomial(D*f^2).discriminant().squarefree_part()
+%     print D, m
+%     if not w.has_key(m):
+%         w[m] = []
+%     w[m].append(D)
+%     w[m] = list(reversed(sorted(w[m])))
+% print '-'*70
+% print w
+
+% for F, Ds in sorted(w.iteritems()):
+%     print "\\Q(\\sqrt{%s}) & $%s$ \\\\\\hline"%(F,
+%                   ','.join([str(z) for z in Ds]))
+
+\begin{center}
+\begin{tabular}{|c|l|}\hline
+Field & $D$ so $H_D$ has roots in field\\\hline
+$\Q(\sqrt{2})$ & $-24,-32,-64,-88$ \\\hline
+$\Q(\sqrt{3})$ & $-36,-48$ \\\hline
+$\Q(\sqrt{5})$ & $-15,-20,-35,-40,-60,$ \\
+             & $-75,-100,-115,-235$\\\hline
+$\Q(\sqrt{6})$ & $-72$ \\\hline
+$\Q(\sqrt{7})$ & $-112$ \\\hline
+$\Q(\sqrt{13})$ & $-52,-91,-403$ \\\hline
+$\Q(\sqrt{17})$ & $-51,-187$ \\\hline
+\end{tabular}
+\begin{tabular}{|c|l|}\hline
+Field & $D$ so $H_D$ has roots in field\\\hline
+$\Q(\sqrt{21})$ & $-147$ \\\hline
+$\Q(\sqrt{29})$ & $-232$ \\\hline
+$\Q(\sqrt{33})$ & $-99$ \\\hline
+$\Q(\sqrt{37})$ & $-148$ \\\hline
+$\Q(\sqrt{41})$ & $-123$ \\\hline
+$\Q(\sqrt{61})$ & $-427$ \\\hline
+$\Q(\sqrt{89})$ & $-267$ \\\hline
+& \\\hline
+\end{tabular}
+\end{center}
+The claim follows because the $\Q(\sqrt{5})$ row is largest,
+containing $9$ entries.  There are thus $31 = 2\cdot 9 + 13$ distinct CM $j$-invariants
+in $\Q(\sqrt{5})$.
+
+\end{proof}
+
 \section{Related future projects}\label{sec:future}
 
 It would be natural to extend the tables to the first known curve of
@@ -886,14 +964,38 @@ norm conductor, and numerically compute their analytic ranks.
 As explained in Sections~\ref{sec:finding} and \ref{sec:isoclass},
 assuming Conjecture~\ref{conj:mod}, we found the complete list of
 elliptic curves with norm conductor up to $1831$, which is the first
-norm conductor of a rank $2$ curve over $F$.  Table~\ref{table:increasing-counts}
-summarizes the number of curves we found.  Note that in these counts
-we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
-nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
-separately if they are not isomorphic.  
+norm conductor of a rank $2$ curve over $F$.
+
+Table~\ref{table:total-counts} gives the number of curves and isogeny
+classes we found. Note that in these counts we do not exclude
+conjugate curves, i.e., if $\sigma$ denotes the nontrivial element of
+$\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$ separately if they
+are not isomorphic.  Table~\ref{table:increasing-counts} refines this
+data further, giving the number of curves and classes up to a given
+norm conductor bound.    Note that the first curve of rank $1$ has
+norm conductor $199$, and there are no curves of norm conductor $200$.
+Table~\ref{table:isogeny-sizes} gives counts of the number of isogeny
+classes of curves in our data of each size; note that we find some
+isogeny classes of cardinality $10$, which is bigger than what one
+observes with elliptic curves over $\QQ$.
+Table~\ref{table:tor-counts} gives the number of curves with each
+torsion structure of norm conductor up to 1831, along with an example
+curve (that need not have minimal conductor) with that torsion
+structure.   
+
+We computed the invariants in the Birch and Swinnerton-Dyer conjecture
+for our curves, and solved for the conjectural order of $\Sha$;
+Table~\ref{table:sha-counts} gives the number of curves in our data
+having each order of $\Sha$, and Table~\ref{table:sha} gives a minimal
+conductor curve exhibiting each of these orders. 
+
+ Tables~\ref{table:CM-j-invariants}--\ref{table:CM-curves} contain
+a list of all CM elliptic curves appearing in our tables. 
+
+
 
 \begin{center}
-\begin{table}
+\begin{table}[h]
 \caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
 \begin{tabular}{|c|c|c|c|}\hline
 \textbf{rank} & \textbf{\#isog} & \textbf{\#isom} & \textbf{smallest $\Norm(\n)$} \\\hline
@@ -936,15 +1038,10 @@ total & $1414$ & $3368$ & - \\\hline
 \end{table}
 \end{center}
 
-In Table~\ref{table:tor-counts} we give the number of curves with each
-torsion structure of norm conductor up to 1831, along with an example
-curve (that need not have minimal conductor) with that torsion
-structure.
-
 \begin{center}
 \begin{table}[h]
 \caption{Torsion subgroups for curves with norm conductor up through 1831\label{table:torsion}}
-\begin{tabular}{|l|c|c|c|}\hline
+\begin{tabular}{|c|c|c|c|}\hline
 \textbf{torsion structure} & \textbf{\#isom} & \textbf{example curve} & $\Norm(\n)$ \\\hline
 1                    & 296  & $[0,-1,1,-8,-7]$                      & 225 \\\hline
 $\Z/2\Z$             & 1453 & $[\vphi,-1,0,-\vphi-1,\vphi-3]$       & 164 \\\hline
@@ -989,13 +1086,13 @@ $\#\Sha$ & \textbf{\#isom} & \textbf{first curve having $\#\Sha$}& $\Norm(\n)$ \
 \hline 
 1  & 3191 & $[1,\vphi+1,\vphi,\vphi,0]$ & 31 \\\hline 
 4  & 84   & $[1, 1, 1, -110, -880]$ & 45 \\\hline 
-9  & 43   & $[\vphi+1,-\vphi,1,-54686\vphi-35336,$& \\
-  & & $\qquad\qquad\qquad -7490886\vphi-4653177]$ & 76 \\\hline 
-16 & 16   & $[1,\vphi,\vphi+1,-4976733\vphi-3075797,$&\\
-  & & $\qquad\qquad\qquad -6393196918\vphi-3951212998]$ & 45 \\\hline 
+\multirow{2}{*}{9}  & \multirow{2}{*}{43}   & $[\vphi+1,-\vphi,1,-54686\vphi-35336,$& \multirow{2}{*}{76} \\
+  & & $\qquad\qquad\qquad -7490886\vphi-4653177]$ & \\\hline 
+\multirow{2}{*}{16} & \multirow{2}{*}{16}   & $[1,\vphi,\vphi+1,-4976733\vphi-3075797,$& \multirow{2}{*}{45} \\
+  & & $\qquad\qquad\qquad -6393196918\vphi-3951212998]$ & \\\hline 
 25 & 2    & $[0, -1, 1, -7820, -263580]$ & 121 \\\hline 
-36 & 2    & $[1,-\vphi+1,\vphi,1326667\vphi-2146665,$ & \\
-  & & $\qquad\qquad\qquad880354255\vphi-1424443332]$ & 1580 \\
+\multirow{2}{*}{36} & \multirow{2}{*}{2}    & $[1,-\vphi+1,\vphi,1326667\vphi-2146665,$ & \multirow{2}{*}{1580} \\
+  & & $\qquad\qquad\qquad880354255\vphi-1424443332]$ & \\
 \hline
 \end{tabular}
 \end{table}
@@ -1089,83 +1186,6 @@ $36$ & $\left[0, 0, 0, 0, -27\right]$ & $j_2$ & 0 \\\hline %good
 \end{tabular}
 \end{table}
 \end{center}
-
-\subsection{CM elliptic curves over $F$}\label{sec:cm}
-
-There are $31$ distinct $\Qbar$-isomorphism classes of CM elliptic
-curves defined over $F$, more than for any other
-quadratic field.
-
-\begin{proposition}
-The field $F$ has more isomorphism classes of CM
-elliptic curves than any other quadratic field.
-\end{proposition}
-\begin{proof}
-Let $K$ be a quadratic extension of $\Q$.
-Let $H_D$ denote the Hilbert class polynomial of the CM order
-$\cO_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
-polynomial of the $j$-invariant $j_D$ of any elliptic curve $E=E_D$ with
-CM by $\cO_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
-$H_D$ is either linear or quadratic and has both roots in $K$.
-The $D$ for which $H_D$ is linear are the thirteen values
-$-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$.
-According to \cite{cremona:abvar}, the
-$D$ for which $H_D$ is quadratic are the following $29$
-discriminants
-\begin{align*}
-&-15, -20, -24, -32, -35, -36, -40, -48, -51, -52, -60, \\
-&-64, -72, -75, -88, -91, -99, -100, -112, -115, -123, \\
-&-147, -148, -187, -232, -235, -267, -403, -427
-\end{align*}
-%z = list(reversed(sorted([D*f^2 for D,f in cm_orders(2)]))); z 
-%len(z)
- 
-By computing discriminants of these Hilbert class polynomials,
-we obtain the following table:
-% w = {}
-% for D, f in cm_orders(2):
-%     m = hilbert_class_polynomial(D*f^2).discriminant().squarefree_part()
-%     print D, m
-%     if not w.has_key(m):
-%         w[m] = []
-%     w[m].append(D)
-%     w[m] = list(reversed(sorted(w[m])))
-% print '-'*70
-% print w
-
-% for F, Ds in sorted(w.iteritems()):
-%     print "\\Q(\\sqrt{%s}) & $%s$ \\\\\\hline"%(F,
-%                   ','.join([str(z) for z in Ds]))
-
-\begin{center}
-\begin{tabular}{|c|l|}\hline
-Field & $D$ so $H_D$ has roots in field\\\hline
-$\Q(\sqrt{2})$ & $-24,-32,-64,-88$ \\\hline
-$\Q(\sqrt{3})$ & $-36,-48$ \\\hline
-$\Q(\sqrt{5})$ & $-15,-20,-35,-40,-60,$ \\
-             & $-75,-100,-115,-235$\\\hline
-$\Q(\sqrt{6})$ & $-72$ \\\hline
-$\Q(\sqrt{7})$ & $-112$ \\\hline
-$\Q(\sqrt{13})$ & $-52,-91,-403$ \\\hline
-$\Q(\sqrt{17})$ & $-51,-187$ \\\hline
-\end{tabular}
-\begin{tabular}{|c|l|}\hline
-Field & $D$ so $H_D$ has roots in field\\\hline
-$\Q(\sqrt{21})$ & $-147$ \\\hline
-$\Q(\sqrt{29})$ & $-232$ \\\hline
-$\Q(\sqrt{33})$ & $-99$ \\\hline
-$\Q(\sqrt{37})$ & $-148$ \\\hline
-$\Q(\sqrt{41})$ & $-123$ \\\hline
-$\Q(\sqrt{61})$ & $-427$ \\\hline
-$\Q(\sqrt{89})$ & $-267$ \\\hline
-& \\\hline
-\end{tabular}
-\end{center}
-The claim follows because the $\Q(\sqrt{5})$ row is largest,
-containing $9$ entries.  There are thus $31 = 2\cdot 9 + 13$ distinct CM $j$-invariants
-in $\Q(\sqrt{5})$.
-
-\end{proof}
 
 
 
