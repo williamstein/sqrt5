@@ -36,7 +36,8 @@
 \author[Bober et al.]{Jon Bober, Alyson Deines, Ariah Klages-Mundt, Ben
   LeVeque, Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
   Stein}
-
+\thanks{ This work is supported by NSF grant DMS-0757627, administered
+by the American Institute of Mathematics. }
 \begin{document}
 
 \begin{abstract} 
@@ -51,9 +52,6 @@ conductor of norm up to 1831.
 \end{abstract} 
 
 \maketitle
-
-\footnote{ This work is supported by NSF grant DMS-0757627, administered
-by the American Institute of Mathematics. }
 
 \section{Introduction}\label{sec:intro}
 
@@ -282,7 +280,7 @@ largeness of $B$ that $E$ is in the isogeny class of $E_f$.
 
 Under our hypotheses, this approach provides a deterministic and 
 terminating algorithm to find all $E_f$. However, it can be extremely slow
- for when $\n$ is small but the simplest curve in the isogeny class 
+ when $\n$ is small but the simplest curve in the isogeny class 
 of $E_f$ has large coefficients.  For example, the elliptic curve given by 
 $$y^2 + \varphi xy  + (\varphi+1)y = x^3 + (\varphi-1)x^2 + (3904\varphi-6577)x + (53806\varphi-88477)$$ having 
  conductor $\n = -38 \vphi + 10$ and norm $1476$ was computed by Fisher
@@ -327,8 +325,8 @@ search.
 \begin{proposition}\label{prop:ptor}
 Let $\ell$ be a prime and $E$ a curve over $F$.
 Then $\ell \mid \# E'(F)_{\tor}$ for some curve $E'$ in the isogeny class
-of $E$ if and only if $\ell \mid \bN(\p)+1 - a_{\p}$ for all good
-odd primes $\p$.
+of $E$ if and only if $\ell \mid \bN(\p)+1 - a_{\p}$ for all
+odd primes $\p$ at which $E$ has good reduction.
 \end{proposition}
 \begin{proof}
 First suppose $\ell  \mid \# E'(F)_{\tor}$. 
@@ -337,6 +335,10 @@ The reduction map on torsion modulo any good odd prime is injective
 so $\ell \mid \#E'(\F_\p) = \bN(\p)+1 - a_{\p}$.
 The converse statement is one of the main results
 of \cite{katz:torsion}.
+%OR
+%Assuming $\ell  \mid \# E'(F)_{\tor}$, from the injectivity of the
+%reduction map at good primes \cite{silverman:aec}[VII.~\S3] we have that
+%$\ell \mid \#\tilde E'(\F_\p) = \bN(\p)+1 - a_{\p}$.
 \end{proof}
 
 By applying Proposition~\ref{prop:ptor} for all $a_{\p}$ with $\p$ up
@@ -391,6 +393,18 @@ the conductor, discriminant and reduction type (see \cite[App.~C,\S15]{silverman
 N\'eron models commutes with unramified base change, and the fact that
 at the primes that divide $\n$ the minimal discriminant of $E^d$ is
 the same as that of $E$.
+%OR
+%
+% is the discriminant of the cubic in the Weierstrass equation.
+% The curve $E^d$ thus has bad reduction at each prime that divides $d$ since no change of
+%  equation can remove the $d^6$-factor in $\Delta(E^d)$, $d$ being coprime to $\Delta(E)$,  
+% Moreover since $E^d$ is isomorphic to $E$ over $F(\sqrt{d})$, it has
+% potentially good thus additive reduction at primes dividing $d$. We know that
+% $\text{ord}_\p(\n') = 1 + \text{ord}_\p(\Delta(E^d)) - m$, where $m$ is the number of
+%  connected components of the special fibre of the N\'eron model of $E$ \cite{silverman:aec}[C.~\S15]. 
+% Furthermore, the formation of the N\'eron model commutes with unramified base change and at $\nu|\n$, 
+%  $\text{ord}_\nu(\Delta(E^d)) = \text{ord}_\nu(\Delta(E))$ for minimal $\Delta$. 
+% It follows that for $\p|d$, $\text{ord}_\p(\n') \geq 2$ as desired. 
 \end{proof}
 To find all twists $E^d$ with norm conductor at most $B$, we twist $E$
 by all $d$ of the form $\pm \vphi^{\delta} d_0 d_1$, where $\delta\in
