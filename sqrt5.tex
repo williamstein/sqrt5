@@ -311,8 +311,6 @@ a reasonably efficient implementation of this method can be obtained.
 %associated to newforms and would like to reduce the number of newforms
 %that we must run through slower techniques.
 
-
-
 \subsection{Torsion families}\label{sec:torsion}
 
 We find elliptic curves of small conductor by specializing explicit parametrizations
@@ -418,31 +416,31 @@ the primes that exactly divide $\n$. We know from \ref{twist:bound} that
 this search is exhaustive.
 
 
-For example, let $E$ be the curve $y^2 + xy + \vphi{}y = x^3 +
-\left(-\vphi{} - 1\right)x^2 $ of conductor $5\vphi - 3$ of norm $31$.
-Following the above strategy, to find twists of norm conductor $\leq
-1831$, we have $C=31$ and twist by squarefree positive $d_1$ with
-$|\bN(d_1)| \leq \sqrt{B/C} = 7.6\ldots$.  Thus $d_1 \in \{1, 2,
-\vphi, 2\vphi\}$.  Running through all possibilities for
-$\vphi^{\delta} d_0 d_1$, we find in most cases that the norm
-conductor is larger than $1831$.  We find the curve $E^{-\vphi-2}$ of
-norm conductor $775$ and the curve $E^{5\vphi-3}$ of norm conductor
-$961$.  Other twists have larger norm conductors, e.g., $E^2$ has norm
+For example, let $E$ be given by $y^2 + xy + \vphi{}y = x^3 +
+\left(-\vphi{} - 1\right)x^2 $ of conductor $5\vphi - 3$ having norm $31$.
+Following the above strategy to find twists of norm conductor $\leq
+B := 1831$, we have $C=31$ and square-free $d_1$ such that
+$|\bN(d_1)| \leq \sqrt{B/C} \approx 7.6\ldots$. Thus $d_1 \in \{1, 2,
+\vphi, 2\vphi\}$ and checking all possibilities for
+$\vphi^{\delta} d_0 d_1$, we find the curve $E^{-\vphi-2}$ having
+norm conductor $775$ and the curve $E^{5\vphi-3}$ having norm conductor
+$961$. Other twists have larger norm conductors, e.g., $E^2$ has norm
 conductor $126976=2^{12}\cdot 31$.
 
 
 \subsection{Curves with good reduction outside $S$}
 
-We used the algorithm of Cremona and Lingham 
-\cite{cremona-lingham}, which finds all elliptic curves with good
+We use the algorithm of Cremona and Lingham from
+\cite{cremona-lingham} to find all elliptic curves $E$ having good
 reduction at primes outside of a finite set $\mathcal{S}$ of primes in
-$F$.  Cremona provided us with a $\textsc{Magma}$ implementation of
-the algorithm, which has  limitations over general number
-fields due to the difficulty of finding Mordell-Weil groups and
-integral points on elliptic curves.  We used Cremona's code to first
-find a few dozen of our curves, e.g., the curve $y^2 + \left(\vphi{} +
-  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} -
-  39\right)x + \left(-143 \vphi{} - 4\right)$ with norm conductor $1331$.
+$F$. This algorithm has limitations over a general number
+fields due to the difficulty of finding a generating set for $E(K)$ and
+points on $E$ defined over $\cO_K$ and was in general not as successful.
+Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we found 
+a few dozen curves, eg.,  
+$y^2 + \left(\vphi{} +  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} - 
+ 39\right)x + \left(-143 \vphi{} - 4\right)$ 
+having norm conductor $1331$.
 
 \subsection{Congruence families}
 Suppose that we are searching for a curve $E$ and we already know
