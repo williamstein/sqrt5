@@ -8,37 +8,9 @@ L-functions (very end of section 3) using mod-jon?
 [ ] (everybody) Figure out problems with isogeny code, then draw an
     isogeny graph
 
-[ ] (anybody) example where Cremona-Lingham is useful.
-
 [ ] (william or Jon) write an abstract
 
 [ ] (william) fill in acknowledgement for NSF
-
-[ ] (william) bottom of page 1, "is supported by theoretical evidence"
-      (citation needed?) -- can copy something from my NSF proposal
-
-[ ] clean up and update references; grabbing bibtex entries from mathscinet
-
-[ ] (william) write section 2.2.3
-
-[ ] (william) write section 2.2.4
-
-[ ] (william) write section 2.2.5.  Note that there is a theoretical
-    obstruction to doing this provably correctly at present!
-
-[ ] (william or ben or ashwath) fill in proposition 3.1: " TODO: Explain how to tell if $\ell\mid \#E(F)_{\tor}$."
-
-[x] Put the example in Section 3.1 of the biggest "height" curve (but
-smallest in isogeny class) up to norm conductor 1831.  -- Concrete
-question: To illustrate the difficulty of using naive enumeration to
-find a curve E_f associated to f, it would be nice to give the worst
-example.  So if we take the best curve from each isogeny class up to
-1831, what is the worst one, i.e., with "biggest coefficients" in some
-sense?
-
-[ ] (jon) reference and comments for conjecture 3.2 need to be fixed
-
-[x] (jon) reference for Dembele's "An algorithm for modular elliptic curves..." in 3.6
 
 [ ] (anybody) clean up the table's section a bit (probably just want
     to write a few sentences at the beginning that say something like
@@ -50,13 +22,6 @@ sense?
     bunch.  Then use extra space to give the *actual* conductor (not
     just the norm).
 
-[ ] (william) delete section 6.3
-
-[x] (william) add a remark to residue rings section explaining why our
-    choice of representation is adapted to this problem.
-
-[x] (william) fix notation in residue ring section to not conflict. 
-
 [ ] (mainly ashwath) table of all curves with nontrivial conjectural sha.
     as corollary -- BSD appears to be true for these curves. we mostly
     checked the full conjecture, right, using the L-function to compute
@@ -64,7 +29,7 @@ sense?
 
 [ ] (Ben) Maybe need a better reference to give all families than Kubert?
 
-[ ] (aly) include more tables, with information up to rank 2
+[ ] (aly, andrew) include more tables, with information up to rank 2
 
 [ ] things to have tables of (or information about):
 
@@ -85,4 +50,39 @@ sense?
       for the curves in our data set, here is how many have a_2 = -2,
       -1, 0, 1, 2, etc.
 
+
+[x] (anybody) example where Cremona-Lingham is useful.
+
+[x] (william) write section 2.2.3
+
+[x] (william) write section 2.2.4
+
+[x] (william) write section 2.2.5.  Note that there is a theoretical
+    obstruction to doing this provably correctly at present!
+
+[x] (william or ben or ashwath) fill in proposition 3.1: " TODO: Explain how to tell if $\ell\mid \#E(F)_{\tor}$."
+
+[x] Put the example in Section 3.1 of the biggest "height" curve (but
+smallest in isogeny class) up to norm conductor 1831.  -- Concrete
+question: To illustrate the difficulty of using naive enumeration to
+find a curve E_f associated to f, it would be nice to give the worst
+example.  So if we take the best curve from each isogeny class up to
+1831, what is the worst one, i.e., with "biggest coefficients" in some
+sense?
+
+[x] (william) add a remark to residue rings section explaining why our
+    choice of representation is adapted to this problem.
+
+[x] (william) fix notation in residue ring section to not conflict. 
+
+[x] (jon) reference for Dembele's "An algorithm for modular elliptic curves..." in 3.6
+
+[x] (william) delete section 6.3
+
+[x] (william) bottom of page 1, "is supported by theoretical evidence"
+      (citation needed?) -- can copy something from my NSF proposal
+
+[x] clean up and update references; grabbing bibtex entries from mathscinet
+
+[x] (jon) reference and comments for conjecture 3.2 need to be fixed
 
