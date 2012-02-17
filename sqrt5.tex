@@ -616,7 +616,8 @@ To get around the problem of limited precision, we suppose that we have some ext
 namely, the discriminant $\Delta_E$ of the curve we are looking for.  With $\Delta_E$ in
 hand we can directly determine which $\tau$ to choose: if $\sigma_1(\Delta_E) > 0$ then
 $\sigma_1(j(E)) = j(\tau_1(E))$, and if $\sigma_1(\Delta_E) < 0$ then $\sigma_1(j(E)) = j(\tau_2(E))$,
-and similarly for $\sigma_2$. We now compute $\sigma_1(c_4(E)) = (j(\tau) \sigma_1(\Delta_E))^{1/3}$
+and similarly for $\sigma_2$. We then compute
+$\sigma_1(c_4(E)) = (j(\tau) \sigma_1(\Delta_E))^{1/3}$
 and $\sigma_2(c_4(E)) = (j(\tau') \sigma_2(\Delta_E))^{1/3}$.
 
 Using the approximations of the two embeddings of $c_4$, we can recognize $c_4$ approximately
@@ -635,7 +636,7 @@ Then $c_4 = \alpha + \beta\sqrt{5}$, and we can find $c_6$.
 In practice, there are two important difficulties we must overcome: we do not know
 $\Delta_E$ and it may be quite difficult to get high precision approximations to the
 mixed periods, and thus we may not be able to easily compute $c_4$. Thus, we actually
-proceed by guessing a $\Deltaguess$ from which we
+proceed by choosing a $\Deltaguess$ from which we
 compute half-integers $\alpha$ and $\beta$ and an integer
 $a + b\varphi \approx \alpha + \beta\sqrt5$, arbitrarily rounding either $a$ or $b$ if necessary.
 We then make some choice of search range $M$, and for each pair of integers $m$ and $n$,
@@ -655,12 +656,12 @@ and then continue by trying unit multiples and by adding in powers of factors of
 \subsubsection{Guessing the mixed periods}
 We have thus far ignored the issue of actually finding the mixed periods of the curve that
 we are looking for. Finding them presents an extra difficulty as our procedure involves
-even more guesswork. The idea is to use special values of twists of the $L$-function
+even more guesswork. \Dembele's idea is to use special values of twists of the $L$-function
 $L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters over $\OF$,
 which are homomorphisms $\chi : (\OF/\fc)^* \rightarrow \pm1$, pulled back to $\OF$.
 
 In the case of odd prime conductor, which we will stick to here, there is
-just a single primitive quadratic character, namely the quadratic residue symbol.
+just a single primitive quadratic character, which is the quadratic residue symbol.
 A simple way to compute it is by making a
 table of squares, or by choosing a primitive root of $g \in (\OF/\fc)^*$, assigning
 $\chi(g) = -1$, and again making a table by extending multiplicatively. Alternatively,
