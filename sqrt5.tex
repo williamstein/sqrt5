@@ -10,6 +10,10 @@
 \newcommand{\fc}{\mathfrak{c}}
 \newcommand{\OF}{\cO_F}
 \newcommand{\dembele}{Demb\'el{\'e}\xspace}
+\input cyracc.def %sha
+\font\tencyr=wncyr10
+%\def\Sha{\text{\tencyr\cyracc{Sh}}}
+\def\smallsha{\text{\eightcyr\cyracc{Sh}}}
 %
 %Notatation:
 %   F = \Q(\sqrt 5)
@@ -38,7 +42,7 @@
 \begin{abstract} 
 We describe the first significant tabulation of (conjecturally) modular
 elliptic curves over the field $\Q(\sqrt5)$. Using an efficient implementation
-of an algorithm of Lassina \Dembele, we computed large tables of 
+of an algorithm of Lassina \dembele, we computed large tables of 
 \cite{dembele:hilbert5}, we computed large tables of Hilbert modular
 forms of weight $(2,2)$ over $\Q(\sqrt 5)$, and via a variety of ad hoc
 methods we constructed corresponding elliptic curves, including
@@ -85,11 +89,6 @@ curves with relatively small defining equations, and discarding those
 of large conductor, rather than systematically finding all curves of
 given conductor no matter how large the defining equation.
 
-{\bf Acknowledgements.} We would like to thank John Cremona, Tom
-Fisher, Noam Elkies, and Richard Taylor for helpful conversations.  We
-would like to especially thank Joanna Gaski for providing (via the
-method of Section~\ref{sec:naive}) the explicit table of elliptic
-curves that kickstarted this project.
  
 \subsection{Why $\Q(\sqrt{5})$?}
 
@@ -106,15 +105,15 @@ totally real fields.
 If we order totally real number fields $K$ by the absolute value of
 their discriminant, then $F=\Q(\sqrt{5})$ comes next after $\Q$ (the
 Minkowski bound implies that $|D_K| \geq (n^n/n!)^2$, where
-$n=[K:\Q]$, so if $n\geq 3$ then $|D_K|>20$). That $5$ divides
-$\disc(F)=5$ thwarts attempts to easily generalize the method of
-Taylor-Wiles to elliptic curves over $F$, which makes $\Q(\sqrt{5})$
-even more interesting. The field $F$ also has $31$ CM $j$-invariants,
-which is far more than any other quadratic field (see
-Section~\ref{sec:cm}).  Letting $\vphi=\frac{1+\sqrt{5}}{2}$, we have
-that the unit group $\{\pm 1\} \times \langle \vphi \rangle$ of the
+$n=[K:\Q]$, so if $n\geq 3$ then $|D_K|>20$). Since $5$ divides
+$\disc(F)=5$,  the method of Taylor-Wiles does not generalize easily to elliptic
+ curves over $F$, thus making $\Q(\sqrt{5})$ even more interesting. 
+The field $F$ also has $31$ CM $j$-invariants, which is far more than
+ any other quadratic field (see Section~\ref{sec:cm}).  Letting
+ $\vphi=\frac{1+\sqrt{5}}{2}$, we have that the group of units
+ $\{\pm 1\} \times \langle \vphi \rangle$ of the
 ring $R=\cO_F=\Z[\vphi]$ of integers of $F$ is infinite, leading to
-additional complications.  Finally, $F$ has even degree $2$, which
+additional complications.  Finally, $F$ has even degree, which
 makes certain computations more difficult, since the cohomological
 techniques of \cite{greenberg-voight:shimura} are not available. 
 
@@ -129,12 +128,17 @@ The following conjecture is open:
 Given the huge amount of progress on modularity theorems initiated by
 \cite{wiles:fermat}, we are optimistic that Conjecture~\ref{conj:mod}
 will be proved.  {\em We thus officially assume
-  Conjecture~\ref{conj:mod} for the rest of this paper.}
+  Conjecture~\ref{conj:mod} for the rest of this paper.} \\
 
+{\bf Acknowledgements.} We would like to thank John Cremona, Tom
+Fisher, Noam Elkies, and Richard Taylor for helpful conversations.  We
+would like to especially thank Joanna Gaski for providing (via the
+method of Section~\ref{sec:naive}) the explicit table of elliptic
+curves that kickstarted this project.
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
-We describe \dembele's approach to computing Hilbert modular forms over
+In this section, we describe \dembele's approach to computing Hilbert modular forms over
 $F$, but with additional remarks that fill in missing details in the
 algorithm and address how to create a fast implementation.
 
@@ -263,69 +267,74 @@ large enough distinguish newforms. In some cases we will need far more
 $a_{\p}$ in order to distinguish between elements of our finite set of
 newforms and furthermore, to compute with a sufficient degree of
 precision, the $L$-function attached to each element.  We will also
-need the $a_{\p}$ for  bad $\p$ in a few cases, which we obtain
+need the $a_{\p}$ for bad $\p$ in a few cases, which we obtain
 using the functional equation for the $L$-function.
 
 \subsection{Extremely naive enumeration}\label{sec:naive}
 
 The most naive strategy is to systematically enumerate 
  elliptic curves $E: y^2 = x^3 + ax + b$, with $a,b\in R$,
-and for each curve, to compute $a_\p(E)$ for $\p$ not
-dividing $\Disc(E)$ by counting points on $E$ reduced modulo $\p$.  If
-all the $a_\p(E)$ match with those of the input newform $f$ up to the
-bound $B$, we then compute the conductor $\cN_E$, and if it equals
-$\n$, we conclude from the sufficient largeness of $B$ that $E$ is in
-the isogeny class of $E_f$.
+and for each $E$, to compute $a_\p(E)$ for $\p$ not dividing $\Disc(E)$
+ by counting points on $E$ reduced modulo $\p$.  If all the $a_\p(E)$ match
+ with those of the input newform $f$ up to the bound $B$, we then compute
+ the conductor $\cN_E$, and if it equals $\n$, we conclude from the sufficient 
+largeness of $B$ that $E$ is in the isogeny class of $E_f$.
 
-Under our hypotheses, naive enumeration provides an algorithmic
-solution to the problem of finding $E_f$: it will terminate, and when
-it terminates it outputs a correct curve $E_f$. Naive enumeration can
-be extremely slow because even if $\n$ is small, the simplest curve in
-the isogeny class of $E_f$ may have large coefficients.  For example,
-the curve
-$$y^2 = x^3 + \left(186921 a - 301671\right)x + \left(47055384 a -
-74637018\right),
-$$
-has
-conductor $\n = -38 \vphi + 10$, with norm $1724$.
-[[TODO: how did we find his one?!]]
-We would take an enormous amount of time to find it: it
-would take about $10^{15}$ {\em years} to consider all curves with
-coefficients $a,b$ of the form $w+z\vphi$ with $|w|,|z| <10^8$, 
-if we consider a billion curves per second.
+Under our hypotheses, this approach provides a deterministic and 
+terminating algorithm to find all $E_f$. However, it can be extremely slow
+ for when $\n$ is small but the simplest curve in the isogeny class 
+of $E_f$ has large coefficients.  For example, the elliptic curve given by 
+$$y^2 + \varphi xy  + (\varphi+1)y = x^3 + (\varphi-1)x^2 + (3904\varphi-6577)x + (53806\varphi-88477)$$ having 
+ conductor $\n = -38 \vphi + 10$ and norm $1476$ was computed by Fisher
+ using the visibility of \Sha$[7]$. (HOW DO WE CITE HIM??) 
+On the other hand, naive enumeration would take about $10^{15}$ {\em years} to
+ search for all elliptic curves with coefficients $a,b$ of the form
+ $w+z\vphi$ with $|w|,|z| <10^8$, at the speed of a billion curves per second.
+
+
+\subsection{Curves with specified $a_\p$}
+
+A refinement to the approach discussed above uses the $a_\p$ values to impose congruence conditions modulo $\p$ on $\#\tilde E(R/\p)$. 
+Letting $f$ be a newform computed in \ref{sec:hmf} with Hecke eigenvalues $a_\p$, we know that $\#\tilde E_f(R/\p)=\bN(\p)+1-a_{\p}$. 
+Given $\p$ not dividing the level $\n$, we can find all elliptic curves modulo $\p$ with the specified number of points, especially when $\bN(\p) +1 - a_\p$ has 
+few prime factors. We impose these congruence conditions at multiple primes $\p_i$, use the Chinese Remainder Theorem, and 
+lift the resulting curves modulo $R/ (\small\prod \p_i)$ to non-singular curves over $R$.
+
+While this method, like the previous one, will eventually terminate, it too is very ineffective if every $E$ in the class
+ of isogenous curves corresponding to $f$ has large coefficients. However in practice, by optimally choosing the number of primes $\p_i$, a reasonably efficient implementation 
+of this method can be obtained.
+% Thus this is
+%a useful technique when we are building tables of elliptic curves
+%associated to newforms and would like to reduce the number of newforms
+%that we must run through slower techniques.
 
 
 
 \subsection{Torsion families}\label{sec:torsion}
 
-Another method, which makes use of a more directed naive search, is to
-use parametrizations of families of curves that have specific torsion
-structures.  Kamienny and Najman show in \cite{kamienny-najman} that
-over $F$ the only torsion structures that appear are the following:
+We find elliptic curves of small conductor by specializing explicit parametrizations of families of elliptic curves over $F$ having specified torsion subgroups. We use the parametrizations of \cite{kubert:torfam}. 
+
+\begin{theorem}[Kamienny-Najman, \cite{kamienny-najman}] The following is a complete list of torsion structures for elliptic curves over $F$:
 
 $$\begin{array}{lll}
 \mathbb{Z}/m\mathbb{Z},   &1 \leq m \leq 10,& m = 12,\\
 \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2m\mathbb{Z}, &  1 \leq m \leq 4,&\\
 \mathbb{Z}/15\mathbb{Z}.&&
-\end{array}$$
-These families have explicit
-parametrizations (see, e.g., \cite{kubert:torfam}) that take
-in either one or two integers and produce a curve with the given torsion
-structure. 
+\end{array}$$ \end{theorem}
 
 We use the following proposition to determine in which family to
 search.
 \begin{proposition}\label{prop:ptor}
 Let $\ell$ be a prime and $E$ a curve over $F$.
 Then $\ell \mid \# E'(F)_{\tor}$ for some curve $E'$ in the isogeny class
-of $E$ if and only if $\ell \mid \Norm(\p)+1 - a_{\p}$ for all good
+of $E$ if and only if $\ell \mid \bN(\p)+1 - a_{\p}$ for all good
 odd primes $\p$.
 \end{proposition}
 \begin{proof}
 First suppose $\ell  \mid \# E'(F)_{\tor}$. 
 The reduction map on torsion modulo any good odd prime is injective
 (see \cite[Appendix]{katz:torsion}), 
-so $\ell \mid \#E'(\F_\p) = \Norm(\p)+1 - a_{\p}$.
+so $\ell \mid \#E'(\F_\p) = \bN(\p)+1 - a_{\p}$.
 The converse statement is one of the main results
 of \cite{katz:torsion}.
 \end{proof}
@@ -338,11 +347,8 @@ families of curves with rational $p$-torsion.  With a relatively small
 search space, we thus find many curves with large coefficients more
 quickly than with the algorithm of Section~\ref{sec:naive}.
 For example, we first found the curve $E$ given by 
-$$
-y^2 + \vphi{}y = x^3 + \left(27 \vphi{} - 43\right)x + \left(-80 \vphi{} + 128\right) 
-$$
-with norm conductor $145$
-by searching for curves with torsion subgroup $\Z/7\Z$.
+$$y^2 + \vphi{}y = x^3 + \left(27 \vphi{} - 43\right)x + \left(-80 \vphi{} + 128\right) 
+$$ with norm conductor $145$ by searching for curves with torsion subgroup $\Z/7\Z$.
 
 
 
@@ -392,46 +398,20 @@ by all $d$ of the form $\pm \vphi^{\delta} d_0 d_1$, where $\delta\in
 the prime divisors of $\n$, 
 $d_1$ is a squarefree product of a fixed choice of generators of 
 primes not dividing $\n$, and
-$|\Norm(d_1)| \leq \sqrt{B/C}$, where $C$ is the norm of the product of
+$|\bN(d_1)| \leq \sqrt{B/C}$, where $C$ is the norm of the product of
 the primes that exactly divide $\n$.
 
 For example, let $E$ be the curve $y^2 + xy + \vphi{}y = x^3 +
 \left(-\vphi{} - 1\right)x^2 $ of conductor $5\vphi - 3$ of norm $31$.
 Following the above strategy, to find twists of norm conductor $\leq
 1831$, we have $C=31$ and twist by squarefree positive $d_1$ with
-$|\Norm(d_1)| \leq \sqrt{B/C} = 7.6\ldots$.  Thus $d_1 \in \{1, 2,
+$|\bN(d_1)| \leq \sqrt{B/C} = 7.6\ldots$.  Thus $d_1 \in \{1, 2,
 \vphi, 2\vphi\}$.  Running through all possibilities for
 $\vphi^{\delta} d_0 d_1$, we find in most cases that the norm
 conductor is larger than $1831$.  We find the curve $E^{-\vphi-2}$ of
 norm conductor $775$ and the curve $E^{5\vphi-3}$ of norm conductor
 $961$.  Other twists have larger norm conductors, e.g., $E^2$ has norm
 conductor $126976=2^{12}\cdot 31$.
-
-\subsection{Curves with specified $a_\p$}
-
-Rather than enumerate through all possible curves, we instead make use
-of the known traces of Frobenius to reduce our search space. Suppose
-we have a newform $f$ with Hecke eigenvalues $a_\p$, so we know
-$\#E_f(R/\p)=\Norm(\p)+1-a_{\p}$. Instead of enumerating over all
-curves as in Section~\ref{sec:naive}, we search over lifts to $R$ of the
-curves over $R/\p$ that have the given point counts.
-
-We can simultaneously use multiple Hecke eigenvalues
-$a_{\p_1},\ldots,a_{\p_k}$ by lifting curves with given point counts
-in the $R/\p_i$'s to curves in $R/\prod \p_i$ before lifting to
-$R$. This reduces the overall search space, but also rapidly increases
-the number of curves to lift.
-
-While this method will eventually terminate just like naive
-enumeration, it suffers from the same issue of potentially being very
-slow if all curves in the isogeny class have large
-coefficients. However, often in practice equations for curves
-have relatively small coefficients, and because of its simplicity, an
-implementation of this algorithm can be quite efficient. 
-% Thus this is
-%a useful technique when we are building tables of elliptic curves
-%associated to newforms and would like to reduce the number of newforms
-%that we must run through slower techniques.
 
 
 \subsection{Curves with good reduction outside $S$}
@@ -903,10 +883,10 @@ total & $1414$ & $3364$ & - \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{Conjectural $\#\Sha$ for curves with norm conductor up through 1831\label{table:sha-counts}}
+\caption{Conjectural $\#\Sha$ for curves with norm conductor up through 1831}\label{table:sha-counts}
 \begin{tabular}{|l|c|c|c|c|c|c|}\hline
-$\#\Sha$                       & 1    & 4  & 9  & 16 & 25 & 36 \\\hline
-$\#\{$ {\bf isom. classes }$\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
+\#\Sha                       & 1    & 4  & 9  & 16 & 25 & 36 \\\hline
+$\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -1032,7 +1012,7 @@ $36$ & $\left[0, 0, 0, 0, -27\right]$ & $j_2$ & 0 \\\hline %good
 \subsection{Up to norm conductor  $199$}\label{sec:to199}
 
 For curves up to norm conductor 199, 
-there is lots of available data.  
+there is substantial data available.
 Here we do know the number of isogeny and isomorphism classes.
 
 \begin{center}
@@ -1070,8 +1050,8 @@ total & $64$ & $263$ & - \\\hline
 \begin{table}[h]
 \caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:isogeny-sizes}}
 \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}\hline
-{\bf size}                           & 1 & 2  & 3 & 4  & 6 & 8 & 10 & total \\ \hline
-$\#\{ $ {\bf isogeny classes } $\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
+size                           & 1 & 2  & 3 & 4  & 6 & 8 & 10 & total \\ \hline
+$\#\{\text{ isogeny classes }\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -1108,7 +1088,7 @@ $\#\{ $ {\bf isogeny classes } $\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
 \begin{table}[h]
 \caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:tor-counts}}
 \begin{tabular}{|l|c|}\hline
-{\bf torsion structure}    & {\bf $\#\{\text{ isom. classes }\}$} \\\hline
+torsion structure    & $\#\{\text{ isom. classes }\}$ \\\hline
 1                    & 27 \\\hline
 $\Z/2\Z$             & 82 \\\hline
 $\Z/3\Z$             & 11 \\\hline
@@ -1134,6 +1114,24 @@ We can compute all possible $j$-invariants for which an elliptic curve
 over $F$ with have CM (see Section~\ref{sec:cm}).  For curves of norm
 conductor up through 199, we find 8 curves with CM, all with the same
 conductor which has norm conductor 81.
+
+\begin{center}
+\begin{table}[h]
+\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:cm-counts}}
+\small
+\begin{tabular}{|c|l|l|}\hline
+Norm & $a$-invariants & $j$-invariant \\\hline
+ $81$ & $\left[1, -1, \vphi, -2\vphi, \vphi\right]$ & $-85995\vphi - 52515$ \\\hline
+ $81$ & $\left[1, -1, \vphi + 1, \vphi - 2, -2\vphi + 1\right]$ & $-85995\vphi - 52515$ \\\hline
+$81$ & $\left[1, -1, \vphi, 13\vphi - 15, 20\vphi - 26\right]$ & $-85995\vphi - 52515$ \\\hline
+$81$ & $\left[1, -1, \vphi + 1, -14\vphi - 2, -21\vphi - 6\right]$ & $-85995\vphi - 52515$ \\\hline
+$81$ & $\left[\vphi, -\vphi - 1, \vphi, -128\vphi - 80, 921\vphi + 569\right]$ & $16554983445\vphi + 10231546590$ \\\hline
+$81$ & $\left[\vphi + 1, 1, 0, 129\vphi - 207, -793\vphi + 1283\right]$ & $16554983445\vphi + 10231546590$ \\\hline
+$81$ & $\left[\vphi, -\vphi - 1, \vphi + 1, -1153\vphi - 719, -21854\vphi - 13501\right]$ & $16554983445\vphi + 10231546590$ \\\hline
+$81$ & $\left[\vphi + 1, 1, 1, 1153\vphi - 1871, 23006\vphi - 37225\right]$ & $16554983445\vphi + 10231546590$ \\\hline
+\end{tabular}
+\end{table}
+\end{center}
 
 %['81a', 'a1', 81, 9, [1, -1, a, -2*a, a]] -85995*a - 52515
 %['81a', 'a2', 81, 9, [1, -1, a + 1, a - 2, -2*a + 1]] 85995*a - 138510
@@ -1194,7 +1192,7 @@ we obtain the following table:
 
 \begin{center}
 \begin{tabular}{|c|l|}\hline
-{\bf Field} & $D$ so $H_D$ has roots in field \\\hline
+Field & $D$ so $H_D$ has roots in field\\\hline
 $\Q(\sqrt{2})$ & $-24,-32,-64,-88$ \\\hline
 $\Q(\sqrt{3})$ & $-36,-48$ \\\hline
 $\Q(\sqrt{5})$ & $-15,-20,-35,-40,-60,$ \\
@@ -1205,7 +1203,7 @@ $\Q(\sqrt{13})$ & $-52,-91,-403$ \\\hline
 $\Q(\sqrt{17})$ & $-51,-187$ \\\hline
 \end{tabular}
 \begin{tabular}{|c|l|}\hline
-{\bf Field} & $D$ so $H_D$ has roots in field\\\hline
+Field & $D$ so $H_D$ has roots in field\\\hline
 $\Q(\sqrt{21})$ & $-147$ \\\hline
 $\Q(\sqrt{29})$ & $-232$ \\\hline
 $\Q(\sqrt{33})$ & $-99$ \\\hline
