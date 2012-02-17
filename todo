@@ -1,36 +1,31 @@
 TODO LIST
 
-[ ] (jon & andrew) table of how many isogeny classes have each prime isogeny degree
+[ ] (william) make sure each section has a topic paragraph
 
-[ ] (william or Jon) write an abstract
+[ ] (jon) table of how many isogeny classes have each prime isogeny degree
 
-[ ] (anybody) clean up the table's section a bit (probably just want
+[ ] (andrew) clean up the table's section a bit (probably just want
     to write a few sentences at the beginning that say something like
     "we list a bunch of tables with..."
 
-[ ] (Ben) Maybe need a better reference to give all families than Kubert?
+[x] (Ben) Need a better reference to give all families than Kubert?
 
-[ ] (aly, andrew) include more tables, with information up to rank 2
-
-[ ] things to have tables of (or information about):
-
+[x] things to have tables of (or information about):
     - # of curves with each torsion group (mostly done for 199); but
       redo for each torsion structure (not order), e.g., write as 
           1, 2, 3, 4, 2x2, 5, 6, 7, 8, 2x4, 9, etc. 
     - # of curves with each rank (may not need to be a separate table,
         since it is not much information (done for 199)
     - # of isogeny classes of each size (done for 199)
- 
     (everybody) Other interesting statistics?
-
     - maybe a table with the number of isogeny/isomorphism
       classes of curves with norm conductor <= N * 100, for N = 1 .. 18,
       or something like that
-
     - information about the distribution of a_p for a few small p, i.e.,
       for the curves in our data set, here is how many have a_2 = -2,
       -1, 0, 1, 2, etc.
 
+[x] (aly, andrew) include more tables, with information up to rank 2
 
 [x] (andrew) How was curve found in "Extremely naive enumeration" section?
 
@@ -91,4 +86,6 @@ sense?
 [x] clean up and update references; grabbing bibtex entries from mathscinet
 
 [x] (jon) reference and comments for conjecture 3.2 need to be fixed
+
+[x] (william or Jon) write an abstract
 
