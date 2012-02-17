@@ -865,6 +865,18 @@ we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
 nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
 separately if they are not isomorphic.  
 
+\begin{table}
+\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
+\begin{tabular}{|c|c|c|c|}\hline
+{\bf rank} & $\#\{${\bf isogeny classes }$\}$ &  $\#\{$ {\bf isom. classes }$\}$ &{\bf smallest $\Norm(\n_E)$} \\\hline
+ $0$  & $745$  & $2172$ & $31$\\\hline
+ $1$  & $667$  & $1190$ & $199$ \\\hline
+ $2$  & $2$    & $2$    & $1831$ \\\hline
+total & $1414$ & $3364$ & - \\\hline
+\end{tabular}
+\end{table}
+\end{center}
+
 \begin{center}
 \begin{table}[h]
 \caption{Counts of isogeny and isomorphism classes with bounded norm conductors and specified ranks\label{table:increasing-counts}}
@@ -884,14 +896,30 @@ separately if they are not isomorphic.
 \end{tabular}
 \end{table}
 
-\begin{table}
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:total-counts}}
-\begin{tabular}{|c|c|c|c|}\hline
-{\bf rank} & $\#\{${\bf isogeny classes }$\}$ &  $\#\{$ {\bf isom. classes }$\}$ &{\bf smallest $\Norm(\n_E)$} \\\hline
- $0$  & $745$  & $2172$ & $31$\\\hline
- $1$  & $667$  & $1190$ & $199$ \\\hline
- $2$  & $2$    & $2$    & $1831$ \\\hline
-total & $1414$ & $3364$ & - \\\hline
+\begin{center}
+\begin{table}[h]
+\caption{Number of Isogeny classes of a given size\label{table:isogeny-sizes}}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}\hline
+\textbf{size}                      & 1   & 2   & 3  & 4   & 6  & 8  & 10 & total \\\hline
+\textbf{up to norm conductor 199}  & 2   & 21  & 3  & 20  & 8  & 9  & 1  & 64    \\\hline
+\textbf{up to norm conductor 1831} & 498 & 530 & 36 & 243 & 66 & 38 & 3  & 1414  \\\hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}[h]
+\caption{Order of Torsion subgroups for curves with norm conductor up through 1831\label{table:tor-counts}}
+\begin{tabular}{|l|c||l|c|}\hline
+torsion structure    & $\#\{\text{ isom. classes }\}$ & torsion structure & $\#\{\text{ isom. classes }\}$ \\\hline
+1                    & 296  & $\Z/8\Z$             & 21 \\\hline
+$\Z/2\Z$             & 1453 & $\Z/4\Z\oplus\Z/2\Z$ & 51 \\\hline
+$\Z/3\Z$             & 202  & $\Z/9\Z$             & 6  \\\hline
+$\Z/4\Z$             & 243  & $\Z/10\Z$            & 12 \\\hline
+$\Z/2\Z\oplus\Z/2\Z$ & 312  & $\Z/12\Z$            & 6  \\\hline
+$\Z/5\Z$             & 56   & $\Z/6\Z\oplus\Z/2\Z$ & 11 \\\hline
+$\Z/6\Z$             & 183  & $\Z/15\Z$            & 1  \\\hline
+$\Z/7\Z$             & 13   & $\Z/8\Z\oplus\Z/2\Z$ & 2  \\\hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -1017,146 +1045,14 @@ $36$ & $\left[0, 0, 0, 0, -27\right]$ & $j_2$ & 0 \\\hline %good
 \end{table}
 \end{center}
 
-
-
-\vspace{10mm}
-
-
-
-
 \subsection{Up to norm conductor  $199$}\label{sec:to199}
 
 For curves up to norm conductor 199, 
 there is substantial data available.
 Here we do know the number of isogeny and isomorphism classes.
 
-\begin{center}
-\begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:rank-counts}}
-\begin{tabular}{|c|c|c|c|}\hline
-{\bf rank} & $\#\{$ {\bf isogeny classes }$\}$ &  $\#\{$ {\bf isom. classes }$\}$ &{\bf smallest $\Norm(\n)$}\\\hline
- $0$ & $62$ & $257$ & $31$\\\hline
- $1$ & $2$ & $6$ & $199$\\\hline
-total & $64$ & $263$ & - \\\hline
-\end{tabular}
-\end{table}
-\end{center}
-%We also know the number of isogeny classes of a given size:
-
-%\begin{center}
-%\begin{table}[h]
-%\caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:counts}}
-%\begin{tabular}{|c|c|}\hline
-%size & $\#\{\text{ isogeny classes of given size}\}$\\\hline
-% $1$ & $2$ \\\hline
-% $2$ & $21$ \\\hline
-% $3$ & $2$ \\\hline
-% $4$ & $20$ \\\hline
-% $6$ & $8$\\\hline
-% $8$ & $9$ \\\hline
-% $10$ & $1$ \\\hline
-% $11$ & $1$ \\\hline
-% total & $64$\\\hline
-%\end{tabular}
-%\end{table}
-%\end{center}
-
-\begin{center}
-\begin{table}[h]
-\caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:isogeny-sizes}}
-\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}\hline
-size                           & 1 & 2  & 3 & 4  & 6 & 8 & 10 & total \\ \hline
-$\#\{\text{ isogeny classes }\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
-\end{tabular}
-\end{table}
-\end{center}
-
-
-%would it be interesting to partition this into rank 0 and rank 1 curves?
-
-%We also know the size of all the torsion subgroups:
-%\begin{center}
-%\begin{table}[h]
-%\caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:counts}}
-%\begin{tabular}{|c|c|}\hline
-%torsion order & $\#\{\text{ curves with given torsion}\}$\\\hline
-% $1$ & $27$ \\\hline
-% $2$ & $82$ \\\hline
-% $3$ & $11$ \\\hline
-% $4$ & $4$ \\\hline
-% $5$ & $12$ \\\hline
-% $6$ & $47$\\\hline
-% $7$ & $6$ \\\hline
-% $8$ & $19$ \\\hline
-% $9$ & $4$ \\\hline
-% $10$ & $2$ \\\hline
-% $12$ & $9$ \\\hline
-% $15$ & $1$ \\\hline
-% $16$ & $2$\\\hline
-%\end{tabular}
-%\end{table}
-%\end{center}
-%again, split based on rank?
-%\vspace{10mm}
-
-\begin{center}
-\begin{table}[h]
-\caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:tor-counts}}
-\begin{tabular}{|l|c|}\hline
-torsion structure    & $\#\{\text{ isom. classes }\}$ \\\hline
-1                    & 27 \\\hline
-$\Z/2\Z$             & 82 \\\hline
-$\Z/3\Z$             & 11 \\\hline
-$\Z/4\Z$             & 20 \\\hline
-$\Z/2\Z\oplus\Z/2\Z$ & 21 \\\hline
-$\Z/5\Z$             & 12 \\\hline
-$\Z/6\Z$             & 47 \\\hline
-$\Z/7\Z$             & 6  \\\hline
-$\Z/8\Z$             & 9  \\\hline
-$\Z/4\Z\oplus\Z/2\Z$ & 10 \\\hline
-$\Z/9\Z$             & 4  \\\hline
-$\Z/10\Z$            & 2  \\\hline
-$\Z/12\Z$            & 3  \\\hline
-$\Z/6\Z\oplus\Z/2\Z$ & 6  \\\hline
-$\Z/15\Z$            & 1  \\\hline
-$\Z/8\Z\oplus\Z/2\Z$ & 2  \\\hline
-\end{tabular}
-\end{table}
-\end{center}
-
-
 We can compute all possible $j$-invariants for which an elliptic curve
-over $F$ with have CM (see Section~\ref{sec:cm}).  For curves of norm
-conductor up through 199, we find 8 curves with CM, all with the same
-conductor which has norm conductor 81.
-
-\begin{center}
-\begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with CM  and norm conductor up to 199\label{table:cm-counts}}
-\small
-\begin{tabular}{|c|l|l|}\hline
-Norm & $a$-invariants & $j$-invariant \\\hline
- $81$ & $\left[1, -1, \vphi, -2\vphi, \vphi\right]$ & $-85995\vphi - 52515$ \\\hline
- $81$ & $\left[1, -1, \vphi + 1, \vphi - 2, -2\vphi + 1\right]$ & $-85995\vphi - 52515$ \\\hline
-$81$ & $\left[1, -1, \vphi, 13\vphi - 15, 20\vphi - 26\right]$ & $-85995\vphi - 52515$ \\\hline
-$81$ & $\left[1, -1, \vphi + 1, -14\vphi - 2, -21\vphi - 6\right]$ & $-85995\vphi - 52515$ \\\hline
-$81$ & $\left[\vphi, -\vphi - 1, \vphi, -128\vphi - 80, 921\vphi + 569\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-$81$ & $\left[\vphi + 1, 1, 0, 129\vphi - 207, -793\vphi + 1283\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-$81$ & $\left[\vphi, -\vphi - 1, \vphi + 1, -1153\vphi - 719, -21854\vphi - 13501\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-$81$ & $\left[\vphi + 1, 1, 1, 1153\vphi - 1871, 23006\vphi - 37225\right]$ & $16554983445\vphi + 10231546590$ \\\hline
-\end{tabular}
-\end{table}
-\end{center}
-
-%['81a', 'a1', 81, 9, [1, -1, a, -2*a, a]] -85995*a - 52515
-%['81a', 'a2', 81, 9, [1, -1, a + 1, a - 2, -2*a + 1]] 85995*a - 138510
-%['81a', 'a3', 81, 9, [a, -a - 1, a, -128*a - 80, 921*a + 569]] 16554983445*a + 10231546590
-%['81a', 'a4', 81, 9, [a + 1, 1, 0, 129*a - 207, -793*a + 1283]] -16554983445*a + 26786530035
-%['81a', 'a5', 81, 9, [a, -a - 1, a + 1, -1153*a - 719, -21854*a - 13501]] 16554983445*a + 10231546590
-%['81a', 'a6', 81, 9, [a + 1, 1, 1, 1153*a - 1871, 23006*a - 37225]] -16554983445*a + 26786530035
-%['81a', 'a7', 81, 9, [1, -1, a, 13*a - 15, 20*a - 26]] 85995*a - 138510
-%['81a', 'a8', 81, 9, [1, -1, a + 1, -14*a - 2, -21*a - 6]] -85995*a - 52515
-
+over $F$ with have CM (see Section~\ref{sec:cm}).
 
 \subsection{CM elliptic curves over $F$}\label{sec:cm}
 
