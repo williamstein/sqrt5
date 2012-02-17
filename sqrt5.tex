@@ -334,7 +334,6 @@ a reasonably efficient implementation of this method can be obtained.
 %that we must run through slower techniques.
 
 \subsection{Torsion families}\label{sec:torsion}
-
 We find elliptic curves of small conductor by specializing explicit parametrizations
 of families of elliptic curves over $F$ having specified torsion subgroups.
 We use the parametrizations of \cite{kubert:torfam}.
@@ -360,7 +359,7 @@ odd primes $\p$ at which $E$ has good reduction.
 \end{proposition}
 \begin{proof}
 If $\ell  \mid \# E'(F)_{\tor}$, from the injectivity of the
-reduction map at good primes \cite{katz:torsion}[Appendix], we have that
+reduction map at good primes \cite[Appendix]{katz:torsion}, we have that
 $\ell \mid \#\tilde E'(\F_\p) = \bN(\p)+1 - a_{\p}$. The converse statement
 is one of the main results of \cite{katz:torsion}.
 \end{proof}
@@ -547,9 +546,9 @@ outlines some methods for finding modular elliptic curves from Hilbert
 modular forms over real quadratic fields. Formally, these methods are
 not proven to be any better than a direct search procedure, as they
 involve making a large number of guesses, and a priori we do not know
-just how many guesses we will need to make.  The method requires many
-Fourier coefficients of the modular form $f$ that we have started
-with, and computing these takes a lot of time. However, this method
+just how many guesses we will need to make. And unlike other methods
+described in this paper, this method requires many Hecke eigenvalues,
+and computing these takes a lot of time. However, this method
 certainly works extremely well in many cases, and after tuning it by
 using large tables of curves that we had already computed, we we able
 to use it to find more curves that we would have had no hope of
@@ -567,12 +566,12 @@ totally positive, and that we have sufficiently many coefficients of its
 $L$-series $\ap{1}, \ap{2}, \ap{3}, \ldots$.
 
 Let $\sigma_1$ and $\sigma_2$ denote the embeddings of $F$ into the
-real numbers, with $\sigma_1(\varphi) \approx 1.61803398874989\ldots$. For
+real numbers, with $\sigma_1(\varphi) \approx 1.61803\ldots$. For
 an elliptic curve $E$ over $F$ we get two associated embeddings into
-the complex number, and hence a pair of period lattices. Let $\Omegap_E$
-and $\Omegam_E$, which we refer to as the {\em periods} of $E$,
+the complex numbers, and hence a pair of period lattices. We let $\Omegap_E$
+and $\Omegam_E$, which we refer to as the periods of $E$,
 be the least real and imaginary periods of the lattice
-which come from the embedding $\sigma_1$. As the period lattices are interchanged
+which come from the embedding $\sigma_1$, and as the period lattices are interchanged
 when $E$ is replaced with its conjugate curve, we let $\Omegap_{\Ebar}$
 and $\Omegam_{\Ebar}$ denote the least real and imaginary periods
 of the lattice under the embedding associated to $\sigma_2$.
@@ -604,7 +603,7 @@ and $j(\tau)$ is the modular $j$-function
 We try each pair of possible embeddings for $j(E)$ in turn, and recognize
 possibilities for $j(E)$ as an algebraic number. We then construct curves $E'$
 corresponding to each possibility for $j(E)$. By computing a few $\ap{}(E)$, we
-should be able to determine whether we have chosen the correct $j$-invariant
+should be able to determine whether we have chosen the correct $j$-invariant,
 in which case $E'$ will be a twist of $E$. We can then recognize which twist it is
 in order to recover $E$.
 
