@@ -205,6 +205,58 @@ def canonical_model(E):
     return canonical_model(E)
 
 
+def verify_allcurves():
+    """
+    read in the file allcurves.txt and check run isogeny_class() on the first
+    curve of each isogeny class to make check that we get the same thing
+    back.
+    """
+
+    infile = open('tables/allcurves.txt')
+    outfile = open('outfile', 'w')
+    current_isogeny_label = ''
+    current_isomorphism_label = ''
+
+    line = infile.readline()
+    count = 0
+    while line != '':
+        my_isogeny_class = []
+        ideal_name, label, norm, ideal, ainvs = line.split()
+        current_isogeny_label = ideal_name + '.' + label[0]
+        isomorphism_label = label[1:]
+        E = EllipticCurve(eval(ainvs))
+        my_isogeny_class.append(E)
+        line = infile.readline()
+        while line != '':
+            ideal_name, label, norm, ideal, ainvs = line.split()
+            isogeny_label = ideal_name + '.' + label[0]
+            isomorphism_label = label[1:]
+            E = EllipticCurve(eval(ainvs))
+            if isogeny_label == current_isogeny_label:
+                my_isogeny_class.append(E)
+            else:
+                # check and then break!
+                my_isogeny_class2, isogeny_matrix = isogeny_class(my_isogeny_class[0])
+                my_isogeny_class2 = [canonical_model(E) for E in my_isogeny_class2]
+
+                my_isogeny_class2_ainvs = [str(E.ainvs()) for E in my_isogeny_class2]
+                my_isogeny_class_ainvs = [str(E.ainvs()) for E in my_isogeny_class]
+                
+                my_isogeny_class2_ainvs.sort()
+                my_isogeny_class_ainvs.sort()
+
+                if my_isogeny_class_ainvs != my_isogeny_class2_ainvs:
+                    print current_isogeny_label
+
+                count = count + 1
+                print count,
+                sys.stdout.flush()
+                #for isomorphism_label, E in isogeny_class:
+                #    print >> outfile, current_isogeny_label, isomorphism_label, E.ainvs()
+                #print >> outfile
+                break
+            line = infile.readline()
+
 def table_all_curves():
     for X in open('tables/allcurves.txt').readlines():
         if X.strip():
