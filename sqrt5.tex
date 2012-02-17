@@ -656,7 +656,7 @@ and then continue by trying unit multiples and by adding in powers of factors of
 \subsubsection{Guessing the mixed periods}
 We have thus far ignored the issue of actually finding the mixed periods of the curve that
 we are looking for. Finding them presents an extra difficulty as our procedure involves
-even more guesswork. \Dembele's idea is to use special values of twists of the $L$-function
+even more guesswork. \dembele's idea is to use special values of twists of the $L$-function
 $L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters over $\OF$,
 which are homomorphisms $\chi : (\OF/\fc)^* \rightarrow \pm1$, pulled back to $\OF$.
 
@@ -677,7 +677,7 @@ on ideals, but {\em is} well defined on totally positive generators of ideals.) 
 will satisfy a functional equation similar to that of $L(f, s)$, but the conductor is
 multiplied by $\Norm(\fc)^2$ and the sign is multiplied by $\chi(-N)$. The key to finding the
 mixed periods of $E$ is contained in the following conjecture that \dembele has distilled
-from \cite{bertolini-darmon-green}.
+from \cite{bertolini-darmon-green}, and we have stated specifically for $\Q(\sqrt5)$.
 \begin{conjecture}
 If $\chi$ is a primitive quadratic character with conductor $\fc$ relatively prime to the
 conductor of $E$, with $\chi(\varphi) = s'$ and
@@ -692,10 +692,11 @@ for some integer $c_\chi$, where $\tau(\chi)$ is the Gauss sum
 with $m$ a totally positive generator of $\fc$.
 \end{conjecture}
 \begin{remark}
-  This statement has been specialized to $\Q(\sqrt 5)$, but not very
-  much. In the more general case of a real quadractic field, $5$ is
-  replaced by the discriminant, and $\vphi$ is replaced by a
-  fundamental unit.  The Gauss sum is more innocuous than it
+  %This statement has been specialized to $\Q(\sqrt 5)$, but not very
+  %much. In the more general case of a real quadractic field, $5$ is
+  %replaced by the discriminant, and $\vphi$ is replaced by a
+  %fundamental unit.
+  The Gauss sum is more innocuous than it
   seems. For odd conductor $\fc$ it is of size $\sqrt{\Norm(\fc)}$, while
   for an even conductor it is of size $\sqrt{2 \Norm(\fc) }$.  Its sign is
   a $4$-th root of unity, and whether it is real or imaginary can be
@@ -726,10 +727,10 @@ up to some conductor bound $M$ (we are restricting to odd prime modulus here for
 as primitivity is ensured, but this is not necessary):
 \[
     S^{s,s'} = \{ \chi \bmod \p : \chi(\phi) = s', \chi(1 - \phi) = s,
-            (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_E\},
+            (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_E\}.
 \]
 Here $s, s' \in \{+, -\} = \pm 1$ again. We will consider these lists to be ordered by the
-norm conductors of the characters in increasing order, and index their elements as
+norms of the conductors of the characters in increasing order, and index their elements as
 $\chi^{s,s'}_0, \chi^{s,s'}_1, \chi^{s,s'}_2, \ldots$. For each character we compute the central
 value of the twisted $L$-function to get four new lists
 \[
@@ -741,7 +742,7 @@ of which integer multiples they might be, we compute each of the ratios
 \[
     \frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k} = \frac{c_{\chi^{s,s'}_0}}{c_{\chi^{s,s'}_k}} \in \Q, k = 1, 2, \ldots,
 \]
-attempt to recognize these as rational number, and 
+attempt to recognize these as rational numbers, and 
 choose as an initial guess
 \[
     \Omega^{ss'}_{E, \mathrm{guess}} = \mathcal{L}^{s,s'}_0\left(\mathrm{lcm}\left\{ \mathrm{numerator}\left(\frac{\mathcal{L}^{s,s'}_0}{\mathcal{L}^{s,s'}_k}\right), k = 1,2, \ldots \right\}\right)^{-1}.
