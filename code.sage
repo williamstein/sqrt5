@@ -51,10 +51,10 @@ def primes_of_bounded_norm(B):
 
 def p_isogenous_curves(E, p, B=1000):
     E = E.change_ring(F)
-    E = E.conductor()
+    N = E.conductor()
     
     if p in [2,3,5,7,13]:
-        return [S.codomain() for S in E.isogenies_prime_degree(p)]
+        return [canonical_model(S.codomain()) for S in E.isogenies_prime_degree(p)]
         
     E = E.short_weierstrass_model()
     dp = E.division_polynomial(p).change_ring(F)
