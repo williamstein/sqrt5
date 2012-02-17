@@ -1,6 +1,7 @@
 \documentclass{amsart} 
 \include{macros}
 \usepackage{hyperref}
+\usepackage{multirow}
 \newcommand{\n}{\mathfrak{n}}
 \newcommand{\cN}{\mathcal{N}}
 \newcommand{\ap}[1]{a_{\p_{#1}}}
@@ -88,8 +89,7 @@ Like $\Q$, the field $F=\Q(\sqrt{5})$ is a totally real field, and
 many of the theorems and ideas about elliptic curves over $\Q$ have
 been generalized to totally real fields. As is the case over $\Q$,
 there is a notion of modularity coming from Shimura curve
-parametrizations and Hilbert modular forms, which is supported by
-computational and theoretical evidence \cite{}.
+parametrizations and Hilbert modular forms.
 Moreover, work of Zhang \cite{zhang:heightsshimura}  has extended many
 results of Gross-Zagier \cite{gross-zagier} and Kolyvagin
 \cite{kolyvagin:mordellweil} to the context of elliptic curves over
@@ -163,12 +163,16 @@ $T_{\p}([x]) = \sum [\alpha x]$, where the sum is over the classes
 $[\alpha]\in S/S^*$ with $N_{\text{red}}(\alpha)=\pi_{\p}$ (reduced quaternion norm),
 where $\pi_{\p}$ is a fixed choice of totally positive generator of~$\p$.
 
-\subsection{An Algorithm}
+\subsection{Remarks on Computing with $\P^1(R/\n)$}
 
-In this section we describe an efficient algorithm to compute $V$ as
-a $\T$-module.
+In order to implement the algorithm sketched in
+Section~\ref{sec:dembele}, it is critical that we can compute with
+$\P^1(R/\n)$ very, very quickly.  For example, to apply the method of
+Section~\ref{sec:specialvalues} below, in some cases we have to
+compute tens of thousands of Hecke operators.  Thus in this section we
+make some additional remarks about how we did this fast
+implementation.
 
-\subsubsection{Computing with $\P^1(R/\n)$}
 When $\n=\p^e$ is a prime power, it is
 straightforward to efficiently enumerate representative elements of
 $\P^1(R/\p^e)$, since each element $[x:y]$ of $\P^1(R/\p^e)$ has a
@@ -229,17 +233,6 @@ since $R/\p^eR \isom (\Z/p^{f}\Z)[x]/(x^2-x-1)$.
  We find that $ \varphi \in R \mapsto (1/2,1/2)$.
 \end{itemize}
 
-
-
-\subsubsection{Enumerating elements of $S$ of norm $\pi_p$ modulo $S^*$}
-[[TODO]]
-This is around line 1099 of sqrt5.py.  It was pretty tricky to figure out
-and involves multiple ideas.
-
-\subsubsection{Computing a local splitting}
-[[TODO]]
-
-\subsubsection{Enumerating rational newforms}
 
 
 \section{Strategies for finding an elliptic curve attached to a Hilbert modular form}\label{sec:finding}
@@ -519,18 +512,21 @@ Fortunately, our curve $E$ was amongst those curves.
 \newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
 \newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
-In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele outlines
-some methods for finding
-modular elliptic curves from Hilbert modular forms over real quadratic
-fields. Formally, these methods are not proven to be any better than a direct
-search procedure, as they involve making a large number of guesses, and a
-priori we do not know just how many guesses we will need to make.
-The method requires many Fourier coefficients of the modular form $f$ that we
-have started with, and computing these takes a lot of time. However,
-this method certainly works extremely well in many cases, and after tuning
-it by using large tables of curves that we had already computed, we we able
-to use it to find more curves that we would have had no hope of finding
-otherwise; we will give an example of one of these curves later.
+In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele
+outlines some methods for finding modular elliptic curves from Hilbert
+modular forms over real quadratic fields. Formally, these methods are
+not proven to be any better than a direct search procedure, as they
+involve making a large number of guesses, and a priori we do not know
+just how many guesses we will need to make.  The method requires many
+Fourier coefficients of the modular form $f$ that we have started
+with, and computing these takes a lot of time. However, this method
+certainly works extremely well in many cases, and after tuning it by
+using large tables of curves that we had already computed, we we able
+to use it to find more curves that we would have had no hope of
+finding otherwise; we will give an example of one of these curves
+later.  This section is longer than the others, because we created the
+first general implementation of the algorithm from
+\cite{dembele:elliptic-curves-quadratic-fields}.
 
 In the case of nonsquare level \dembele's method relies on computing
 or guessing periods of the curve from by using special values of
@@ -865,22 +861,30 @@ summarizes the number of curves we found.  Note that in these counts
 we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
 nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
 separately if they are not isomorphic.  
+
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 1831\label{table:counts}}
-\begin{tabular}{|c|c|c|c|}\hline
-rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smallest norm conductor \\\hline
- $0$  & $745$  & $2172$ & $31$\\\hline
- $1$  & $667$  & $1190$ & $199$ \\\hline
- $2$  & $2$    & $2$    & $1831$ \\\hline
-total & $1414$ & $3364$ & - \\\hline
+\caption{Counts of isogeny and isomorphism classes with bounded norm conductors and specified ranks\label{table:counts}}
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|} \cline{2-11}
+&\multicolumn{10}{|c|}{\textbf{norm conductor bound}} \\\cline{2-11}
+& 200 & 400 & 600 & 800 & 1000 & 1200 & 1400 & 1600 & 1800 & 1831\\\hline\hline
+\multicolumn{11}{|c|}{\textbf{number of isogeny classes }} \\\hline
+\multicolumn{1}{|l|}{\textbf{rank 0}} & 62 & 151 & 246 & 334 & 395 & 492 & 574 & 669 & 729 & 745 \\\hline
+\multicolumn{1}{|l|}{\textbf{rank 1}} & 2 & 32 & 94 & 172 & 237 & 321 & 411 & 531 & 655 & 667 \\\hline
+\multicolumn{1}{|l|}{\textbf{rank 2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2 \\\hline
+\multicolumn{1}{|l|}{\textbf{total}} & 64 & 183 & 340 & 506 & 632 & 813 & 985 & 1200 & 1384 & 1414 \\\hline\hline
+\multicolumn{11}{|c|}{\textbf{number of isomorphism classes}} \\\hline
+\multicolumn{1}{|l|}{\textbf{rank 0}} & 257 & 580 & 827 & 1085 & 1247 & 1484 & 1731 & 1970 & 2128 & 2174 \\\hline
+\multicolumn{1}{|l|}{\textbf{rank 1}} & 6 & 59 & 155 & 285 & 399 & 551 & 723 & 972 & 1178 & 1192 \\\hline
+\multicolumn{1}{|l|}{\textbf{rank 2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2 \\\hline
+\multicolumn{1}{|l|}{\textbf{total}} & 263 & 639 & 982 & 1370 & 1646 & 2035 & 2454 & 2942 & 3306 & 3368 \\\hline
 \end{tabular}
 \end{table}
 \end{center}
 
 \begin{center}
 \begin{table}[h]
-\caption{Conjectural $\#\Sha$ for curves with norm conductor up through 1831\label{table:counts}}
+\caption{Conjectural $\#\Sha$ for curves with norm conductor up through 1831\label{table:sha-counts}}
 \begin{tabular}{|l|c|c|c|c|c|c|}\hline
 $\#\Sha$                       & 1    & 4  & 9  & 16 & 25 & 36 \\\hline
 $\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
@@ -890,7 +894,7 @@ $\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{First curve with given $\#\Sha$\label{table:counts}}
+\caption{First curve with given $\#\Sha$\label{table:sha}}
 \begin{tabular}{|c | c | c |}
 \hline 
 $n$ & First curve $E$ having $|\Sha(E/F)| = n$ & Norm of conductor of $E$ \\
@@ -916,18 +920,6 @@ For curves up to norm conductor 199,
 there is lots of available data.  
 Here we do know the number of isogeny and isomorphism classes.
 
-\begin{center}
-\begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$ with norm conductor up to 199\label{table:rank-counts}}
-\begin{tabular}{|c|c|c|c|}\hline
-rank & $\#\{\text{ isogeny classes }\}$ &  $\#\{\text{ isom. classes }\}$ & smallest norm conductor\\\hline
- $0$ & $62$ & $257$ & $31$\\\hline
- $1$ & $2$ & $6$ & $199$\\\hline
-total & $64$ & $263$ & - \\\hline
-\end{tabular}
-\end{table}
-\end{center}
-
 %We also know the number of isogeny classes of a given size:
 
 %\begin{center}
@@ -950,7 +942,7 @@ total & $64$ & $263$ & - \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:counts}}
+\caption{Number of Isogeny classes of a given size for all up to norm conductor up through 199\label{table:isogeny-sizes}}
 \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}\hline
 size                           & 1 & 2  & 3 & 4  & 6 & 8 & 10 & total \\ \hline
 $\#\{\text{ isogeny classes }\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
@@ -988,7 +980,7 @@ $\#\{\text{ isogeny classes }\}$ & 2 & 21 & 3 & 20 & 8 & 9 & 1  & 64 \\\hline
 
 \begin{center}
 \begin{table}[h]
-\caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:counts}}
+\caption{Order of Torsion subgroups for curves with norm conductor up through 199\label{table:tor-counts}}
 \begin{tabular}{|l|c|}\hline
 torsion structure    & $\#\{\text{ isom. classes }\}$ \\\hline
 1                    & 27 \\\hline
