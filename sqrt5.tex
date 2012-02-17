@@ -41,14 +41,14 @@ by the American Institute of Mathematics. }
 \begin{document}
 
 \begin{abstract} 
-We describe a tabulation of (conjecturally) modular
-elliptic curves over the field $\Q(\sqrt5)$ up to the first curve of rank $2$. Using an
-efficient implementation of an algorithm of Lassina \dembele
-\cite{dembele:hilbert5}, we computed large tables of Hilbert modular
-forms of weight $(2,2)$ over $\Q(\sqrt 5)$, and via a variety of ad hoc
-methods we constructed corresponding elliptic curves, including
-(again, conjecturally) all elliptic curves over $\Q(\sqrt5)$ which have
-conductor with norm less than 1831. 
+  We describe a tabulation of (conjecturally) modular elliptic curves
+  over the field $\Q(\sqrt5)$ up to the first curve of rank $2$. Using
+  an efficient implementation of an algorithm of Lassina \dembele
+  \cite{dembele:hilbert5}, we computed tables of Hilbert modular
+  forms of weight $(2,2)$ over $\Q(\sqrt 5)$, and via a variety of
+  methods we constructed corresponding elliptic curves, including
+  (again, conjecturally) all elliptic curves over $\Q(\sqrt5)$ that
+  have conductor with norm less than 1831.
 \end{abstract} 
 
 \maketitle
@@ -65,7 +65,7 @@ with bad reduction only at $2$ and $3$.
 Cremona's book \cite{cremona:algs} gives a detailed description of
 algorithms that together output a list of all elliptic curves over
 $\Q$ of any given conductor, along with extensive data about each
-curve.  The proof that his algorithm output {\em all} curves of given
+curve.  The proof that his algorithm outputs {\em all} curves of given
 conductor had to wait for the proof of the full modularity theorem in
 \cite{breuil-conrad-diamond-taylor}.  Cremona has subsequently
 computed tables \cite{cremona:onlinetables} of all elliptic curves
@@ -93,10 +93,9 @@ given conductor no matter how large the defining equation.
 Like $\Q$, the field $F=\Q(\sqrt{5})$ is a totally real field, and
 many of the theorems and ideas about elliptic curves over $\Q$ have
 been generalized to totally real fields. As is the case over $\Q$,
-there is a notion of modularity coming from Shimura curve
-parametrizations and Hilbert modular forms.
-Moreover, work of Zhang \cite{zhang:heightsshimura}  has extended many
-results of Gross-Zagier \cite{gross-zagier} and Kolyvagin
+there is a notion of modularity of elliptic curves over $F$, and work
+of Zhang \cite{zhang:heightsshimura} has extended many results of
+Gross-Zagier \cite{gross-zagier} and Kolyvagin
 \cite{kolyvagin:mordellweil} to the context of elliptic curves over
 totally real fields.
 
@@ -124,7 +123,7 @@ The following conjecture is open:
   of $L$-functions associated to cuspidal Hilbert modular newforms
   over $F$ of weight $(2,2)$ with rational Hecke eigenvalues.
 \end{conjecture}
-Given the huge amount of progress on modularity theorems initiated by
+Given the progress on modularity theorems initiated by
 \cite{wiles:fermat}, we are optimistic that Conjecture~\ref{conj:mod}
 will be proved.  {\em We officially assume
   Conjecture~\ref{conj:mod} for the rest of this paper.} \\
@@ -134,7 +133,9 @@ forms using arithmetic in quaternion
 algebras. Section~\ref{sec:finding} gives numerous methods for finding
 an elliptic curve corresponding to a Hilbert modular form.
 Section~\ref{sec:isoclass} addresses how to find all curves that are
-isogenous to a given curve.  We discuss some related projects in
+isogenous to a given curve.  
+In Section~\ref{sec:cm} we enumerate the CM $j$-invariants in $F$.
+We discuss some projects for future work in
 Section~\ref{sec:future}.  Finally, Section~\ref{sec:tables} contains
 tables that summarize various information about our
 dataset, which can be downloaded from
@@ -142,8 +143,8 @@ dataset, which can be downloaded from
 
 {\bf Acknowledgements.} We would like to thank John Cremona, Tom
 Fisher, Noam Elkies, Richard Taylor, and John Voight for helpful
-conversations.  We would like to especially thank Joanna Gaski for
-providing (via the method of Section~\ref{sec:naive}) an explicit
+conversations.  We would especially like to thank Joanna Gaski for
+providing (via the method of Section~\ref{sec:naive}) the explicit
 table of elliptic curves that kickstarted this project.
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
@@ -171,9 +172,7 @@ let $\P^1(R/\n)$ by the set of equivalence classes of
  action of $(R/\n)^*$.  We use the notation $[a:b]$
 to denote the equivalence class of 
 $\left(\begin{smallmatrix}a\\b\end{smallmatrix}\right)$.
-The algebra $F[i,j,k]$ is unramified at all finite primes and ramified
-at the two real infinite primes; in
-particular, for each prime $\p\mid \n$, we may fix a choice of isomorphism
+For each prime $\p\mid \n$, we fix a choice of isomorphism
 $F[i,j,k]\tensor F_{\p} \ncisom M_2(F_{\p})$, which induces a left
 action of $S^*$ on $\P^1(R/\n)$. The Jaquet-Langlands correspondence implies that
 the space of Hilbert modular forms of level $\n$ and weight $(2,2)$ is
@@ -265,7 +264,7 @@ in Section~\ref{sec:hmf}.  According to Conjecture~\ref{conj:mod},
 there is some elliptic curve $E_f$ over $f$ such that $L(f,s) =
 L(E_f,s)$.  (Note that $E_f$ is only well defined up to isogeny.)
 Unlike the case for elliptic curves over $\Q$ (see \cite{cremona:algs}), 
-there appears to be no {\em efficient} direct algorithm to find $E_f$.
+there seems to be no known {\em efficient} direct algorithm to find $E_f$.
  Nonetheless, there are several approaches coming from various directions, 
 which are each efficient in some cases.
 
@@ -273,7 +272,7 @@ Everywhere below, we continue to assume that Conjecture~\ref{conj:mod}
 is true and assume that we have computed (as in Section~\ref{sec:hmf})
 the Hecke eigenvalues $a_\p\in \Z$ of all rational Hilbert newforms of
 some level $\n$, for $\Norm(\p)\leq B$ a good prime, where $B$ is
-large enough distinguish newforms. In some cases we will need far more
+large enough to distinguish newforms. In some cases we will need far more
 $a_{\p}$ in order to distinguish between elements of our finite set of
 newforms and furthermore, to compute with a sufficient degree of
 precision, the $L$-function attached to each element.  We will also
