@@ -519,18 +519,21 @@ Fortunately, our curve $E$ was amongst those curves.
 \newcommand{\OmegapmEguess}{\Omega^{+-}_{E, \mathrm{guess}}}
 \newcommand{\OmegappEguess}{\Omega^{++}_{E, \mathrm{guess}}}
 
-In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele outlines
-some methods for finding
-modular elliptic curves from Hilbert modular forms over real quadratic
-fields. Formally, these methods are not proven to be any better than a direct
-search procedure, as they involve making a large number of guesses, and a
-priori we do not know just how many guesses we will need to make.
-The method requires many Fourier coefficients of the modular form $f$ that we
-have started with, and computing these takes a lot of time. However,
-this method certainly works extremely well in many cases, and after tuning
-it by using large tables of curves that we had already computed, we we able
-to use it to find more curves that we would have had no hope of finding
-otherwise; we will give an example of one of these curves later.
+In \cite{dembele:elliptic-curves-quadratic-fields}, Lassina \dembele
+outlines some methods for finding modular elliptic curves from Hilbert
+modular forms over real quadratic fields. Formally, these methods are
+not proven to be any better than a direct search procedure, as they
+involve making a large number of guesses, and a priori we do not know
+just how many guesses we will need to make.  The method requires many
+Fourier coefficients of the modular form $f$ that we have started
+with, and computing these takes a lot of time. However, this method
+certainly works extremely well in many cases, and after tuning it by
+using large tables of curves that we had already computed, we we able
+to use it to find more curves that we would have had no hope of
+finding otherwise; we will give an example of one of these curves
+later.  This section is longer than the others, because we created the
+first general implementation of the algorithm from
+\cite{dembele:elliptic-curves-quadratic-fields}.
 
 In the case of nonsquare level \dembele's method relies on computing
 or guessing periods of the curve from by using special values of
