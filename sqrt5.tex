@@ -146,7 +146,7 @@ Fisher, Noam Elkies, Richard Taylor, and John Voight for helpful
 conversations.  We would especially like to thank Joanna Gaski for
 providing (via the method of Section~\ref{sec:naive}) the explicit
 table of elliptic curves that kickstarted this project.
-We used Sage \cite{sage} extensively throughout this project.
+We used {\tt Sage} \cite{sage} extensively throughout this project.
 
 \section{Computing Hilbert modular forms over $F$}\label{sec:hmf}
 
@@ -279,7 +279,8 @@ newform.  We will also need the $a_{\p}$ for bad $\p$ in a few cases,
 which we obtain using the functional equation for the $L$-function (as
 an application of Dokchitser's algorithm \cite{dokchitser:lfun}).
 
-
+We define the {\em norm conductor} of an elliptic curve over $F$ to be
+the absolute norm of the conductor ideal of the curve.
 
 In Section~\ref{sec:naive} we give a very simple enumeration method
 for finding curves, then in Section~\ref{sec:sieve} we refine it by
@@ -766,8 +767,9 @@ S^{+-} = \{\chi_{(-4\varphi + 3)}, \chi_{(5\varphi - 3)}, \chi_{(-2\varphi + 13)
     S^{++} = \{\chi_{(\varphi + 9)}, \chi_{(9\varphi - 5)}, \chi_{(\varphi + 13)} \}.
 \end{multline*}
 
-By using the $5133$ $a_{\p}(f)$ above as input to Rubinstein's lcalc \cite{lcalc}, we compute the
-lists of approximate values
+By using the $5133$ eigenvalues above as input to
+Rubinstein's {\tt lcalc} \cite{lcalc}, we compute the lists of approximate
+values
 \[
 \begin{split}
 \mathcal{L}^{--} &= \{-33.5784397862407, -3.73093775400387, -18.6546887691646 \} \\ 
@@ -776,7 +778,7 @@ lists of approximate values
 \mathcal{L}^{++} &= \{32.4909970742969, 162.454985515474, 162.454973589303\}.
 \end{split}
 \]
-Note that lcalc will warn us that we do not have enough coefficients to obtain good
+Note that {\tt lcalc} will warn us that we do not have enough coefficients to obtain good
 accuracy, and we make no claim as far as the accuracy of these values is concerned.
 Hoping that the ends will justify the means, we proceed forward.
 
@@ -806,7 +808,7 @@ of $j(E)$, which will contain the possibility $\sigma_1(j(E)) \approx 1.36555423
 $\sigma_2(j(E)) \approx 221270.95861123$, which is a possibility if 
 \[\Omegamp_E = \OmegampEguess,\ \ 
 \Omegapm_E = \OmegapmEguess,\ \ \Omegamp_E = \frac{\OmegampEguess}{2},\ \ \Omegapp_E = \frac{\OmegappEguess}{8}.\]
-Cycling through many discriminants, we will eventually try
+Cycling through many discriminants, we eventually try
 \[
     \Deltaguess = \varphi \cdot 2^5 \cdot (19\varphi - 13),
 \]
@@ -841,7 +843,7 @@ over $\Q$ has an algorithmic solution as explained in
 \begin{enumerate}
 \item  Mazur's theorem \cite{mazur:rational} 
 that if $\psi:E\to E'$ is a $\Q$-rational isogeny of prime degree, 
-then $\deg(\psi)\leq 163$
+then $\deg(\psi)\leq 163$.
 \item Formulas of Velu \cite{velu:isogenies} 
 that provide a way to explicitly enumerate all $p$-isogenies (if any) with domain $E$.  
 Velu's formulas are valid for any number field, but so far there has not been an explicit
