@@ -1,3 +1,4 @@
+R.<x> = QQ[]
 F.<a> = NumberField(x^2-x-1)
 
 def quadratic_twists(E, B):
@@ -38,7 +39,7 @@ def quadratic_twists(E, B):
 
 def aplist(E, B):
     from psage.ellcurve.lseries.aplist_sqrt5 import aplist
-    return aplist(E,B)
+    return aplist(E.change_ring(F), B)
 
 def LSeries(E):
     from psage.lseries.eulerprod import LSeries
@@ -48,21 +49,23 @@ def primes_of_bounded_norm(B):
     from psage.number_fields.sqrt5 import primes_of_bounded_norm
     return primes_of_bounded_norm(B)
 
-def p_isogenous_curves(E, p):
+def p_isogenous_curves(E, p, B=1000):
     E = E.change_ring(F)
+    N = E.conductor()
     
     if p in [2,3,5,7,13]:
-        return [S.codomain() for S in E.isogenies_prime_degree(p)]
+        return [canonical_model(S.codomain()) for S in E.isogenies_prime_degree(p)]
         
     E = E.short_weierstrass_model()
     dp = E.division_polynomial(p).change_ring(F)
     v = []
+    w = aplist(E, B)
     for f in [f for f in divisors(dp) if f.degree() == (p-1)/2]:
         try:
             G = E.isogeny(f).codomain()
             # some G need not actually be correct, because the checking
             # of validity of isogenies is broken.
-            if E.is_isogenous(G):
+            if G.conductor() == N and w == aplist(G, B):
                 v.append(G)
         except ValueError:
             pass
@@ -131,7 +134,6 @@ def _plstar12(E, q):
            return m
        except ArithmeticError:
            return 0     
-
 
 def billerey_primes(E):
     ans = set([])
@@ -203,3 +205,141 @@ def canonical_model(E):
     return canonical_model(E)
 
 
+def verify_allcurves():
+    """
+    read in the file allcurves.txt and check run isogeny_class() on the first
+    curve of each isogeny class to make check that we get the same thing
+    back.
+    """
+
+    infile = open('tables/allcurves.txt')
+    outfile = open('outfile', 'w')
+    current_isogeny_label = ''
+    current_isomorphism_label = ''
+
+    line = infile.readline()
+    count = 0
+    while line != '':
+        my_isogeny_class = []
+        ideal_name, label, norm, ideal, ainvs = line.split()
+        current_isogeny_label = ideal_name + '.' + label[0]
+        isomorphism_label = label[1:]
+        E = EllipticCurve(eval(ainvs))
+        my_isogeny_class.append(E)
+        line = infile.readline()
+        while line != '':
+            ideal_name, label, norm, ideal, ainvs = line.split()
+            isogeny_label = ideal_name + '.' + label[0]
+            isomorphism_label = label[1:]
+            E = EllipticCurve(eval(ainvs))
+            if isogeny_label == current_isogeny_label:
+                my_isogeny_class.append(E)
+            else:
+                # check and then break!
+                my_isogeny_class2, isogeny_matrix = isogeny_class(my_isogeny_class[0])
+                my_isogeny_class2 = [canonical_model(E) for E in my_isogeny_class2]
+
+                my_isogeny_class2_ainvs = [str(E.ainvs()) for E in my_isogeny_class2]
+                my_isogeny_class_ainvs = [str(E.ainvs()) for E in my_isogeny_class]
+                
+                my_isogeny_class2_ainvs.sort()
+                my_isogeny_class_ainvs.sort()
+
+                if my_isogeny_class_ainvs != my_isogeny_class2_ainvs:
+                    print current_isogeny_label
+
+                count = count + 1
+                print count,
+                sys.stdout.flush()
+                #for isomorphism_label, E in isogeny_class:
+                #    print >> outfile, current_isogeny_label, isomorphism_label, E.ainvs()
+                #print >> outfile
+                break
+            line = infile.readline()
+
+def table_all_curves():
+    for X in open('tables/allcurves.txt').readlines():
+        if X.strip():
+            _,_,_,_,ainvs = X.split()
+            yield EllipticCurve(sage_eval(ainvs, {'a':a}))
+
+def table_optimal_curves():
+    for X in open('tables/allcurves.txt').readlines():
+        if X.strip():
+            Nlabel,cl,_,N,ainvs = X.split()
+            N = sage_eval(N,{'a':a})
+            if cl.endswith('1') and not cl[-2].isdigit():
+                yield {"N":N, "E":EllipticCurve(sage_eval(ainvs, {'a':a})),
+                       "class":cl, "Nlabel":Nlabel}
+
+@disk_cached_function('cache')
+def table_aplists(B):
+    w = []
+    for d in table_optimal_curves():
+        v = aplist(d['E'],B)
+        d = dict(d)
+        d['aplist'] = v
+        w.append(d)
+    return w
+
+def table_modforms():
+    for X in open('tables/hilbert_modular_forms.txt').readlines():
+        if X.strip() and not X.startswith('#'):
+            v = X.split()
+            norm = ZZ(v[0])
+            N = sage_eval(v[1], {'a':a})
+            number = ZZ(v[2])
+            tm = float(v[3])
+            aplist = [int(z) if z!='?' else None for z in v[4:]]
+            yield {'norm':norm, 'N':N, 'number':number, 'tm':tm, 'aplist':aplist}
+
+def table_all_curves_by_conductor():
+    d = {}
+    for X in table_all_curves():
+        N = reduced_rep(X['N'])
+        if d.has_key(N):
+            d[N].append(X)
+        else:
+            d[N] = [X]
+    return d
+
+def table_missing_isogeny_classes(B):
+    Z = table_aplists(B)
+    d = {}
+    for X in Z:
+        N = reduced_rep(X['N'])
+        if d.has_key(N):
+            d[N].append(X)
+        else:
+            d[N] = [X]
+    for f in table_modforms():
+        N = reduced_rep(f['N'])
+        v = f['aplist']
+        I = [i for i in range(len(Z[0]['aplist'])) if v[i] is None]
+        # question -- is one of the aplists in W -- with None's put in, equal to v.
+        found = False
+        for X in d[N]:
+            w = X['aplist']
+            for i in I:
+                w[i] = None
+            if w == v[:len(w)]:
+                found = True
+                break
+        if not found:
+            yield f
+
+
+def reduced_gen(I):
+    if isinstance(I, (int, long, Integer)):
+        return Integer(I)
+    g =  I.ring().ideal(I.basis()).gens_reduced()
+    if len(g) != 1:
+        raise ValueError, "ideal must be principal"
+    return g[0]
+
+def reduced_rep(z):
+    if isinstance(z, (int, long, Integer)):
+        if z < 0:
+            return -z
+        return z
+    return reduced_gen(z.parent().ideal(z))

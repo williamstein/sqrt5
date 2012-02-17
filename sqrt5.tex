@@ -26,7 +26,7 @@
 %   \dembele = Dembele
 
 
-
+\renewcommand{\phi}{\varphi}
 \title{A Database of Elliptic Curves over $\Q(\sqrt{5})$---First Report}
 
 \author[Bober et al.]{Jon Bober, Alyson Deines, Ariah Klages-Mundt, Ben
@@ -288,6 +288,7 @@ $$y^2 = x^3 + \left(186921 a - 301671\right)x + \left(47055384 a -
 $$
 has
 conductor $\n = -38 \vphi + 10$, with norm $1724$.
+[[TODO: how did we find his one?!]]
 We would take an enormous amount of time to find it: it
 would take about $10^{15}$ {\em years} to consider all curves with
 coefficients $a,b$ of the form $w+z\vphi$ with $|w|,|z| <10^8$, 
@@ -336,6 +337,13 @@ $p$-torsion point.  If this is the case, then we search over those
 families of curves with rational $p$-torsion.  With a relatively small
 search space, we thus find many curves with large coefficients more
 quickly than with the algorithm of Section~\ref{sec:naive}.
+For example, we first found the curve $E$ given by 
+$$
+y^2 + \vphi{}y = x^3 + \left(27 \vphi{} - 43\right)x + \left(-80 \vphi{} + 128\right) 
+$$
+with norm conductor $145$
+by searching for curves with torsion subgroup $\Z/7\Z$.
+
 
 
 
@@ -417,7 +425,7 @@ the number of curves to lift.
 While this method will eventually terminate just like naive
 enumeration, it suffers from the same issue of potentially being very
 slow if all curves in the isogeny class have large
-coefficients. However, often in practice defined equations for curves
+coefficients. However, often in practice equations for curves
 have relatively small coefficients, and because of its simplicity, an
 implementation of this algorithm can be quite efficient. 
 % Thus this is
@@ -428,54 +436,77 @@ implementation of this algorithm can be quite efficient.
 
 \subsection{Curves with good reduction outside $S$}
 
-We also employ an algorithm described by Cremona and Lingham
-in \cite{cremona-lingham}, which finds all elliptic curves with good
+We used the algorithm of Cremona and Lingham 
+\cite{cremona-lingham}, which finds all elliptic curves with good
 reduction at primes outside of a finite set $\mathcal{S}$ of primes in
-$F$. A $\textsc{Magma}$ implementation of the desribed algorithm, which
-has intrinsic limitations over general number fields due to the
-difficulty of finding integral points on elliptic curves, is provided by
-Cremona.
+$F$.  Cremona provided us with a $\textsc{Magma}$ implementation of
+the algorithm, which has  limitations over general number
+fields due to the difficulty of finding Mordell-Weil groups and
+integral points on elliptic curves.  We used Cremona's code to first
+find a few dozen of our curves, e.g., the curve $y^2 + \left(\vphi{} +
+  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} -
+  39\right)x + \left(-143 \vphi{} - 4\right)$ with norm conductor $1331$.
 
-The algorithm computes the finite $m$-Selmer groups $F(\mathcal{S},m)$ of
-$F^*$, where
-\begin{equation*}
-  F(\mathcal{S},m) = \{x\in F^*/(F^*)^m \ | \ ord_\mathfrak{p}(x) 
-    \equiv 0 \ (mod \ m) \ \ \forall \mathfrak{p}\notin \mathcal{S}\}\text{,}
-\end{equation*}
-for $m = 2, 3, 4, 6, \text{and}\ 12$. From these it computes a finite set of
-possible $j$-invariants such that each elliptic curve with good reduction
-outside $\mathcal{S}$ has $j$-invariant in this set. These $j$-values are either
-$j=0,1728$, cases which can be treated directly, or $\mathcal{S}$-integers in
-$F$ satisfying $w \equiv j^2(j-1728)^3 \ (\text{mod} \ F^{*6})$ for
-$w\in F(\mathcal{S},6)_{12}$, where $F(\mathcal{S},m)_{mn}$ is the image of the
-natural map $F(\mathcal{S},mn) \rightarrow F(\mathcal{S},m)$. In the latter
-case $j$ is of the form $j = \frac{x^3}{w} = 1728 + \frac{y^2}{w}$, where
-$(x,y)$ is an $\mathcal{S}$-integral point on the elliptic curve
-$E_w: Y^2 = X^3 - 1728w$. From this set of $j$-invariants, we construct each
-curve with the desired reduction properties (indeed, there are finitely many
-by Shafarevich's Theorem): for each $j = \frac{x^3}{w}$ (excluding
-$j = 0, 1728$, which are treated separately), we choose $u_0 \in F^*$ s.t.
-$(3u_0)^6w \in F(\mathcal{S},12)$, and each curve is of the form
-$E: Y^2 = X^3 - 3xu_0^2X - 2yu_0^3$. We must also check that each curve
-found has good reduction at the primes above 2 and 3 (if these primes
-are not in $\mathcal{S}$).
+\subsection{Congruence families}
+Suppose that we are searching for a curve $E$ and we already know
+another curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
+some prime and $E[\ell]$ irreducible.  If $\ell=5,7$ then we can use
+techniques of Fisher and Stoll \cite{} to attempt to search through
+the finitely many curves with mod~$\ell$ Galois representation
+isomorphic to $E[\ell]$.
 
-Finding all $\mathcal{S}$-integral points over $F$, which give the
-$j$-invariants, presents a problem. For example, one technique for finding
-integral points is to find the generators of the curve's Mordell-Weil group.
-This can be difficult if these generators have large coefficients (this makes
-them hard to find with reasonable search bounds) or when the curve's rank
-is high (in this case, there are multiple generators to find). Due to these
-limitations, Cremona gives a naive search to directly find
-$\mathcal{S}$-integral points within a given search region, and so the number
-of curves that the program finds (and the speed with which it finds them)
-depends on the search bounds. Searches such as these are generally less
-effective over general number fields than over $\mathbb{Q}$. Indeed, the
-program failed to find a number of curves that we knew to exist by looking
-at corresponding modular forms and that we eventually found using other
-methods. However, the algorithm was successful in that it found some curves
-with very large $a$-invariants, which would be virtually impossible to find
-using a naive search.
+For example, we used this approach to find the curve $E$ given by
+$$
+y^2 + \vphi{}xy = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-257364 \vphi{} - 159063\right)x + \left(-75257037 \vphi{} - 46511406\right)
+$$
+with norm conductor 1476.  Given just the $a_{\p}$, we noticed that
+$E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
+used a \textsc{Magma} program to find rational points on a certain
+quartic surface that parametrize curves with the same $E'[7]$.
+Fortunately, our curve $E$ was amongst those curves.
+
+%Found using Cremona-Lingham:
+%   1331 (33*a-11) (\varphi+1,-1,1,-19*\varphi-39,-143\varphi-4)
+% The algorithm computes the finite $m$-Selmer groups $F(\mathcal{S},m)$ of
+% $F^*$, where
+% \begin{equation*}
+%   F(\mathcal{S},m) = \{x\in F^*/(F^*)^m \ | \ ord_\mathfrak{p}(x) 
+%     \equiv 0 \ (mod \ m) \ \ \forall \mathfrak{p}\notin \mathcal{S}\}\text{,}
+% \end{equation*}
+% for $m = 2, 3, 4, 6, \text{and}\ 12$. From these it computes a finite set of
+% possible $j$-invariants such that each elliptic curve with good reduction
+% outside $\mathcal{S}$ has $j$-invariant in this set. These $j$-values are either
+% $j=0,1728$, cases which can be treated directly, or $\mathcal{S}$-integers in
+% $F$ satisfying $w \equiv j^2(j-1728)^3 \ (\text{mod} \ F^{*6})$ for
+% $w\in F(\mathcal{S},6)_{12}$, where $F(\mathcal{S},m)_{mn}$ is the image of the
+% natural map $F(\mathcal{S},mn) \rightarrow F(\mathcal{S},m)$. In the latter
+% case $j$ is of the form $j = \frac{x^3}{w} = 1728 + \frac{y^2}{w}$, where
+% $(x,y)$ is an $\mathcal{S}$-integral point on the elliptic curve
+% $E_w: Y^2 = X^3 - 1728w$. From this set of $j$-invariants, we construct each
+% curve with the desired reduction properties (indeed, there are finitely many
+% by Shafarevich's Theorem): for each $j = \frac{x^3}{w}$ (excluding
+% $j = 0, 1728$, which are treated separately), we choose $u_0 \in F^*$ s.t.
+% $(3u_0)^6w \in F(\mathcal{S},12)$, and each curve is of the form
+% $E: Y^2 = X^3 - 3xu_0^2X - 2yu_0^3$. We must also check that each curve
+% found has good reduction at the primes above 2 and 3 (if these primes
+% are not in $\mathcal{S}$).
+
+% Finding all $\mathcal{S}$-integral points over $F$, which give the
+% $j$-invariants, presents a problem. For example, one technique for finding
+% integral points is to find the generators of the curve's Mordell-Weil group.
+% This can be difficult if these generators have large coefficients (this makes
+% them hard to find with reasonable search bounds) or when the curve's rank
+% is high (in this case, there are multiple generators to find). Due to these
+% limitations, Cremona gives a naive search to directly find
+% $\mathcal{S}$-integral points within a given search region, and so the number
+% of curves that the program finds (and the speed with which it finds them)
+% depends on the search bounds. Searches such as these are generally less
+% effective over general number fields than over $\mathbb{Q}$. Indeed, the
+% program failed to find a number of curves that we knew to exist by looking
+% at corresponding modular forms and that we eventually found using other
+% methods. However, the algorithm was successful in that it found some curves
+% with very large $a$-invariants, which would be virtually impossible to find
+% using a naive search.
 
 \subsection{Special values of twisted $L$-series}\label{sec:specialvalues}
 \newcommand{\Omegap}{\Omega^+}
@@ -499,7 +530,7 @@ The method requires many Fourier coefficients of the modular form $f$ that we
 have started with, and computing these takes a lot of time. However,
 this method certainly works extremely well in many cases, and after tuning
 it by using large tables of curves that we had already computed, we we able
-to use it to find more curves which we would have had no hope of finding
+to use it to find more curves that we would have had no hope of finding
 otherwise; we will give an example of one of these curves later.
 
 In the case of nonsquare level \dembele's method relies on computing
@@ -636,16 +667,19 @@ for some integer $c_\chi$, where $\tau(\chi)$ is the Gauss sum
 with $m$ a totally positive generator of $\fc$.
 \end{conjecture}
 \begin{remark}
-This statement has been specialized to $\Q(\sqrt 5)$, but not very much. In the more general
-case of a real quadractic field, $5$ is replaced by the discriminant, and $\phi$ is replaced
-by a fundamental unit.
-The Gauss sum is more innocuous than it seems. For odd conductor $\fc$ it is of size
-$\sqrt{N(\fc)}$, while for an even conductor it is of size $\sqrt{2 N(\fc) }$.
-Its sign is a $4$-th root of unity, and whether it is real or imaginary can be deduced
-directly from the conjecture, as it matches with the sign of $\Omega^{s,s'}_E$. In particular,
-$\tau(\chi)$ is real when $\chi(-1) = 1$ and imaginary when $\chi(-1) = -1$, which is a
-condition on $N(\fc) \bmod 4$, as $\chi(-1) \equiv N(\fc) \pmod 4$. This can all be deduced,
-for example, from \cite{boylan-skoruppa:hecke-gauss-sums}.
+  This statement has been specialized to $\Q(\sqrt 5)$, but not very
+  much. In the more general case of a real quadractic field, $5$ is
+  replaced by the discriminant, and $\vphi$ is replaced by a
+  fundamental unit.  The Gauss sum is more innocuous than it
+  seems. For odd conductor $\fc$ it is of size $\sqrt{N(\fc)}$, while
+  for an even conductor it is of size $\sqrt{2 N(\fc) }$.  Its sign is
+  a $4$-th root of unity, and whether it is real or imaginary can be
+  deduced directly from the conjecture, as it matches with the sign of
+  $\Omega^{s,s'}_E$. In particular, $\tau(\chi)$ is real when
+  $\chi(-1) = 1$ and imaginary when $\chi(-1) = -1$, which is a
+  condition on $N(\fc) \bmod 4$, as $\chi(-1) \equiv N(\fc) \pmod
+  4$. This can all be deduced, for example, from
+  \cite{boylan-skoruppa:hecke-gauss-sums}.
 
 Also, note that \dembele writes this conjecture with an additional factor of $4\pi^2$;
 this factor does not occur with the definition of $L(f, s)$ that we have given.
@@ -771,7 +805,6 @@ y^2 + \varphi xy + \varphi y = x^3 + \left(\varphi - 1\right)x^2 + \left(-1001 \
 \]
 which has the correct conductor. We compute a few values of $a_\p$ for this curve, and it turns
 out to be the one that we are looking for.
-\subsection{Congruence families}
 
 \section{Enumerating the curves in an isogeny class}\label{sec:isoclass}
 
@@ -832,9 +865,7 @@ norm conductor of a rank $2$ curve over $F$.  Table~\ref{table:counts}
 summarizes the number of curves we found.  Note that in these counts
 we do not exclude conjugate curves, i.e., if $\sigma$ denotes the
 nontrivial element of $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$
-separately if they are not isomorphic.  For comparison, 
-there are 5260 isogeny classes and 10283 isomorphism classes
-of elliptic curves over $\Q$ with conductor up to $1831$ [[double check!]].
+separately if they are not isomorphic.  
 
 \begin{center}
 \begin{table}[h]
@@ -866,7 +897,29 @@ $\#\{\text{ isom. classes }\}$ & 3191 & 84 & 43 & 16 & 2 & 2 \\\hline
 \end{table}
 \end{center}
 
-\subsection{Up to norm conductor $199$}\label{sec:to199}
+\begin{center}
+\begin{table}[h]
+\caption{First curve with given $\#\Sha$\label{table:counts}}
+\begin{tabular}{|c | c | c |}
+\hline 
+$n$ & First curve $E$ having $|\Sha(E/F)| = n$ & Norm of conductor of $E$ \\
+\hline 
+1 & $[1,\vphi{}+1,\vphi{},\vphi{},0]$ & 31 \\\hline 
+4 & $[1, 1, 1, -110, -880]$ & 45 \\\hline 
+9 & $[\vphi{}+1,-\vphi{},1,-54686\vphi{}-35336,$& \\
+  & $\qquad\qquad\qquad -7490886\vphi{}-4653177]$ & 76 \\\hline 
+16 & $[1,\vphi{},\vphi{}+1,-4976733\vphi{}-3075797,$&\\
+   & $\qquad\qquad\qquad -6393196918\vphi{}-3951212998]$ & 45 \\\hline 
+25 & $[0, -1, 1, -7820, -263580]$ & 121 \\\hline 
+36 & $[1,-\vphi{}+1,\vphi{},1326667\vphi{}-2146665,$ & \\
+   & $\qquad\qquad\qquad 880354255\vphi{}-1424443332]$ & 1580 \\
+\hline
+\end{tabular}
+\end{table}
+\end{center}
+
+
+\subsection{Up to norm conductor  $199$}\label{sec:to199}
 
 For curves up to norm conductor 199, 
 there is lots of available data.  
@@ -1070,15 +1123,6 @@ in $\Q(\sqrt{5})$.
 
 \end{proof}
 
-
-
-
-\subsection{Extended version only: up to norm conductor  $1831$}\label{sec:to1831}
-
-[[This will contain a longer version, which includes both curves and
-their conjugates, etc., and has all data up to 1831, and will be over
-100 pages long.  This will be a special version only available on our
-websites; we won't submit this to a journal.]]
 
 
 
