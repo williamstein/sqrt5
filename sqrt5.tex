@@ -164,12 +164,16 @@ $T_{\p}([x]) = \sum [\alpha x]$, where the sum is over the classes
 $[\alpha]\in S/S^*$ with $N_{\text{red}}(\alpha)=\pi_{\p}$ (reduced quaternion norm),
 where $\pi_{\p}$ is a fixed choice of totally positive generator of~$\p$.
 
-\subsection{An Algorithm}
+\subsection{Remarks on Computing with $\P^1(R/\n)$}
 
-In this section we describe an efficient algorithm to compute $V$ as
-a $\T$-module.
+In order to implement the algorithm sketched in
+Section~\ref{sec:dembele}, it is critical that we can compute with
+$\P^1(R/\n)$ very, very quickly.  For example, to apply the method of
+Section~\ref{sec:specialvalues} below, in some cases we have to
+compute tens of thousands of Hecke operators.  Thus in this section we
+make some additional remarks about how we did this fast
+implementation.
 
-\subsubsection{Computing with $\P^1(R/\n)$}
 When $\n=\p^e$ is a prime power, it is
 straightforward to efficiently enumerate representative elements of
 $\P^1(R/\p^e)$, since each element $[x:y]$ of $\P^1(R/\p^e)$ has a
@@ -230,17 +234,6 @@ since $R/\p^eR \isom (\Z/p^{f}\Z)[x]/(x^2-x-1)$.
  We find that $ \varphi \in R \mapsto (1/2,1/2)$.
 \end{itemize}
 
-
-
-\subsubsection{Enumerating elements of $S$ of norm $\pi_p$ modulo $S^*$}
-[[TODO]]
-This is around line 1099 of sqrt5.py.  It was pretty tricky to figure out
-and involves multiple ideas.
-
-\subsubsection{Computing a local splitting}
-[[TODO]]
-
-\subsubsection{Enumerating rational newforms}
 
 
 \section{Strategies for finding an elliptic curve attached to a Hilbert modular form}\label{sec:finding}
