@@ -1,0 +1,20 @@
+Jon -> Jonathan
+Ben -> Benjamin
+"This algorithm has limitations over a general number fields" (DELETE s), add $K$
+
+Line 180:
+    Jaquet should be Jacquet
+
+Line 891:
+    "is either linear or quadratic and has both roots in K"
+    changed to
+    "is either linear or quadratic with both roots in K"
+
+Line 896:
+    Added a colon after discriminants, and a period at the of the align block.
+
+Three places:
+    Velu should be V\'elu
+
+line 411:
+    prespecified -> specified -> [delete]

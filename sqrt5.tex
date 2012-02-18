@@ -35,7 +35,7 @@
 \renewcommand{\phi}{\varphi}
 \title{A Database of Elliptic Curves over $\Q(\sqrt{5})$---First Report}
 
-\author[Bober et al.]{Jon Bober, Alyson Deines, Ariah Klages-Mundt, Ben
+\author[Bober et al.]{Jonathan Bober, Alyson Deines, Ariah Klages-Mundt, Benjamin
   LeVeque, R. Andrew Ohana, Ashwath Rabindranath, Paul Sharaba, William
   Stein}
 \thanks{ This work is supported by NSF grant DMS-0757627, administered
@@ -177,7 +177,7 @@ to denote the equivalence class of
 $\left(\begin{smallmatrix}a\\b\end{smallmatrix}\right)$.
 For each prime $\p\mid \n$, we fix a choice of isomorphism
 $F[i,j,k]\tensor F_{\p} \ncisom M_2(F_{\p})$, which induces a left
-action of $S^*$ on $\P^1(R/\n)$. The Jaquet-Langlands correspondence implies that
+action of $S^*$ on $\P^1(R/\n)$. The Jacquet-Langlands correspondence implies that
 the space of Hilbert modular forms of level $\n$ and weight $(2,2)$ is
 noncanonically isomorphic as a module over the Hecke algebra
 $$\T=\Z[T_\p :  \p \text{ nonzero prime ideal of }R]$$ 
@@ -408,7 +408,7 @@ curve over $F$ that is isomorphic to $E$ over some extension of $F$. A
 $2$.  We can use twisting to find curves that may otherwise be
 difficult to find as follows: starting with a known elliptic curve $E$
 of some (small) conductor, we compute its twists of conductor up to
-some prespecified bound, and add them to our table.
+some bound, and add them to our table.
 
 More explicitly, if $E$ is given by $y^2=x^3+ax+b$ and $d\in F^*$,
 then the twist $E^d$ of $E$ by $d$ is given by $dy^2=x^3+ax+b$; in
@@ -481,7 +481,7 @@ We use the algorithm of Cremona and Lingham from
 \cite{cremona-lingham} to find all elliptic curves $E$ having good
 reduction at primes outside of a finite set $\mathcal{S}$ of primes in
 $F$. This algorithm has limitations over a general number
-fields due to the difficulty of finding a generating set for $E(K)$ and
+field $K$ due to the difficulty of finding a generating set for $E(K)$ and
 points on $E$ defined over $\cO_K$.
 Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we 
 found several curves not found by other methods, e.g.,  
@@ -846,9 +846,9 @@ over $\Q$ has an algorithmic solution as explained in
 \item  Mazur's theorem \cite{mazur:rational} 
 that if $\psi:E\to E'$ is a $\Q$-rational isogeny of prime degree, 
 then $\deg(\psi)\leq 163$.
-\item Formulas of Velu \cite{velu:isogenies} 
+\item Formulas of V\'elu \cite{velu:isogenies} 
 that provide a way to explicitly enumerate all $p$-isogenies (if any) with domain $E$.  
-Velu's formulas are valid for any number field, but so far there has not been an explicit
+V\'elu's formulas are valid for any number field, but so far there has not been an explicit
 generalization of Mazur's theorem for any number field other than $\Q$. 
 \end{enumerate}
 
@@ -865,7 +865,7 @@ outputs a provably finite list of primes $p$ such that $E$ might have a
 $p$-isogeny. The algorithm is particularly easy to implement in the
 case when $K$ is a quadratic field, as explained in
 \cite[\S2.3.4]{billerey:isog}.  Using this algorithm combined with
-Velu's formulas, we were able to enumerate {\em all}
+V\'elu's formulas, we were able to enumerate {\em all}
 isomorphism classes of curves isogenous to the curves we found via the
 methods of Section~\ref{sec:finding}, and thus divide our curves up into
 isogeny classes.
@@ -888,16 +888,16 @@ Let $H_D$ denote the Hilbert class polynomial of the CM order
 $\cO_D$ of discriminant $D$, so $H_D\in \Q[X]$ is the minimal
 polynomial of the $j$-invariant $j_D$ of any elliptic curve $E=E_D$ with
 CM by $\cO_D$.   Since $K$ is Galois, we have $j_D \in K$ if and only if
-$H_D$ is either linear or quadratic and has both roots in $K$.
+$H_D$ is either linear or quadratic with both roots in $K$.
 The $D$ for which $H_D$ is linear are the thirteen values
 $-3, -4, -7, -8, -11, -12, -16, -19, -27, -28, -43, -67, -163$.
 According to \cite{cremona:abvar}, the
 $D$ for which $H_D$ is quadratic are the following $29$
-discriminants
+discriminants:
 \begin{align*}
 &-15, -20, -24, -32, -35, -36, -40, -48, -51, -52, -60, \\
 &-64, -72, -75, -88, -91, -99, -100, -112, -115, -123, \\
-&-147, -148, -187, -232, -235, -267, -403, -427
+&-147, -148, -187, -232, -235, -267, -403, -427.
 \end{align*}
 %z = list(reversed(sorted([D*f^2 for D,f in cm_orders(2)]))); z 
 %len(z)
