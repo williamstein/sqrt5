@@ -58,7 +58,7 @@ rational points on such a curve. I believe Fisher's quartic surface
 paramerized pairs of elliptic curves with isomorphic mod n
 representations.
 
-  * (jon) fix our paper based on fisher; we are wrong. 
+  * (ben l) fix our paper based on fisher; we are wrong. 
 
 S. 3.7: It would be helpful if you'd define least real/imaginary
 periods. Are these just the smallest periods that lie on the
