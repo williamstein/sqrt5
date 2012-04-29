@@ -1,0 +1,145 @@
+* (Andrew will fix) William: The torsion counts seem suspicous
+
+* Ari pointed out that the conductor of the Fisher curve (3.1) is wrong.
+  (Andrew will fix.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+I like this paper. The team behind it uses an impressive array of
+computational methods with difficult theoretical underpinnings to
+produce some great comprehensive data. Even though many of the
+individual techniques they employed had been suggested before, they
+have not been developed and deployed systematically with careful
+attention to the computational optimization that was clearly necessary
+to achieve the goal of this paper.
+
+These results presented are significant and I recommend their
+publication. ANTS is a very appropriate place for this work to be
+presented. Dembele, whose quaternionic enumeration techniques underlie
+much of this paper, has presented aspects of his work at ANTS while
+Cremona, whose tables can be viewed as inspiration for the paper under
+review, presented a report of his long-term enumeration project over Q
+in the plenary session at ANTS VI in Berlin. Similar themes have also
+been discussed at ANTS meetings by many other speakers over the years,
+and this is a worthy paper to continue this tradition.
+
+Below, please find some assorted corrections/suggestions for the author.
+
+Since Q(sqrt{5}) is a PID, elliptic curves over this field admit
+global minimal models. Whenever you mention existence of minimal
+discriminants, you are using this existence result. Deserves to be
+pointed out.
+
+  * YEP (ashwath)
+
+page 2, first paragraph: If you order all number fields (not just
+totally real ones) by their discriminants, Q(sqrt{-3}) and Q(sqrt{-1})
+come before Q(sqrt{5}) . The situation with these fields might be
+worth a comment. Cremona and his students has enumerated weight 2 cusp
+forms for such fields using modular symbols on the 3-dimensional
+hyperbolic upper half-space, but I'm not aware of any systematic
+enumeration of elliptic curves. One reason this might be harder is
+that these modular forms only have a single period. Thus, your
+analytic techniques for determining the period lattices aren't
+directly applicable.
+
+  * for extra page (william)
+
+page 3, top: When you define T, it's not clear that T is to be viewed
+as a subalgebra of End V . In fact, V isn't defined at this
+point. Maybe move the definition of T after the definition of Tp.
+
+  * ok (william)
+
+S. 3.4: A twist of the modular curve X(n) parametrizes elliptic curves
+with a given mod n representation. Thus, if you've already found your
+E0 in your naive search, your search for E would be amount tofinding
+rational points on such a curve. I believe Fisher's quartic surface
+paramerized pairs of elliptic curves with isomorphic mod n
+representations.
+
+  * (jon) fix our paper based on fisher; we are wrong. 
+
+S. 3.7: It would be helpful if you'd define least real/imaginary
+periods. Are these just the smallest periods that lie on the
+real/imaginary axes?
+
+S. 3.7: The relation between the periods of a Hilbert modular forms
+and those of the associated elliptic curve is deeper than the
+corresponding relation between the periods of elliptic modular forms
+and the associated elliptic curves. This is because modular curves
+uniformize elliptic curve over Q, but Hilbertmodular surfaces do not
+uniformize elliptic curves over real quadratic fields. In fact, the
+relations between the periods are not known in the Hilbert modular
+case except in the case that the elliptic curve in question is a base
+change from one defined over Q. The relevant conjectures here were
+formulated by Oda, and you are implicitly using these.
+
+Were all the methods you employed necessary to find all elliptic
+curves of conductor up to 1831, or would a subset have them have
+succeeded (even in hindsight)? If all were really necessary, you
+should play this up a bit more in the introduction!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The paper reports on computations resulting in a database of
+(conjecturally) all elliptic curves over Q(sqrt(5)) with conductor of
+norm up to 1831 (which is where the first curve of rank 2
+occurs). This involves a lot of hard work, both in developing
+algorithms and in implementing them, which the paper can hardly do
+justice to within the limit of 15 pages. It is an impressive
+achievement.
+
+Here are some minor points that should be fixed.
+
+* Page 5, line 2 - "conditions modulo $\mathfrak p$ on" - I assume you
+  mean to say "on $E" here.
+
+* Page 5, Prop. 3.2 - "$E$ a curve" -> "$E$ an elliptic curve" (OK, no
+  other curves are ever mentioned, but it is still better to be
+  precise).
+
+* Page 6, line 3 - "quartic surface" - shouldn't this be a quartic
+  _curve_ (a twist of the Klein quartic)?
+
+* Page 6, first line of 3.5 - insert "over" before "$F$". Replace "a
+  curve" by "an elliptic curve" (you don't look at homogeneous
+  spaces).
+
+* Page 6, Prop. 3.3 - state explicitly that $d$ is assumed to be
+  integral and squarefree.
+
+* Page 6, line 10 from below - in the set of possible $d_1$'s,
+  $\sqrt{5}$ and $\varphi \sqrt{5}$ are missing (and indeed, one of
+  your twists is by $-\varphi \sqrt{5}$!).
+
+* Page 6, line 2 from below - this $E$ is different from the $E$'s
+  three lines above, so the way this is written is a bit confusing.
+
+* Page 9, line 6 from below - you did not define $\epsilon_E$ and
+  there is no explanation why the condition $\chi(-N) = \epsilon_E$ is
+  necessary. Should this be added to Conjecture 3.4?
+
+* Page 9, line 5 from below - missing braces around $\pm 1$.
+
+* Page 11, first line of Section 4 - I would say "representatives up
+  to isomorphism for all...".
+
+* Page 12, Rem. 4.1 - I think you need to add that this holds for
+  isogenies to a non-isomorphic curve, since otherwise it would be
+  wrong for CM curves with endomorphism algebra F.
+
+* Page 12, end of second paragraph - "divide our curves up into
+  isogeny classes" doesn't seem to reflect what you are doing, as you
+  are really dividing each isogeny class up into isomorphism classes.
+
+* Page 12, Section 5 - I think there was a discussion on the sage-nt
+  mailing list that involved a mistake in [Cre92] (but I don't
+  remember whether it was before or after the submission deadline), so
+  please make sure the statement is correct.
+
+* Page 13, second paragraph of Section 7 - #isom should refer to the
+  "number of isomorphism classes of curves" and #isog to the "number
+  of isogeny classes".
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
