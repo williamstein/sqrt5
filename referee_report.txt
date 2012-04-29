@@ -64,6 +64,8 @@ S. 3.7: It would be helpful if you'd define least real/imaginary
 periods. Are these just the smallest periods that lie on the
 real/imaginary axes?
 
+  * (jon will do) OK. 
+
 S. 3.7: The relation between the periods of a Hilbert modular forms
 and those of the associated elliptic curve is deeper than the
 corresponding relation between the periods of elliptic modular forms
@@ -75,10 +77,14 @@ case except in the case that the elliptic curve in question is a base
 change from one defined over Q. The relevant conjectures here were
 formulated by Oda, and you are implicitly using these.
 
+   * (jon) I suggest just insert it.
+
 Were all the methods you employed necessary to find all elliptic
 curves of conductor up to 1831, or would a subset have them have
 succeeded (even in hindsight)? If all were really necessary, you
 should play this up a bit more in the introduction!
+
+   * (ashwath) 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
