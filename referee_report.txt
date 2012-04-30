@@ -1,6 +1,6 @@
-* (Andrew will fix) William: The torsion counts seem suspicous
+[ ] (Andrew will fix) William: The torsion counts seem suspicous
 
-* Ari pointed out that the conductor of the Fisher curve (3.1) is wrong.
+[X] Ari pointed out that the conductor of the Fisher curve (3.1) is wrong.
   (Andrew will fix.)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,7 +30,7 @@ global minimal models. Whenever you mention existence of minimal
 discriminants, you are using this existence result. Deserves to be
 pointed out.
 
-  * YEP (ashwath)
+  [ ] YEP (ashwath)
 
 page 2, first paragraph: If you order all number fields (not just
 totally real ones) by their discriminants, Q(sqrt{-3}) and Q(sqrt{-1})
@@ -43,13 +43,13 @@ that these modular forms only have a single period. Thus, your
 analytic techniques for determining the period lattices aren't
 directly applicable.
 
-  * for extra page (william)
+  [ ] for extra page (william)
 
 page 3, top: When you define T, it's not clear that T is to be viewed
 as a subalgebra of End V . In fact, V isn't defined at this
 point. Maybe move the definition of T after the definition of Tp.
 
-  * ok (william)
+  [ ] ok (william)
 
 S. 3.4: A twist of the modular curve X(n) parametrizes elliptic curves
 with a given mod n representation. Thus, if you've already found your
@@ -58,13 +58,13 @@ rational points on such a curve. I believe Fisher's quartic surface
 paramerized pairs of elliptic curves with isomorphic mod n
 representations.
 
-  * (ben l) fix our paper based on fisher; we are wrong. 
+  [ ] (ben l) fix our paper based on fisher; we are wrong. 
 
 S. 3.7: It would be helpful if you'd define least real/imaginary
 periods. Are these just the smallest periods that lie on the
 real/imaginary axes?
 
-  * (jon will do) OK. 
+  [ ] (jon will do) OK. 
 
 S. 3.7: The relation between the periods of a Hilbert modular forms
 and those of the associated elliptic curve is deeper than the
@@ -77,14 +77,14 @@ case except in the case that the elliptic curve in question is a base
 change from one defined over Q. The relevant conjectures here were
 formulated by Oda, and you are implicitly using these.
 
-   * (jon) I suggest just insert it.
+   [ ] (jon) I suggest just insert it.
 
 Were all the methods you employed necessary to find all elliptic
 curves of conductor up to 1831, or would a subset have them have
 succeeded (even in hindsight)? If all were really necessary, you
 should play this up a bit more in the introduction!
 
-   * (ashwath) 
+   [ ] (ashwath) 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
