@@ -12,4 +12,6 @@ auto/
 .DS_Store
 *.aux
 .#*
+code.py
+*.pyc
 sync

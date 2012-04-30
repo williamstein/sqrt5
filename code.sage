@@ -343,3 +343,63 @@ def reduced_rep(z):
             return -z
         return z
     return reduced_gen(z.parent().ideal(z))
+
+@cached_function
+def canonical_model_cached_info(K,G,prec):
+    G = [u for u in G if u.multiplicative_order() == oo]
+    bG = [u**12 for u in G]
+    R = RealField(prec)
+    C = ComplexField(prec)
+    embs = list(K.embeddings(R))
+    r = len(embs)
+    s = len(G)+1-r
+    embs.extend([psi for i,psi in enumerate(K.embeddings(C)) if \
+        i >= r and 2.divides(i-r)])
+    log_emb = lambda x: vector(log(abs(psi(x))) for psi in embs) \
+        - log(abs(R(norm(x))))/(r+2*s)*vector([1]*(r+s))
+    M = Matrix([log_emb(u) for u in bG])
+    return len(G), G, M, log_emb
+
+def canonical_model(E,G,prec=1000,minimal_model=False):
+    '''
+    This is very generic code that works for elliptic curves over any number
+    field not containing a non-trivial cyclotomic subfield.
+
+    Input:
+
+      - E -- Elliptic curve
+      - G -- set of generators for the base field
+      - prec -- the bits of precision used, this needs to be quite large due
+        to the use of the log function, larger precision is needed if the
+        starting model is especially bad
+      - minimal_model -- may specify that the input model is already a minimal
+        model, this will save some time.
+    '''
+    if not minimal_model:
+        E = E.global_minimal_model()
+    K = E.base_ring()
+    assert K.number_of_roots_of_unity() == 2
+    ord,G,M,log_emb = canonical_model_cached_info(K,G,prec)
+    De = log_emb(E.discriminant())
+    v = M.solve_left(De, check=False)
+    off = []
+    for i in range(ord):
+        off.append(-round(v[i]))
+        if v[i]+off[i] == -0.5:
+            off[i] += 1
+    u = prod(u**off[i] for i,u in enumerate(G))
+    a1,a2,a3,a4,a6 = E.ainvs()
+    a1,a2,a3,a4,a6 = u*a1,u*u*a2,u*u*u*a3,a4*u**4,a6*u**6
+    P2 = K.ideal(2)
+    P3 = K.ideal(3)
+    a1p = a1.mod(P2)
+    s = (a1p - a1)/K(2)
+    sa1 = s*a1
+    a2p = (a2 - sa1 - s**2).mod(P3)
+    r = (a2p - a2 + sa1 + s**2)/K(3)
+    ra1p = r*a1p
+    a3p = (a3+ra1p).mod(P2)
+    t = r*s + (a3p - a3 - ra1p)/K(2)
+    a4p = a4 - s*a3 + 2*r*a2 - (t+r*s)*a1 + 3*r**2 - 2*s*t
+    a6p = a6 + r*a4 + r**2*a2 + r**3 - t*a3 - t**2 - r*t*a1
+    return  EllipticCurve(K, [a1p, a2p, a3p, a4p, a6p])

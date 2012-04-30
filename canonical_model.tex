@@ -1,0 +1,80 @@
+\documentclass{amsart}
+
+\usepackage{amsmath}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Norm}{Norm}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\begin{document}
+
+Suppose that $K$ is a number field with unit group $U_K$. Let $G < U_K$ be of
+finite index and fix a minimal generating set $S=S_T\cup S_\infty$. Suppose $K$
+has $r$ real embeddings and $2s$ complex embeddings, then let
+\[ H = \{ x \in \R^{r+s}: x_1+\cdots+x_r+2x_{r+1}+\cdots+2x_{r+s} = 0\}. \]
+
+Now define the map $\phi: K \to H$ by
+\[ \alpha \mapsto
+  \left(\log|\sigma_1(\alpha)|,\cdots,\log|\sigma_{r+s}(\alpha)|\right)
+- \frac{\log|\Norm(\alpha)|}{r+2s}(1,1,\ldots,1),\footnote{It should be noted that this map simply projects $\R^{r+s}$ onto $H$ along lines parallel to $L=(1,1,\ldots,1)t$, so $\phi(\Q) = 0$.} \]
+where $\{\sigma_i\}_{i=1}^r$ are the real embeddings and $\{\sigma_i\}_{i=r+1}^s$ are representives from each complex embedding pair. Notice that when $\alpha \in U_K$ then $\phi$ is just the log embedding, so
+$\phi(G)$ is a lattice of full rank in $H$ since $[U_K:G]$ is finite. Since this implies $\phi(S)$ is a basis for $H$, we can define a linear transformation $T:H \to \R^{r+s-1}$ by $T(x_i) = e_i$ where $\{x_i\}_{i=1}^{r+s-1}$ is some enumeration of $\phi(S)$ (for our purposes the order doesn't matter) and where $e_i$ is the $i$th elementary vector in $\R^{r+s-1}$
+
+\begin{proposition}\label{prop:map}
+  For every $\alpha \in K$ there are exactly $|\langle S_T\rangle|$ elements
+  $\beta\in G\alpha$ such that
+  \[ \psi(\beta) \in C=\left\{x \in \R^{r+s-1} : 
+-\tfrac{1}{2} < x \leq \tfrac{1}{2} \right\}, \]
+  where $\psi: K \to \R^{r+s-1}$ is given by $\gamma \mapsto (T\circ\phi)(\gamma)$.
+\end{proposition}
+
+\begin{proof}
+  Note that $\psi(u\alpha) = \psi(\alpha)$ for any unit $u$ of finite order, so
+  it is sufficient to show that there is a unique element $\beta \in 
+  \langle S_\infty\rangle\alpha$ satisfying the desired condition. Note that
+  $\psi(\langle S_\infty\rangle) = \Z^{r+s-1}$ since the each generator in 
+  $S_\infty$ gets mapped to a distinct elementary vector. We thus have our
+  desired result since $C$ is just a fundamental domain of $\Z^{r+s-1}$.
+\end{proof}
+
+We call an element $\alpha \in K$ a restricted orbit representative (with respect
+to $S$) if $\psi(S)\in C$. We say that the discriminant $\Delta_E$ of an
+elliptic curve is restricted (with respect to some generating set $S$ for
+$U_K$) if it is a restricted orbit representative for $U_K^{12}\Delta_E$ (with
+respect to the generating set $S^{12}$).
+
+\begin{proposition}\label{prop:uniq}
+  Let $K$ be a number field whose only 12th roots of unity
+  are trivial. Then for any integral model $E$ there is a unique model $E'$ of
+  restricted type (with respect to some chosen integral basis) with equal
+  discriminant.
+\end{proposition}
+
+\begin{proof}
+  Straightforward computation.
+\end{proof}
+
+
+\begin{corollary}
+  Let $K$ be a number field with no non-trivial roots of unity. Then for any
+  isomorphism class of elliptic curves that exhibits a global minimal model,
+  there exists a unique representative $E/K$ of restricted type (with respect
+  to some chosen integral basis) with restricted discriminant (with respect to
+  some chosen generating set $S$ for $U_K$).
+\end{corollary}
+\begin{proof}
+  Let $F/K$ be an integral global minimal model with discriminant $\Delta_F$.
+  By proposition \ref{prop:map}, we obtain a unique
+  restricted representive $\Delta' \in U_K^{12}\Delta_F$ since $U_K^{12}$ has
+  trivial torsion ($K$ has no non-trivial roots of unity). But since $\Delta'$
+  is a twelfth power associate of $\Delta_F$ we can obtain a new model $E$
+  with restricted discriminant $\Delta_E=\Delta'$. But by proposition
+  \ref{prop:uniq}, there exists a unique integral model of restricted type with
+  equal (restricted) discriminant.
+\end{proof}
+
+\end{document}
