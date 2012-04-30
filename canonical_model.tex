@@ -2,10 +2,12 @@
 
 \usepackage{amsmath}
 
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 \DeclareMathOperator{\Norm}{Norm}
+\DeclareMathOperator{\rank}{rank}
 
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
@@ -82,6 +84,16 @@ respect to the generating set $S^{12}$).
   with restricted discriminant $\Delta_E=\Delta'$. But by proposition
   \ref{prop:uniq}, there exists a unique integral model of restricted type with
   equal (restricted) discriminant.
+\end{proof}
+\begin{corollary}
+  If $\rank U_K = 1$, then a model $E$ has restricted discriminant if and only
+  if
+  \[ \sigma(u^{-6}) < \frac{|\sigma(\Delta_E)|}{\sqrt[n]{|\Norm(\Delta_E)|}} \leq \sigma(u^6), \]
+  where $u$ is a choice of inifinit generator, $\sigma$ is any embedding into
+  $\C$, and $n = [K:\Q]$.
+\end{corollary}
+\begin{proof}
+  Directly follows from the above definitions and results.
 \end{proof}
 
 \end{document}
