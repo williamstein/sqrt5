@@ -1,0 +1,205 @@
+#!/usr/bin/env python
+
+import os,tempfile
+
+tdir = tempfile.mkdtemp()
+tpath = os.path.join(tdir,'table.tex')
+tfile = file(tpath,'w')
+
+
+tfile.write('\\documentclass{amsart}\n')
+tfile.write('\\usepackage[landscape,margin=1in,letterpaper]{geometry}\n')
+
+# table macros
+tfile.write(r'''
+\makeatletter
+\vsize=10.7 truein
+\advance\voffset by -0.7 truein
+\def\rightheadline{\hfill TABLE 1: ELLIPTIC CURVES \firstc--\lastc\hfill
+\llap{\folio}} 
+\def\leftheadline{\rlap{\folio} \hfill TABLE 1: ELLIPTIC CURVES \firstc--\lastc
+\hfill}
+
+\font\BIG=cmbx12 scaled \magstep1
+%
+\def\gap#1{\omit&height #1pt &&&&&&&&&&&&&&&&&&&&&&&\cr}
+\def\topline{\noalign{\hrule}\gap2}
+\def\hline{\gap2\noalign{\hrule}\gap2}
+\def\smallhline{\gap1\noalign{\hrule}\gap1}
+\def\botline{\gap2\noalign{\hrule}}
+\def\dashfill{\xleaders\hbox{\ -}\hfill}
+\def\classgap{\omit&&\multispan{22}\dashfill&\cr}
+%
+\def\headings{
+&&&&a_1&a_2&a_3&a_4&a_6&&r&&%
+|\hbox{T}|&&s&\hbox{ord}(\Delta)&&\hbox{ord}_-(j)&&%
+c_p&&Kodaira&&\hfill\hbox{Isogenies}\hfill&\cr
+}
+%
+\def\tabletitle(#1)#2-#3:{\leftline{\bf Table 1.#1: Isogeny classes #2--#3.}}
+\def\tablebody{}
+%
+\def\fillornot{}
+\def\tablepage#1,#2-#3.{\vbox to \vsize{
+\offinterlineskip 
+\halign  to \hsize%
+{\tabskip 0pt
+##\strut&\vrule##\tabskip 5pt plus 2pt minus 4pt &%       left border   |   2
+##\hfil&\vrule##&%                                        id.           |   2
+\hfil$##$&\hfil$##$&\hfil$##$\tabskip 5pt plus 1fil minus 4pt  &%   a1,a2,a3          3
+\hfil$##$&\hfil$##$&\vrule##\tabskip 5pt plus 2pt minus 4pt  &%     a4,a6         |   3
+\hfil$##$\hfil&\vrule##&%                                 r             |   2
+\hfil$##$\hfil&\vrule##&%                                 |T|           |   2
+\hfil$##$\hfil&%                                          sign              1
+\hfil$##$\hfil&\vrule##&%                                 ord(delta)    |   2
+\hfil$##$\hfil&\vrule##&%                                 ord(denom(j)) |   2
+\hfil$##$\hfil&\vrule##&%                                 c_p           |   2
+\hfil##\hfil&\vrule##&%                                   Kodaira       |   2
+$##$\hfil&\vrule##\tabskip0pt\cr%                         Isogenies     |   2
+%
+\topline
+\headings  
+\botline
+\tablebody
+}                 % end of \halign
+%\message{finished table #1}
+%\vfill %for testing only -- remove to let the \vfil's between classes spread.
+%\hrule
+\fillornot
+}                 % end of \vbox
+\def\firstc{#2}
+\def\lastc{#3}
+\eject}     % end of \def\tablepage
+
+\def\newlevel#1#2#3{     
+              \noalign{\vss}
+              \noalign{\vrule height15pt depth 4pt width0pt
+                       {\BIG #1}\hfill$N=#1=#2$ \quad (#3)
+                       \hfill{\BIG #1}}
+              \topline 
+                   }
+\def\morelevel#1#2{\newlevel{#1}{#2}{continued}}
+\def\endlevel{\botline}
+
+%Shorthands for stretching page size:
+\def\hup#1#2{\advance\hsize by #1pt \advance\hoffset by -#2pt}
+\def\hdown#1#2{\advance\hsize by -#1pt \advance\hoffset by #2pt}
+\def\vup#1{\advance\vsize by #1pt}
+\def\vdown#1{\advance\vsize by -#1pt}
+\makeatother
+''')
+
+tfile.write('\\begin{document}\n')
+
+f = open('isomorphism_classes.txt')
+
+def phiformat(s):
+    return s
+
+def kodformat(s):
+    return s
+
+def write_level(cur_num_curves, L):
+    level_str = '\\newlevel{%s}{%s}'%(level, level)
+    if len(L) > 1:
+        level_str += '{%s isogeny classes}\n'%len(L)
+    else:
+        level_str += '{1 isogeny class}\n'
+    for i,T in enumerate(L):
+        s,size = T
+        if i:
+            size += .75
+        else:
+            size += 2.5
+        if cur_num_curves + size > 46:
+            if i:
+                tfile.write('\\endlevel')
+            tfile.write('}\n')
+            tfile.write('\\tablepage{1},0-0.\n')
+            tfile.write('\\def\\tablebody{\n')
+            tfile.write(level_str)
+            cur_num_curves = size+(1.75 if i else 0)
+        else:
+            cur_num_curves += size
+            if i:
+                tfile.write('\\classgap\n')
+            else:
+                tfile.write(level_str)
+        tfile.write(s)
+    tfile.write('\\endlevel\n')
+    return cur_num_curves
+
+s = ''
+level = '31a'
+iso_size = 0
+cur_num_curves = 0
+L = []
+tfile.write('\\def\\tablebody{\n')
+for l in f:
+    if l.strip().startswith('#'):
+        continue
+    elif l[0] == ' ':
+        iso_size += 1
+        l = l.strip().split(' ')
+        # add label
+        s += '&&'
+        s += iso
+        s += l[0]
+        # add eqn
+        s += '&&'
+        eqn = l[1][1:][:-1].split(',')
+        s += '&'.join([phiformat(a) for a in eqn])
+        # add rank
+        s += '&&'
+        s += r
+        # add torsion
+        s += '&&'
+        if l[2] == 'Trivialgroup':
+            s += '1'
+        elif '+' in l[2]:
+            s += '2+'+l[2][6]
+        else:
+            s += l[2][2]
+        # add discriminant
+        s += '&&'
+        s += l[3][0]+'\\ '+l[3][2]
+        s += '&'
+        s += l[4]
+        # add denominator of j invariant
+        s += '&&'
+        s += l[5]
+        # add tamagawa numbers
+        s += '&&'
+        s += l[6]
+        # add kodaira symbols
+        s += '&&'
+        s += ','.join([kodformat(sym) for sym in l[7].split(',')])
+        # add isogenies
+        s += '&&'
+        if l[8][0] != '0':
+            s += ';'.join(['\\textbf{'+pr.split(':')[0]+'}:'+pr.split(':')[1] for pr in l[8].split(';')])
+        # end row
+        s += '&\\cr\n'
+    else:
+        l = l.strip().split(' ')
+        if s:
+            L.append((s,iso_size))
+        if ''.join(l[:2]) != level:
+            cur_num_curves = write_level(cur_num_curves, L)
+            L = []
+        s = ''
+        iso_size = 0
+        level = ''.join(l[:2])
+        iso = l[2]
+        n = '('+phiformat(l[3])+')'
+        r = l[4]
+cur_num_curves = write_level(cur_num_curves, L)
+tfile.write('}\n')
+tfile.write('\\tablepage{1},0-0.\n')
+
+tfile.write('\\end{document}')
+
+tfile.close()
+os.system('pdflatex -output-directory '+tdir+' '+tpath)
+os.system('mv '+os.path.join(tdir,'table.pdf')+' table.pdf')
+os.system('rm -r '+tdir)
