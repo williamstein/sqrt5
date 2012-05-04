@@ -203,6 +203,8 @@ for l in f:
         iso = l[2]
         n = '('+phiformat(l[3])+')'
         r = l[4]
+if s:
+    L.append((s,iso_size))
 cur_num_curves = write_level(cur_num_curves, L)
 tfile.write('}\n')
 tfile.write('\\tablepage{1},0-0.\n')
