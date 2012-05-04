@@ -12,14 +12,9 @@ tfile.write('\\usepackage[landscape,margin=1in,letterpaper]{geometry}\n')
 
 # table macros
 tfile.write(r'''
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\p}{\varphi}
 \makeatletter
-\vsize=10.7 truein
-\advance\voffset by -0.7 truein
-\def\rightheadline{\hfill TABLE 1: ELLIPTIC CURVES \firstc--\lastc\hfill
-\llap{\folio}} 
-\def\leftheadline{\rlap{\folio} \hfill TABLE 1: ELLIPTIC CURVES \firstc--\lastc
-\hfill}
-
 \font\BIG=cmbx12 scaled \magstep1
 %
 \def\gap#1{\omit&height #1pt &&&&&&&&&&&&&&&&&&&&&&&\cr}
@@ -32,8 +27,8 @@ tfile.write(r'''
 %
 \def\headings{
 &&&&a_1&a_2&a_3&a_4&a_6&&r&&%
-|\hbox{T}|&&s&\hbox{ord}(\Delta)&&\hbox{ord}_-(j)&&%
-c_p&&Kodaira&&\hfill\hbox{Isogenies}\hfill&\cr
+\text{T}&&s&\ord(\Delta)&&\ord_-(j)&&%
+c_p&&Kodaira&&\hfill\text{Isogenies}\hfill&\cr
 }
 %
 \def\tabletitle(#1)#2-#3:{\leftline{\bf Table 1.#1: Isogeny classes #2--#3.}}
@@ -49,7 +44,7 @@ c_p&&Kodaira&&\hfill\hbox{Isogenies}\hfill&\cr
 \hfil$##$&\hfil$##$&\hfil$##$\tabskip 5pt plus 1fil minus 4pt  &%   a1,a2,a3          3
 \hfil$##$&\hfil$##$&\vrule##\tabskip 5pt plus 2pt minus 4pt  &%     a4,a6         |   3
 \hfil$##$\hfil&\vrule##&%                                 r             |   2
-\hfil$##$\hfil&\vrule##&%                                 |T|           |   2
+\hfil$##$\hfil&\vrule##&%                                 T           |   2
 \hfil$##$\hfil&%                                          sign              1
 \hfil$##$\hfil&\vrule##&%                                 ord(delta)    |   2
 \hfil$##$\hfil&\vrule##&%                                 ord(denom(j)) |   2
@@ -62,9 +57,6 @@ $##$\hfil&\vrule##\tabskip0pt\cr%                         Isogenies     |   2
 \botline
 \tablebody
 }                 % end of \halign
-%\message{finished table #1}
-%\vfill %for testing only -- remove to let the \vfil's between classes spread.
-%\hrule
 \fillornot
 }                 % end of \vbox
 \def\firstc{#2}
@@ -80,12 +72,6 @@ $##$\hfil&\vrule##\tabskip0pt\cr%                         Isogenies     |   2
                    }
 \def\morelevel#1#2{\newlevel{#1}{#2}{continued}}
 \def\endlevel{\botline}
-
-%Shorthands for stretching page size:
-\def\hup#1#2{\advance\hsize by #1pt \advance\hoffset by -#2pt}
-\def\hdown#1#2{\advance\hsize by -#1pt \advance\hoffset by #2pt}
-\def\vup#1{\advance\vsize by #1pt}
-\def\vdown#1{\advance\vsize by -#1pt}
 \makeatother
 ''')
 
@@ -94,12 +80,32 @@ tfile.write('\\begin{document}\n')
 f = open('isomorphism_classes.txt')
 
 def phiformat(s):
-    return s
+    if 'a' not in s:
+        return s
+    else:
+        a,b = s.split('a')
+        b = b.strip('+')
+        a = a.strip('*')+'\\p'
+        if b and a[0] != '-':
+            a = '+'+a
+        return b+a
 
 def kodformat(s):
-    return s
+    hstar = '*' in s
+    s = s.replace('*','')
+    n = s.replace('I','').replace('V','')
+    r = s.replace(n,'')
+    if hstar and n:
+        return r + '$^*_{%s}$'%n
+    elif n:
+        return r + '$_{%s}$'%n
+    elif hstar:
+        return r + '$^*$'
+    else:
+        return r
 
 def write_level(cur_num_curves, L):
+    # need to include factorings for second argument
     level_str = '\\newlevel{%s}{%s}'%(level, level)
     if len(L) > 1:
         level_str += '{%s isogeny classes}\n'%len(L)
@@ -117,7 +123,8 @@ def write_level(cur_num_curves, L):
             tfile.write('}\n')
             tfile.write('\\tablepage{1},0-0.\n')
             tfile.write('\\def\\tablebody{\n')
-            tfile.write(level_str)
+            # need to include factorings for second argument
+            tfile.write('\\morelevel{%s}{%s}\n'%(level, level))
             cur_num_curves = size+(1.75 if i else 0)
         else:
             cur_num_curves += size
