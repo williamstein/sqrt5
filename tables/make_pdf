@@ -8,7 +8,7 @@ tfile = file(tpath,'w')
 
 
 tfile.write('\\documentclass{amsart}\n')
-tfile.write('\\usepackage[landscape,margin=1in,letterpaper]{geometry}\n')
+tfile.write('\\usepackage[landscape,margin=.75in,letterpaper]{geometry}\n')
 
 # table macros
 tfile.write(r'''
@@ -114,18 +114,21 @@ def write_level(cur_num_curves, L):
     for i,T in enumerate(L):
         s,size = T
         if i:
-            size += .75
+            size += .333333333333333333333333333333
         else:
-            size += 2.5
-        if cur_num_curves + size > 46:
+            size += 1.666666666666666666666666666666
+        if cur_num_curves + size > 40:
             if i:
                 tfile.write('\\endlevel')
             tfile.write('}\n')
             tfile.write('\\tablepage{1},0-0.\n')
             tfile.write('\\def\\tablebody{\n')
-            # need to include factorings for second argument
-            tfile.write('\\morelevel{%s}{%s}\n'%(level, level))
-            cur_num_curves = size+(1.75 if i else 0)
+            if i:
+                # need to include factorings for second argument
+                tfile.write('\\morelevel{%s}{%s}\n'%(level, level))
+            else:
+                tfile.write(level_str)
+            cur_num_curves = size+(1.33333333333333333333333333 if i else 0)
         else:
             cur_num_curves += size
             if i:
