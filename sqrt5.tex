@@ -110,7 +110,9 @@ Minkowski bound implies that $|D_K| \geq (n^n/n!)^2$, where
 $n=[K:\Q]$, so if $n\geq 3$ then $|D_K|>20$). That $5$ divides
 $\disc(F)=5$ thwarts attempts to easily generalize the
 method of Taylor-Wiles to elliptic curves over $F$, which makes
-$\Q(\sqrt{5})$ even more interesting.
+$\Q(\sqrt{5})$ even more interesting. Furthermore $F$ is a PID and
+elliptic curves over $F$ admit global minimal models and have well-defined 
+notions of minimal discriminants.
 The field $F$ also has $31$ CM $j$-invariants, which is far more than
  any other quadratic field (see Section~\ref{sec:cm}).  Letting
  $\vphi=\frac{1+\sqrt{5}}{2}$, we have that the group of units
@@ -130,13 +132,17 @@ The following conjecture is open:
 \end{conjecture}
 Given the progress on modularity theorems initiated by
 \cite{wiles:fermat}, we are optimistic that Conjecture~\ref{conj:mod}
-will be proved.  {\em We officially assume
-  Conjecture~\ref{conj:mod} for the rest of this paper.} \\
+will be proved.  {\em We assume Conjecture~\ref{conj:mod} 
+for the rest of this paper.} \\
 
 In Section~\ref{sec:hmf} we sketch how to compute Hilbert modular
-forms using arithmetic in quaternion
-algebras. Section~\ref{sec:finding} gives numerous methods for finding
-an elliptic curve corresponding to a Hilbert modular form.
+forms using arithmetic in quaternion algebras. Section~\ref{sec:finding} 
+gives numerous methods for finding an elliptic curve corresponding to
+a Hilbert modular form. It should be noted that these are the methods 
+{\it originally} used to make the tables -- in hindsight, it was discovered
+that some of the elliptic curves found using the more specific techniques could 
+be found using a better implementation of the sieved enumeration of
+\ref{sec:sieve.}f
 Section~\ref{sec:isoclass} addresses how to find all curves that are
 isogenous to a given curve.  
 In Section~\ref{sec:cm} we enumerate the CM $j$-invariants in $F$.
@@ -146,8 +152,8 @@ tables that summarize various information about our
 dataset \cite{sqrt5data}.
 
 
-{\bf Acknowledgements.} We would like to thank John Cremona, Tom
-Fisher, Noam Elkies, Richard Taylor, and John Voight for helpful
+{\bf Acknowledgements.} We would like to thank John Cremona, Noam Elkies, Tom
+Fisher, Richard Taylor,John Voight, and the anonymous referee for helpful
 conversations.  We would especially like to thank Joanna Gaski for
 providing (via the method of Section~\ref{sec:naive}) the explicit
 table of elliptic curves that kickstarted this project.
