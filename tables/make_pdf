@@ -106,7 +106,7 @@ def kodformat(s):
 
 def write_level(cur_num_curves, L):
     # need to include factorings for second argument
-    level_str = '\\newlevel{%s}{%s}'%(level, level)
+    level_str = '\\newlevel{%s}{%s}'%(level, n)
     if len(L) > 1:
         level_str += '{%s isogeny classes}\n'%len(L)
     else:
@@ -125,7 +125,7 @@ def write_level(cur_num_curves, L):
             tfile.write('\\def\\tablebody{\n')
             if i:
                 # need to include factorings for second argument
-                tfile.write('\\morelevel{%s}{%s}\n'%(level, level))
+                tfile.write('\\morelevel{%s}{%s}\n'%(level, n))
             else:
                 tfile.write(level_str)
             cur_num_curves = size+(1.33333333333333333333333333 if i else 0)
