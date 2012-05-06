@@ -31,46 +31,43 @@ tfile.write(r'''
 c_p&&Kodaira&&\hfill\text{Isogenies}\hfill&\cr
 }
 %
-\def\tabletitle(#1)#2-#3:{\leftline{\bf Table 1.#1: Isogeny classes #2--#3.}}
 \def\tablebody{}
 %
 \def\fillornot{}
-\def\tablepage#1,#2-#3.{\vbox to \vsize{
+\def\tablepage{\vbox to \vsize{
 \offinterlineskip 
 \halign  to \hsize%
 {\tabskip 0pt
-##\strut&\vrule##\tabskip 5pt plus 2pt minus 4pt &%       left border   |   2
-##\hfil&\vrule##&%                                        id.           |   2
-\hfil$##$&\hfil$##$&\hfil$##$\tabskip 5pt plus 1fil minus 4pt  &%   a1,a2,a3          3
-\hfil$##$&\hfil$##$&\vrule##\tabskip 5pt plus 2pt minus 4pt  &%     a4,a6         |   3
-\hfil$##$\hfil&\vrule##&%                                 r             |   2
-\hfil$##$\hfil&\vrule##&%                                 T           |   2
-\hfil$##$\hfil&%                                          sign              1
-\hfil$##$\hfil&\vrule##&%                                 ord(delta)    |   2
-\hfil$##$\hfil&\vrule##&%                                 ord(denom(j)) |   2
-\hfil$##$\hfil&\vrule##&%                                 c_p           |   2
-\hfil##\hfil&\vrule##&%                                   Kodaira       |   2
-$##$\hfil&\vrule##\tabskip0pt\cr%                         Isogenies     |   2
+##\strut&\vrule##\tabskip 5pt plus 2pt minus 4pt &
+##\hfil&\vrule##&
+\hfil$##$&\hfil$##$&\hfil$##$\tabskip 5pt plus 1fil minus 4pt  &
+\hfil$##$&\hfil$##$&\vrule##\tabskip 5pt plus 2pt minus 4pt  &
+\hfil$##$\hfil&\vrule##&
+\hfil$##$\hfil&\vrule##&
+\hfil$##$\hfil&
+\hfil$##$\hfil&\vrule##&
+\hfil$##$\hfil&\vrule##&
+\hfil$##$\hfil&\vrule##&
+\hfil##\hfil&\vrule##&
+$##$\hfil&\vrule##\tabskip0pt\cr
 %
 \topline
-\headings  
+\headings 
 \botline
 \tablebody
 }                 % end of \halign
 \fillornot
 }                 % end of \vbox
-\def\firstc{#2}
-\def\lastc{#3}
 \eject}     % end of \def\tablepage
 
-\def\newlevel#1#2#3{     
+\def\newlevel#1#2#3#4{     
               \noalign{\vss}
               \noalign{\vrule height15pt depth 4pt width0pt
-                       {\BIG #1}\hfill$N=#1=#2$ \quad (#3)
+                       {\BIG #1}\hfill$N=#1=#2=#3$ \quad (#4)
                        \hfill{\BIG #1}}
               \topline 
                    }
-\def\morelevel#1#2{\newlevel{#1}{#2}{continued}}
+\def\morelevel#1#2#3{\newlevel{#1}{#2}{#3}{continued}}
 \def\endlevel{\botline}
 \makeatother
 ''')
@@ -90,6 +87,12 @@ def phiformat(s):
             a = '+'+a
         return b+a
 
+def idformat(I):
+    if ',' in I:
+        t = I.split(',')
+        return t[0]+','+phiformat(t[1][:-1])+')'
+    return I
+
 def kodformat(s):
     hstar = '*' in s
     s = s.replace('*','')
@@ -106,7 +109,7 @@ def kodformat(s):
 
 def write_level(cur_num_curves, L):
     # need to include factorings for second argument
-    level_str = '\\newlevel{%s}{%s}'%(level, n)
+    level_str = '\\newlevel{%s}{%s}{%s}'%(level, n, fact)
     if len(L) > 1:
         level_str += '{%s isogeny classes}\n'%len(L)
     else:
@@ -121,11 +124,11 @@ def write_level(cur_num_curves, L):
             if i:
                 tfile.write('\\endlevel')
             tfile.write('}\n')
-            tfile.write('\\tablepage{1},0-0.\n')
+            tfile.write('\\tablepage\n')
             tfile.write('\\def\\tablebody{\n')
             if i:
                 # need to include factorings for second argument
-                tfile.write('\\morelevel{%s}{%s}\n'%(level, n))
+                tfile.write('\\morelevel{%s}{%s}{%s}\n'%(level, n, fact))
             else:
                 tfile.write(level_str)
             cur_num_curves = size+(1.33333333333333333333333333 if i else 0)
@@ -201,13 +204,23 @@ for l in f:
         iso_size = 0
         level = ''.join(l[:2])
         iso = l[2]
-        n = '('+phiformat(l[3])+')'
-        r = l[4]
+        n = idformat(l[3])
+        fact = l[4].split('*')
+        for i,p in enumerate(fact):
+            if '^' in p:
+                p = p.split('^')
+                exp = '^{'+p[1]+'}'
+                p = p[0]
+            else:
+                exp = ''
+            fact[i] = idformat(p)+exp
+        fact = ' '.join(fact)
+        r = l[5]
 if s:
     L.append((s,iso_size))
 cur_num_curves = write_level(cur_num_curves, L)
 tfile.write('}\n')
-tfile.write('\\tablepage{1},0-0.\n')
+tfile.write('\\tablepage\n')
 
 tfile.write('\\end{document}')
 
