@@ -46,13 +46,15 @@ that these modular forms only have a single period. Thus, your
 analytic techniques for determining the period lattices aren't
 directly applicable.
 
-  [ ] for extra page (william)
+  [X] for extra page (william)
 
 page 3, top: When you define T, it's not clear that T is to be viewed
 as a subalgebra of End V . In fact, V isn't defined at this
 point. Maybe move the definition of T after the definition of Tp.
-
-  [ ] ok (william)
+[[I switched the order.  Also, I actually
+do *not* want to view T as a subalgebra of End(V). I want T to be
+an abstract ring that acts on both V and the space of Hilbert
+modular forms. ]]
 
 S. 3.4: A twist of the modular curve X(n) parametrizes elliptic curves
 with a given mod n representation. Thus, if you've already found your
