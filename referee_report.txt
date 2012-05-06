@@ -1,7 +1,7 @@
 [X] (Andrew will fix) William: The torsion counts seem suspicous
       * this was a typo 2->7
 
-[ ] (Andrew) double check isogeny degrees
+[X] (Andrew) double check isogeny degrees
 
 [X] Ari pointed out that the conductor of the Fisher curve (3.1) is wrong.
   (Andrew will fix.)
