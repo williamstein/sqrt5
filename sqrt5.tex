@@ -41,10 +41,9 @@
 \thanks{This work is supported by NSF grant DMS-0757627, administered
 by the American Institute of Mathematics. }
 \begin{document}
-
 \begin{abstract} 
   We describe a tabulation of (conjecturally) modular elliptic curves
-  over the field $\Q(\sqrt5)$ up to the first curve of rank $2$. Using
+  over the field $\Q(\sqrt5)$ up to the first elliptic curve of rank $2$. Using
   an efficient implementation of an algorithm of Lassina \dembele
   \cite{dembele:hilbert5}, we computed tables of Hilbert modular
   forms of weight $(2,2)$ over $\Q(\sqrt 5)$, and via a variety of
@@ -324,23 +323,24 @@ largeness of $B$ that $E$ is in the isogeny class of $E_f$.
 Under our hypotheses, this approach provides a deterministic and 
 terminating algorithm to find all $E_f$. However, it can be extremely slow
  when $\n$ is small but the simplest curve in the isogeny class 
-of $E_f$ has large coefficients.  For example, using this search method it would be infeasible to find the curve \eqref{equation:fisher-curve}
-computed by Fisher using the visibility of \Sha$[7]$.
+of $E_f$ has large coefficients.  For example, using this search method it would be
+infeasible to find the curve \eqref{equation:fisher-curve} computed by Fisher using the
+visibility of \Sha$[7]$.
 
 \subsection{Sieved enumeration}\label{sec:sieve}
 
 A refinement to the approach discussed above uses the $a_\p$ values to impose
-congruence conditions modulo $\p$ on $\#\tilde E(R/\p)$.
+congruence conditions modulo $\p$ on $E$.
 If $f$ is a newform with Hecke eigenvalues
 $a_\p$, then $\#\tilde E_f(R/\p)=\bN(\p)+1-a_{\p}$.
 Given $\p$ not dividing the level $\n$, we can find all elliptic curves
 modulo $\p$ with the specified number of points, especially when $\bN(\p) +1 - a_\p$ has
 few prime factors. We impose these congruence conditions at multiple primes $\p_i$,
-use the Chinese Remainder Theorem, and lift the resulting curves modulo $R/ (\prod \p_i)$
-to non-singular curves over $R$.
+use the Chinese Remainder Theorem, and lift the resulting elliptic curves modulo $R/ (\prod \p_i)$
+to non-singular elliptic curves over $R$.
 
 While this method, like the previous one, will eventually terminate, it too is very
-ineffective if every $E$ in the class of isogenous curves corresponding to $f$ has
+ineffective if every $E$ in the class of isogenous elliptic curves corresponding to $f$ has
 large coefficients. However in practice, by optimally choosing the number of primes $\p_i$, 
 a reasonably efficient implementation of this method can be obtained.
 % Thus this is
@@ -361,14 +361,14 @@ $$\begin{array}{lll}
 \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2m\mathbb{Z}, &  1 \leq m \leq 4,&\\
 \mathbb{Z}/15\mathbb{Z}.&&
 \end{array}$$ 
-Moreover, there is a unique curve with $15$-torsion.
+Moreover, there is a unique elliptic curve with $15$-torsion.
 \end{theorem}
 
 We use the following proposition to determine in which family to
 search.
 \begin{proposition}\label{prop:ptor}
-Let $\ell$ be a prime and $E$ a curve over $F$.
-Then $\ell \mid \# E'(F)_{\tor}$ for some curve $E'$ in the isogeny class
+Let $\ell$ be a prime and $E$ an elliptic curve over $F$.
+Then $\ell \mid \# E'(F)_{\tor}$ for some elliptic curve $E'$ in the isogeny class
 of $E$ if and only if $\ell \mid \bN(\p)+1 - a_{\p}$ for all
 odd primes $\p$ at which $E$ has good reduction.
 \end{proposition}
@@ -381,44 +381,62 @@ is one of the main results of \cite{katz:torsion}.
 
 By applying Proposition~\ref{prop:ptor} for all $a_{\p}$ with $\p$ up
 to some bound, we can decide whether or not it is {\em likely} that
-some curve in the isogeny class of $E$ contains an $F$-rational
+some elliptic curve in the isogeny class of $E$ contains an $F$-rational
 $\ell$-torsion point. If this is the case, then we search over those
-families of curves with rational $\ell$-torsion. With a relatively small
-search space, we thus find many curves with large coefficients more
+families of elliptic curves with rational $\ell$-torsion. With a relatively small
+search space, we thus find many elliptic curves with large coefficients more
 quickly than with the algorithm of Section~\ref{sec:naive}.
-For example, we first found the curve $E$ given by 
+For example, we first found the elliptic curve $E$ given by
 $$y^2 + \vphi{}y = x^3 + \left(27 \vphi{} - 43\right)x + \left(-80 \vphi{} + 128\right) 
-$$ with norm conductor $145$ by searching for curves with torsion subgroup $\Z/7\Z$.
+$$ with norm conductor $145$ by searching for elliptic curves with torsion subgroup $\Z/7\Z$.
 
 
 \subsection{Congruence families}\label{sec:congfam}
 
 Suppose that we are searching for an elliptic curve $E$ and we already know 
-another curve $E'$ with $E[\ell] \approx E'[\ell]$, where $\ell$ is some prime 
+another elliptic curve $E'$ with $E[\ell] \approx E'[\ell]$, where $\ell$ is some prime
 and $E[\ell]$ is irreducible. Twists of the modular curve $X(\ell)$ parametrize 
 pairs of elliptic curves with isomorphic $\ell$-torsion subgroups, so finding 
-rational points on the correct twist allows us to find curves with the same 
+rational points on the correct twist allows us to find elliptic curves with the same
 mod $\ell$ Galois representation as $E'$ \cite{fisher:families_cong}. Using 
-this idea, we found the curve $E$ given by
+this idea, we found the elliptic curve $E$ given by
 \begin{multline}\label{equation:fisher-curve}
 y^2 + \varphi{}xy =  x^3 + \left(\varphi{} - 1\right)x^2 + \\ 
 \left(-257364 \varphi{} - 159063\right)x + \left(-75257037 \varphi{} - 46511406\right)
 \end{multline}
 with conductor $-6 \varphi + 42$, which has norm $1476$. Just given the $a_{\p}$,
  we noticed that $E[7]\approx E'[7]$, where $E'$ has norm conductor $369$. The 
- curve $E'$ had already been found via naive search, since it is given by the 
+ elliptic curve $E'$ had already been found via naive search, since it is given by the
  equation $y^2 + \left(\varphi{} + 1\right)y = x^3 + \left(\varphi{} - 1\right)x^2 + 
  \left(-2 \varphi{}\right)x$. Fisher then used a \textsc{Magma} \cite{magma} 
  program to find rational points on an appropriate twist of $X(7)$, and fortunately, 
- our curve $E$ was found.
+ our elliptic curve $E$ was found.
+
+%Suppose that we are searching for a elliptic curve $E$ and we already know
+%another elliptic curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
+%some prime and $E[\ell]$ is irreducible.  If $\ell=7,11$ then we can use
+%techniques of Fisher \cite{fisher:families_cong} to attempt to search
+%through the finitely many elliptic curves with mod~$\ell$ Galois representation
+%isomorphic to $E[\ell]$.
+%We used this approach to find the elliptic curve $E$ given by
+%\begin{multline}\label{equation:fisher-curve}
+%y^2 + \vphi{}xy =  x^3 + \left(\vphi{} - 1\right)x^2 + \\ \left(-257364 \vphi{} - 159063\right)x + \left(-75257037 \vphi{} - 46511406\right)
+%\end{multline}
+%with conductor $-38 \vphi + 10$, which has norm $1476$.  Given just the $a_{\p}$, we noticed that
+%$E[7] \ncisom E'[7]$, where $E'$ has norm conductor 369, then Fisher
+%used a \textsc{Magma} \cite{magma} program to find rational points on a certain
+%quartic surface that parametrize elliptic curves with the same $E'[7]$.
+%Fortunately, our elliptic curve $E$ was amongst those elliptic curves.
+%We had already found $E'$ via a naive search, since it is given
+%by the equation $y^2 + \left(\vphi{} + 1\right)y = x^3 + \left(\vphi{} - 1\right)x^2 + \left(-2 \vphi{}\right)x$.
 
 
 \subsection{Twisting}\label{sec:twisting}
 
-Let $E$ be an elliptic curve $F$. A \emph{twist} $E'$ of $E$ is a
+Let $E$ be an elliptic curve over $F$. A \emph{twist} $E'$ of $E$ is an elliptic
 curve over $F$ that is isomorphic to $E$ over some extension of $F$. A
 \emph{quadratic twist} is a twist in which the extension has degree
-$2$.  We can use twisting to find curves that may otherwise be
+$2$.  We can use twisting to find elliptic curves that may otherwise be
 difficult to find as follows: starting with a known elliptic curve $E$
 of some (small) conductor, we compute its twists of conductor up to
 some bound, and add them to our table.
@@ -429,7 +447,7 @@ particular, we may assume that $d$ is square free.  The following
 is well known:
 \begin{proposition}\label{twist:bound}
 If $\n$ is the
-conductor of $E$ and $d \in F^*$ is coprime to $\n$, then the
+conductor of $E$ and $d \in \mathcal{O}_F$ is non-zero, squarefree and coprime to $\n$, then the
 conductor of $E^d$ is divisible by $d^2\n$.
 \end{proposition}
 \begin{proof}
@@ -439,7 +457,7 @@ is the discriminant.
 %var('a1,a2,a3,a4,a6,d')
 %E = EllipticCurve([a1,a2,a3,a4,a6])
 %factor(E.quadratic_twist(d).discriminant() / E.discriminant())
-Thus the curve $E^d$ has bad reduction at each prime that divides $d$,
+Thus the elliptic curve $E^d$ has bad reduction at each prime that divides $d$,
 because twisting introduces a $6$th power of the squarefree $d$ into
 the discriminant, and $d$ is coprime to $\Delta(E)$, so no change of
 Weierstrass equation can remove this $6$th power.  Moreover, $E^d$ is
@@ -454,7 +472,7 @@ the same as that of $E$.
 %OR
 %
 % is the discriminant of the cubic in the Weierstrass equation.
-% The curve $E^d$ thus has bad reduction at each prime that divides $d$ since no change of
+% The elliptic curve $E^d$ thus has bad reduction at each prime that divides $d$ since no change of
 %  equation can remove the $d^6$-factor in $\Delta(E^d)$, $d$ being coprime to $\Delta(E)$,  
 % Moreover since $E^d$ is isomorphic to $E$ over $F(\sqrt{d})$, it has
 % potentially good thus additive reduction at primes dividing $d$. We know that
@@ -482,13 +500,13 @@ Following the above strategy to find twists of norm conductor $\leq
 B := 1831$, we have $C=31$ and square-free $d_1$ such that
 $|\bN(d_1)| \leq \sqrt{B/C} \approx 7.6\ldots$. Thus $d_1 \in \{1, 2,
 \vphi, 2\vphi\}$ and checking all possibilities for
-$\vphi^{\delta} d_0 d_1$, we find the curve $E^{-\vphi-2}$ having
-norm conductor $775$ and the curve $E^{5\vphi-3}$ having norm conductor
+$\vphi^{\delta} d_0 d_1$, we find the elliptic curve $E^{-\vphi-2}$ having
+norm conductor $775$ and the elliptic curve $E^{5\vphi-3}$ having norm conductor
 $961$. Other twists have larger norm conductors, e.g., $E^2$ has norm
 conductor $126976=2^{12}\cdot 31$.
 
 
-\subsection{Curves with good reduction outside $S$}\label{sec:cremona-lingham}
+\subsection{Elliptic Curves with good reduction outside $S$}\label{sec:cremona-lingham}
 
 We use the algorithm of Cremona and Lingham from
 \cite{cremona-lingham} to find all elliptic curves $E$ having good
@@ -497,7 +515,7 @@ $F$. This algorithm has limitations over a general number
 field $K$ due to the difficulty of finding a generating set for $E(K)$ and
 points on $E$ defined over $\cO_K$.
 Using Cremona's $\textsc{Magma}$ implementation of the algorithm, we 
-found several curves not found by other methods, e.g.,  
+found several elliptic curves not found by other methods, e.g.,
 $y^2 + \left(\vphi{} +  1\right)xy + y = x^3 -x^2 + \left(-19 \vphi{} - 
  39\right)x + \left(-143 \vphi{} - 4\right),$ 
 which has norm conductor $1331$.
@@ -567,14 +585,14 @@ just how many guesses we will need to make. And unlike other methods
 described in this paper, this method requires many Hecke eigenvalues,
 and computing these takes a lot of time. However, this method
 certainly works extremely well in many cases, and after tuning it by
-using large tables of curves that we had already computed, we are able
-to use it to find more curves that we would have had no hope of
-finding otherwise; we will give an example of one of these curves
+using large tables of elliptic curves that we had already computed, we are able
+to use it to find more elliptic curves that we would have had no hope of
+finding otherwise; we will give an example of one of these elliptic curves
 later. 
 
 When the level $\n$ is not square, \dembele's method relies on computing
-or guessing periods of the curve by using special values of
-$L$-functions of twists of the curve. In particular, the only inputs
+or guessing periods of the elliptic curve by using special values of
+$L$-functions of twists of the elliptic curve. In particular, the only inputs
 required are the level of the Hilbert modular form and its $L$-series. So
 we suppose that we know the level $\n = (N)$ of the form, where $N$ is
 totally positive, and that we have sufficiently many coefficients of its
@@ -587,7 +605,7 @@ the complex numbers, and hence a pair of period lattices. We let $\Omegap_E$
 and $\Omegam_E$, which we refer to as the periods of $E$,
 be the least real and imaginary periods of the lattice
 which come from the embedding $\sigma_1$, and as the period lattices are interchanged
-when $E$ is replaced with its conjugate curve, we let $\Omegap_{\Ebar}$
+when $E$ is replaced with its conjugate elliptic curve, we let $\Omegap_{\Ebar}$
 and $\Omegam_{\Ebar}$ denote the least real and imaginary periods
 of the lattice under the embedding $\sigma_2$.
 
@@ -598,10 +616,10 @@ For ease, we write
 \end{align*}
 We refer to these numbers as the {\em mixed periods} of $E$.
 
-\subsubsection{Recovering the curve from its mixed periods}
+\subsubsection{Recovering the elliptic curve from its mixed periods}
 If we know these mixed periods to sufficient precision, it is not hard
-to recover the curve $E$. Without the knowledge of the discriminant
-of the curve, we do not know the lattice type of the curve and its
+to recover the elliptic curve $E$. Without the knowledge of the discriminant
+of the elliptic curve, we do not know the lattice type of the elliptic curve and its
 conjugate, but there are only a few possibilities for what they might
 be. This gives us a few possibilities for the $j$-invariant of
 $E$. Observe that $\sigma_1(j(E))$ is either $j(\tau_1(E))$ or $j(\tau_2(E))$
@@ -616,7 +634,7 @@ and $j(\tau)$ is the familiar
     j(\tau) = e^{-2\pi i \tau} + 744 + 196884e^{2\pi i \tau} + 21493760e^{4\pi i \tau} + \cdots.
 \]
 We try each pair of possible embeddings for $j(E)$ in turn, and recognize
-possibilities for $j(E)$ as an algebraic number. We then construct curves $E'$
+possibilities for $j(E)$ as an algebraic number. We then construct elliptic curves $E'$
 corresponding to each possibility for $j(E)$. By computing a few $\ap{}(E)$, we
 should be able to determine whether we have chosen the correct $j$-invariant,
 in which case $E'$ will be a twist of $E$. We can then recognize which twist it is
@@ -628,7 +646,7 @@ especially if its denominator is large.
 %Still, the above approach may be useful. UNNECESSARY?
 
 To get around the problem of limited precision, we suppose that we have some extra information; 
-namely, the discriminant $\Delta_E$ of the curve we are looking for.  With $\Delta_E$ in
+namely, the discriminant $\Delta_E$ of the elliptic curve we are looking for.  With $\Delta_E$ in
 hand we can directly determine which $\tau$ to choose: if $\sigma_1(\Delta_E) > 0$ then
 $\sigma_1(j(E)) = j(\tau_1(E))$, and if $\sigma_1(\Delta_E) < 0$ then $\sigma_1(j(E)) = j(\tau_2(E))$,
 and similarly for $\sigma_2$. We then compute
@@ -661,15 +679,15 @@ Given $\cfourguess$, we attempt to solve
 \[
     \csixguess = \pm \sqrt{ \cfourguess^3 - 1728 \Deltaguess },
 \]
-and, if we can, we use these to construct a curve $\Eguess$. If $\Eguess$ has
+and, if we can, we use these to construct a elliptic curve $\Eguess$. If $\Eguess$ has
 the correct conductor and the correct Hecke eigenvalues, we declare that
-we have found the correct curve; otherwise, we proceed to the next guess.
+we have found the correct elliptic curve; otherwise, we proceed to the next guess.
 
 For a choice of $\Deltaguess$, we will generally start with the conductor $N_E$,
 and then continue by trying unit multiples and by adding in powers of factors of $N_E$.
 
 \subsubsection{Guessing the mixed periods}
-We have thus far ignored the issue of actually finding the mixed periods of the curve that
+We have thus far ignored the issue of actually finding the mixed periods of the elliptic curve that
 we are looking for. Finding them presents an extra difficulty as our procedure involves
 even more guesswork. \dembele's idea is to use special values of twists of the $L$-function
 $L(f, s)$. Specifically, we twist by primitive quadratic Dirichlet characters over $\OF$,
@@ -744,7 +762,7 @@ as primitivity is ensured, but this is not necessary):
     S^{s,s'} = \{ \chi \bmod \p : \chi(\phi) = s', \chi(1 - \phi) = s,
             (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_E\}.
 \]
-Here $s, s' \in \{+, -\} = \pm 1$ again. We will consider these lists to be ordered by the
+Here $s, s' \in \{+, -\} = \{ \pm 1 \}$ again. We will consider these lists to be ordered by the
 norms of the conductors of the characters in increasing order, and index their elements as
 $\chi^{s,s'}_0, \chi^{s,s'}_1, \chi^{s,s'}_2, \ldots$. For each character we compute the central
 value of the twisted $L$-function to get four new lists
@@ -841,17 +859,17 @@ and
     \sqrt{\cfourguess^3 - 1728\Deltaguess}
 \]
 does in fact have two square roots: $\pm(15835084\varphi + 9796985)$. We try both of them, and
-the choice with the minus sign gives the curve
+the choice with the minus sign gives the elliptic curve
 \[
 y^2 + \varphi xy + \varphi y = x^3 + \left(\varphi - 1\right)x^2 + \left(-1001 \varphi - 628\right)x + \left(17899 \varphi + 11079\right),
 \]
-which has the correct conductor. We compute a few values of $a_\p$ for this curve, and it turns
+which has the correct conductor. We compute a few values of $a_\p$ for this elliptic curve, and it turns
 out to be the one that we are looking for.
 
-\section{Enumerating the curves in an isogeny class}\label{sec:isoclass}
+\section{Enumerating the elliptic curves in an isogeny class}\label{sec:isoclass}
 
-Given an elliptic curve $E/F$, we wish to find representative
-isomorphism classes for all elliptic curves $E'/F$ that are isogenous
+Given an elliptic curve $E/F$, we wish to find representatives up to isomorphism
+for all elliptic curves $E'/F$ that are isogenous
 to $E$ via an isogeny defined over $F$. The analogue of this problem
 over $\Q$ has an algorithmic solution as explained in
 \cite[\S3.8]{cremona:algs}; it relies on:
@@ -868,7 +886,8 @@ generalization of Mazur's theorem for any number field other than $\Q$.
 \begin{remark}
   Assume the generalized Riemann hypothesis.  Then work of Larson-Vaintrob 
   from \cite{larson-vaintrob} implies that there is an effectively computable constant $C_F$ 
-  such that any prime degree isogeny over $F$ has degree at most $C_F$.
+  such that if $\varphi: E \to E'$ is a prime-degree isogeny defined over $F$ and
+  $E'$ and $E$ are not isomorphic over $F$, then $\varphi$ has degree at most $C_F$.
 \end{remark}
 
 Since we are interested in specific isogeny classes, 
@@ -879,9 +898,9 @@ $p$-isogeny. The algorithm is particularly easy to implement in the
 case when $K$ is a quadratic field, as explained in
 \cite[\S2.3.4]{billerey:isog}.  Using this algorithm combined with
 V\'elu's formulas, we were able to enumerate {\em all}
-isomorphism classes of curves isogenous to the curves we found via the
-methods of Section~\ref{sec:finding}, and thus divide our curves up into
-isogeny classes.
+isomorphism classes of elliptic curves isogenous to the elliptic curves we found via the
+methods of Section~\ref{sec:finding}, and thus divide our isogeny classes into
+isomorphism classes.
 
 
 \section{CM elliptic curves over $F$}\label{sec:cm}
@@ -953,11 +972,11 @@ in $\Q(\sqrt{5})$.
 
 \section{Related future projects}\label{sec:future}
 
-It would be natural to extend the tables to the first known curve of
-rank $3$ over $F$, which may be the curve $y^2 + y = x^3 -2x + 1$ of
+It would be natural to extend the tables to the first known elliptic curve of
+rank $3$ over $F$, which may be the elliptic curve $y^2 + y = x^3 -2x + 1$ of
 norm conductor $163^2=26569$.  It would also be interesting to make a
 table in the style of \cite{stein-watkins:ants5}, and compute analytic
-ranks of the large number of curves that we would find; this would
+ranks of the large number of elliptic curves that we would find; this would
 benefit from Sutherland's {\tt smalljac} program, which has very fast code
 for computing $L$-series coefficients.  Some aspects of the tables
 could also be generalized to modular abelian varieties $A_f$ attached
@@ -970,22 +989,22 @@ norm conductor, and numerically compute their analytic ranks.
 As explained in Sections~\ref{sec:finding} and \ref{sec:isoclass},
 assuming Conjecture~\ref{conj:mod}, we found the complete list of
 elliptic curves with norm conductor up to $1831$, which is the first
-norm conductor of a rank $2$ curve over $F$. The complete
+norm conductor of a rank $2$ elliptic curve over $F$. The complete
 dataset can be downloaded from \cite{sqrt5data}.
 
-In each of the following tables \#isom refers to the number of curves, \#isog
-refers to the number of classes, $\n$ refers to the conductor of the
-given elliptic curve, and Weierstrass equations are given in the form
-$[a_1,a_2,a_3,a_4,a_6]$.
+In each of the following tables \#isom refers to the number of isomorphism
+classes of elliptic curves, \#isog refers to the number of isogeny classes of
+elliptic curves, $\n$ refers to the conductor of the given elliptic curve,
+and Weierstrass equations are given in the form $[a_1,a_2,a_3,a_4,a_6]$.
 
-Table~\ref{table:total-counts} gives the number of curves and isogeny
+Table~\ref{table:total-counts} gives the number of elliptic curves and isogeny
 classes we found. Note that in these counts we do not exclude
-conjugate curves, i.e., if $\sigma$ denotes the nontrivial element of
+conjugate elliptic curves, i.e., if $\sigma$ denotes the nontrivial element of
 $\Gal(F/\Q)$, then we count $E$ and $E^{\sigma}$ separately if they
 are not isomorphic.
 \begin{center}
 \begin{table}[h]
-\caption{Curves over $\Q(\sqrt{5})$\label{table:total-counts}}
+\caption{Elliptic Curves over $\Q(\sqrt{5})$\label{table:total-counts}}
 \begin{tabular}{@{}lcrrcr@{}}\toprule
 \textbf{rank} & \phantom{a} &\textbf{\#isog} & \textbf{\#isom} & \phantom{a} & \textbf{smallest $\Norm(\n)$} \\\cmidrule{1-1}\cmidrule{3-4}\cmidrule{6-6}
 $0$   & & $745$  & $2174$ & & $31$\\
@@ -997,12 +1016,12 @@ total & & $1414$ & $3368$ & & -\; \\\bottomrule
 \end{center}
 
 Table~\ref{table:isogeny-sizes} gives counts of the number of isogeny
-classes of curves in our data of each size; note that we find some
+classes of elliptic curves in our data of each size; note that we find some
 isogeny classes of cardinality $10$, which is bigger than what one
 observes with elliptic curves over $\QQ$.
 \begin{center}
 \begin{table}[h]
-\caption{Number of Isogeny classes of a given size\label{table:isogeny-sizes}}
+\caption{Number of isogeny classes of a given size\label{table:isogeny-sizes}}
 \begin{tabular}{@{}lcrrrrrrrcr@{}}\toprule
 & \phantom{a} & \multicolumn{7}{c}{\textbf{size}} & \phantom{a} & \\\cmidrule{3-9}
 \textbf{bound} & & 1   & 2   & 3  & 4   & 6  & 8  & 10 & & \textbf{total} \\\midrule
@@ -1012,12 +1031,12 @@ observes with elliptic curves over $\QQ$.
 \end{table}
 \end{center}
 
-Table~\ref{table:increasing-counts} gives the number of curves and classes
-up to a given norm conductor bound. Note that the first curve of rank $1$ has
-norm conductor $199$, and there are no curves of norm conductor $200$.
+Table~\ref{table:increasing-counts} gives the number of elliptic curves and isogeny classes
+up to a given norm conductor bound. Note that the first elliptic curve of rank $1$ has
+norm conductor $199$, and there are no elliptic curves of norm conductor $200$.
 \begin{center}
 \begin{table}[h]
-\caption{Counts of classes and curves with bounded norm conductors and specified ranks\label{table:increasing-counts}}
+\caption{Counts of isogeny classes and elliptic curves with bounded norm conductors and specified ranks\label{table:increasing-counts}}
 \begin{tabular}{@{}lcrrrcrcrrrcr@{}}\toprule
 & \phantom{a} & \multicolumn{5}{c}{\textbf{\#isog}}                  & \phantom{ab} & \multicolumn{5}{c}{\textbf{\#isom}}                  \\\cmidrule{3-7}\cmidrule{9-13}
 &             & \multicolumn{3}{c}{\textbf{rank}} & &                &              & \multicolumn{3}{c}{\textbf{rank}} & &                \\\cmidrule{3-5}\cmidrule{9-11}
@@ -1036,12 +1055,12 @@ norm conductor $199$, and there are no curves of norm conductor $200$.
 \end{table}
 \end{center}
 
-Table~\ref{table:degree} gives the number of curves and classes with
+Table~\ref{table:degree} gives the number of elliptic curves and isogeny classes with
 isogenies of each degree; note that we do not see all possible isogeny
 degrees. For example, the elliptic curve $X_0(19)$ has rank 1 over $F$, so
-there are infinitely many curves over $F$ with degree 19 isogenies
+there are infinitely many elliptic curves over $F$ with degree 19 isogenies
 (unlike over $\Q$ where $X_0(19)$ has rank $0$).
-We also give an example curve (that need not have minimal conductor)
+We also give an example of an elliptic curve (that need not have minimal conductor)
 with an isogeny of the given degree.
 \begin{center}
 \begin{table}[h]
@@ -1057,8 +1076,8 @@ None & & 498 & 498  & & $[\varphi+1,1,1,0,0]$                               & 99
 \end{table}
 \end{center}
 
-Table~\ref{table:torsion} gives the number of curves with each
-torsion structure, along with an example curve (again, not necessarily with minimal conductor)
+Table~\ref{table:torsion} gives the number of elliptic curves with each
+torsion structure, along with an example of an elliptic curve (again, not necessarily with minimal conductor)
 with that torsion structure.
 \begin{center}
 \begin{table}[h]
@@ -1086,15 +1105,15 @@ $\Z/2\Z\oplus\Z/8\Z$ & & 2    & & $[1,1,1,-5,2]$                        & 45  \\
 \end{center}
 
 We computed the invariants in the Birch and Swinnerton-Dyer conjecture
-for our curves, and solved for the conjectural order of $\Sha$;
-Table~\ref{table:sha} gives the number of curves in our data
-having each order of $\Sha$ as well as a minimal conductor curve
+for our elliptic curves, and solved for the conjectural order of $\Sha$;
+Table~\ref{table:sha} gives the number of elliptic curves in our data
+having each order of $\Sha$ as well as an elliptic curve of minimal conductor
 exhibiting each of these orders.
 \begin{center}
 \begin{table}[h]
 \caption{$\Sha$\label{table:sha}}
 \begin{tabular}{@{}lcrclr@{}}\toprule
-\textbf{\#\Sha} & \phantom{a} & \textbf{\#isom} & \phantom{a} & \textbf{first curve having \#\Sha}& $\Norm(\n)$ \\\cmidrule{1-1}\cmidrule{3-3}\cmidrule{5-6}
+\textbf{\#\Sha} & \phantom{a} & \textbf{\#isom} & \phantom{a} & \textbf{first elliptic curve having \#\Sha}& $\Norm(\n)$ \\\cmidrule{1-1}\cmidrule{3-3}\cmidrule{5-6}
 1                   & & 3191                & & $[1,\vphi+1,\vphi,\vphi,0]$                        & 31                    \\
 4                   & & 84                  & & $[1, 1, 1, -110, -880]$                            & 45                    \\
 \multirow{2}{*}{9}  & & \multirow{2}{*}{43} & & $[\vphi+1,-\vphi,1,-54686\vphi-35336,$             & \multirow{2}{*}{76}   \\
