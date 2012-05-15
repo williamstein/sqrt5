@@ -69,7 +69,11 @@ S. 3.7: It would be helpful if you'd define least real/imaginary
 periods. Are these just the smallest periods that lie on the
 real/imaginary axes?
 
-  [ ] (jon will do) OK. 
+  [X?] (jon will do) OK. [I changed the word 'least' to
+  'smallest positive'. I'm not sure that this is really any better,
+  but I think that 'least real period' already means 'smallest period
+  which is real' (real being a synonym for 'lying on the real axis'.)
+  I will think about possible writing something different.]
 
 S. 3.7: The relation between the periods of a Hilbert modular forms
 and those of the associated elliptic curve is deeper than the
