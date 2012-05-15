@@ -106,43 +106,69 @@ Here are some minor points that should be fixed.
 * Page 5, line 2 - "conditions modulo $\mathfrak p$ on" - I assume you
   mean to say "on $E" here.
 
+[fixed]
+
 * Page 5, Prop. 3.2 - "$E$ a curve" -> "$E$ an elliptic curve" (OK, no
   other curves are ever mentioned, but it is still better to be
   precise).
 
+[fixed]
+
 * Page 6, line 3 - "quartic surface" - shouldn't this be a quartic
   _curve_ (a twist of the Klein quartic)?
+
+[paragraph changed, no longer relevant]
 
 * Page 6, first line of 3.5 - insert "over" before "$F$". Replace "a
   curve" by "an elliptic curve" (you don't look at homogeneous
   spaces).
 
+[fixed]
+
 * Page 6, Prop. 3.3 - state explicitly that $d$ is assumed to be
   integral and squarefree.
+
+[fixed]
 
 * Page 6, line 10 from below - in the set of possible $d_1$'s,
   $\sqrt{5}$ and $\varphi \sqrt{5}$ are missing (and indeed, one of
   your twists is by $-\varphi \sqrt{5}$!).
 
+[??]
+
 * Page 6, line 2 from below - this $E$ is different from the $E$'s
   three lines above, so the way this is written is a bit confusing.
+
+[fixed?]
 
 * Page 9, line 6 from below - you did not define $\epsilon_E$ and
   there is no explanation why the condition $\chi(-N) = \epsilon_E$ is
   necessary. Should this be added to Conjecture 3.4?
 
+[will fix (Bober). Note: The condition isn't strictly necessary, but it
+is there because when \chi(-N) = -\epsilon_E the multiple of the period
+that is computed is exactly 0, so no information is obtained.]
+
 * Page 9, line 5 from below - missing braces around $\pm 1$.
+
+[fixed]
 
 * Page 11, first line of Section 4 - I would say "representatives up
   to isomorphism for all...".
+
+[fixed]
 
 * Page 12, Rem. 4.1 - I think you need to add that this holds for
   isogenies to a non-isomorphic curve, since otherwise it would be
   wrong for CM curves with endomorphism algebra F.
 
+[looks fixed]
+
 * Page 12, end of second paragraph - "divide our curves up into
   isogeny classes" doesn't seem to reflect what you are doing, as you
   are really dividing each isogeny class up into isomorphism classes.
+
+[fixed]
 
 * Page 12, Section 5 - I think there was a discussion on the sage-nt
   mailing list that involved a mistake in [Cre92] (but I don't
@@ -152,5 +178,7 @@ Here are some minor points that should be fixed.
 * Page 13, second paragraph of Section 7 - #isom should refer to the
   "number of isomorphism classes of curves" and #isog to the "number
   of isogeny classes".
+
+[looks good]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
