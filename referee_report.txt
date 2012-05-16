@@ -33,7 +33,7 @@ global minimal models. Whenever you mention existence of minimal
 discriminants, you are using this existence result. Deserves to be
 pointed out.
 
-  [ ] YEP (ashwath)
+  [X] YEP (ashwath)
 
 page 2, first paragraph: If you order all number fields (not just
 totally real ones) by their discriminants, Q(sqrt{-3}) and Q(sqrt{-1})
@@ -63,7 +63,7 @@ rational points on such a curve. I believe Fisher's quartic surface
 paramerized pairs of elliptic curves with isomorphic mod n
 representations.
 
-  [ ] (ben l) fix our paper based on fisher; we are wrong. 
+  [X] (ben l) fix our paper based on fisher; we are wrong. 
 
 S. 3.7: It would be helpful if you'd define least real/imaginary
 periods. Are these just the smallest periods that lie on the
