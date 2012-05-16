@@ -86,7 +86,10 @@ case except in the case that the elliptic curve in question is a base
 change from one defined over Q. The relevant conjectures here were
 formulated by Oda, and you are implicitly using these.
 
-   [ ] (jon) I suggest just insert it.
+   [X] (jon) I suggest just insert it. [I didn't not insert all of this
+   but instead just added a bit that said something like "Oda conjectured
+   something and proved something, and stronger conjectures are believed,
+   for example..."]
 
 Were all the methods you employed necessary to find all elliptic
 curves of conductor up to 1831, or would a subset have them have
