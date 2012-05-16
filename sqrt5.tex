@@ -747,8 +747,10 @@ this factor does not occur with the definition of $L(f, s)$ that we have given.
 
 \begin{remark}
 Contained in this conjecture is the obstruction to carrying out the method described here when 
-$\n$ is a square. In this case, the sign of $L(f, \chi, s)$ will be completely determined by
-whether or not $\chi(\varphi) = \chi(1 - \varphi)$, so we can only obtain information about
+$\n$ is a square. If the sign of the functional equation of $L(f, s)$ is $\epsilon_f$,
+then the sign of $L(f, \chi, s)$ will be $\chi(-N)\epsilon_f$.
+When $\n$ is a perfect square, this is completely determined by whether
+or not $\chi(\varphi) = \chi(1 - \varphi)$, so we can only obtain information about
 either $\Omegamm$ and $\Omegapp$ or $\Omegamp$ and $\Omegapm$, and we need three of these
 values to find $E$.
 \end{remark}
@@ -760,9 +762,12 @@ up to some conductor bound $M$ (we are restricting to odd prime modulus here for
 as primitivity is ensured, but this is not necessary):
 \[
     S^{s,s'} = \{ \chi \bmod \p : \chi(\phi) = s', \chi(1 - \phi) = s,
-            (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_E\}.
+            (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_f\}.
 \]
-Here $s, s' \in \{+, -\} = \{ \pm 1 \}$ again. We will consider these lists to be ordered by the
+Here $s, s' \in \{+, -\} = \{ \pm 1 \}$ again, and we restrict our choice of characters
+to force the functional equation of $L(s, \chi, f)$ to have positive sign so that there
+is a good chance that it does not vanish as the central point.
+We will consider these lists to be ordered by the
 norms of the conductors of the characters in increasing order, and index their elements as
 $\chi^{s,s'}_0, \chi^{s,s'}_1, \chi^{s,s'}_2, \ldots$. For each character we compute the central
 value of the twisted $L$-function to get four new lists

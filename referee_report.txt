@@ -149,9 +149,7 @@ Here are some minor points that should be fixed.
   there is no explanation why the condition $\chi(-N) = \epsilon_E$ is
   necessary. Should this be added to Conjecture 3.4?
 
-[will fix (Bober). Note: The condition isn't strictly necessary, but it
-is there because when \chi(-N) = -\epsilon_E the multiple of the period
-that is computed is exactly 0, so no information is obtained.]
+[fixed]
 
 * Page 9, line 5 from below - missing braces around $\pm 1$.
 
