@@ -408,10 +408,14 @@ with conductor $-6 \varphi + 42$, which has norm $1476$. Just given the $a_{\p}$
 we noticed that $E[7]\approx E'[7]$, where $E'$ has norm conductor $369$. The 
 curve $E'$ had already been found via naive search, since it is given by the 
 equation $y^2 + \left(\varphi{} + 1\right)y = x^3 + \left(\varphi{} - 1\right)x^2 + 
-\left(-2 \varphi{}\right)x$. Using methods of Halberstadt and Kraus
-\cite{halb_kraus:XE7}, Fisher then used a \textsc{Magma} \cite{magma} program to
-find rational points on an appropriate twist of $X(7)$, and fortunately, our
-curve $E$ was found.
+\left(-2 \varphi{}\right)x$. For any curve $E$, the equation for the twist $X_E(7)$ was found
+Halberstadt and Kraus \cite{halb_kraus:XE7}, and also by Fisher \cite{fisher:families_cong}
+through other methods which additionally yield formulas for $X_E(9)$ and $X_E(11)$.
+
+Fisher had already implemented \textsc{Magma} \cite{magma} routines to find
+$\ell$-congruent elliptic curves over $\Q$ using these equations and was able
+to modify his work for $\Q(\sqrt 5)$. Fortunately, our curve $E$ was then easily
+found.
 
 %Suppose that we are searching for a elliptic curve $E$ and we already know
 %another elliptic curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
