@@ -397,20 +397,21 @@ Suppose that we are searching for an elliptic curve $E$ and we already know
 another elliptic curve $E'$ with $E[\ell] \approx E'[\ell]$, where $\ell$ is some prime
 and $E[\ell]$ is irreducible. Twists of the modular curve $X(\ell)$ parametrize 
 pairs of elliptic curves with isomorphic $\ell$-torsion subgroups, so finding 
-rational points on the correct twist allows us to find elliptic curves with the same
-mod $\ell$ Galois representation as $E'$ \cite{fisher:families_cong}. Using 
-this idea, we found the elliptic curve $E$ given by
+rational points on the correct twist allows us to find curves with the same 
+mod $\ell$ Galois representation as $E'$.
+Using this idea, we found the curve $E$ given by
 \begin{multline}\label{equation:fisher-curve}
 y^2 + \varphi{}xy =  x^3 + \left(\varphi{} - 1\right)x^2 + \\ 
 \left(-257364 \varphi{} - 159063\right)x + \left(-75257037 \varphi{} - 46511406\right)
 \end{multline}
 with conductor $-6 \varphi + 42$, which has norm $1476$. Just given the $a_{\p}$,
- we noticed that $E[7]\approx E'[7]$, where $E'$ has norm conductor $369$. The 
- elliptic curve $E'$ had already been found via naive search, since it is given by the
- equation $y^2 + \left(\varphi{} + 1\right)y = x^3 + \left(\varphi{} - 1\right)x^2 + 
- \left(-2 \varphi{}\right)x$. Fisher then used a \textsc{Magma} \cite{magma} 
- program to find rational points on an appropriate twist of $X(7)$, and fortunately, 
- our elliptic curve $E$ was found.
+we noticed that $E[7]\approx E'[7]$, where $E'$ has norm conductor $369$. The 
+curve $E'$ had already been found via naive search, since it is given by the 
+equation $y^2 + \left(\varphi{} + 1\right)y = x^3 + \left(\varphi{} - 1\right)x^2 + 
+\left(-2 \varphi{}\right)x$. Using methods of Halberstadt and Kraus
+\cite{halb_kraus:XE7}, Fisher then used a \textsc{Magma} \cite{magma} program to
+find rational points on an appropriate twist of $X(7)$, and fortunately, our
+curve $E$ was found.
 
 %Suppose that we are searching for a elliptic curve $E$ and we already know
 %another elliptic curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
