@@ -1,5 +1,46 @@
 \documentclass{amsart} 
-\include{macros}
+\usepackage{amssymb}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\isom}{\cong}
+\newcommand{\tensor}{\otimes}
+\newcommand{\ncisom}{\approx}   % noncanonical isomorphism
+\newcommand{\vphi}{\varphi}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\bN}{\mathbf{N}}
+\usepackage{xspace}  % to allow for text macros that don't eat space 
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\m}{\mathfrak{m}}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tor}{tor}  
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Norm}{Norm}
+\DeclareMathOperator{\Disc}{Disc}
+\DeclareMathOperator{\Gal}{Gal}
+
+% ---- SHA ----
+\DeclareFontEncoding{OT2}{}{} % to enable usage of cyrillic fonts
+  \newcommand{\textcyr}[1]{%
+    {\fontencoding{OT2}\fontfamily{wncyr}\fontseries{m}\fontshape{n}%
+     \selectfont #1}}
+\newcommand{\Sha}{{\mbox{\textcyr{Sh}}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Qbar}{\overline{\Q}}
+
+\newcommand{\Q}{\mathbb{Q}}
 \usepackage{hyperref}
 \usepackage{multirow}
 \newcommand{\n}{\mathfrak{n}}
