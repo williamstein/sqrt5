@@ -397,20 +397,26 @@ Suppose that we are searching for an elliptic curve $E$ and we already know
 another elliptic curve $E'$ with $E[\ell] \approx E'[\ell]$, where $\ell$ is some prime
 and $E[\ell]$ is irreducible. Twists of the modular curve $X(\ell)$ parametrize 
 pairs of elliptic curves with isomorphic $\ell$-torsion subgroups, so finding 
-rational points on the correct twist allows us to find elliptic curves with the same
-mod $\ell$ Galois representation as $E'$ \cite{fisher:families_cong}. Using 
-this idea, we found the elliptic curve $E$ given by
+rational points on the correct twist allows us to find curves with the same
+mod $\ell$ Galois representation as $E'$.
+Using this idea, we found the curve $E$ given by
 \begin{multline}\label{equation:fisher-curve}
 y^2 + \varphi{}xy =  x^3 + \left(\varphi{} - 1\right)x^2 + \\ 
 \left(-257364 \varphi{} - 159063\right)x + \left(-75257037 \varphi{} - 46511406\right)
 \end{multline}
 with conductor $-6 \varphi + 42$, which has norm $1476$. Just given the $a_{\p}$,
- we noticed that $E[7]\approx E'[7]$, where $E'$ has norm conductor $369$. The 
- elliptic curve $E'$ had already been found via naive search, since it is given by the
- equation $y^2 + \left(\varphi{} + 1\right)y = x^3 + \left(\varphi{} - 1\right)x^2 + 
- \left(-2 \varphi{}\right)x$. Fisher then used a \textsc{Magma} \cite{magma} 
- program to find rational points on an appropriate twist of $X(7)$, and fortunately, 
- our elliptic curve $E$ was found.
+we noticed that $E[7]\approx E'[7]$, where $E'$ has norm conductor $369$. The 
+curve $E'$ had already been found via naive search, since it is given by the 
+equation $y^2 + \left(\varphi{} + 1\right)y = x^3 + \left(\varphi{} - 1\right)x^2 + 
+\left(-2 \varphi{}\right)x$. For any elliptic curve, the equation for the correct
+twist of $X(7)$ was found both by Halberstadt and Kraus \cite{halb_kraus:XE7} and
+by Fisher \cite{fisher:families_cong}, whose methods also yield formulas for the
+appropriate twists of $X(9)$ and $X(11)$.
+
+Fisher had already implemented \textsc{Magma} \cite{magma} routines to find
+$\ell$-congruent elliptic curves over $\Q$ using these equations and was able
+to modify his work for $\Q(\sqrt 5)$. Fortunately, our curve $E$ was then easily
+found.
 
 %Suppose that we are searching for a elliptic curve $E$ and we already know
 %another elliptic curve $E'$ with $E[\ell] \ncisom E'[\ell]$, where $\ell$ is
@@ -601,13 +607,14 @@ $L$-series $\ap{1}, \ap{2}, \ap{3}, \ldots$.
 Let $\sigma_1$ and $\sigma_2$ denote the embeddings of $F$ into the
 real numbers, with $\sigma_1(\varphi) \approx 1.61803\ldots$. For
 an elliptic curve $E$ over $F$ we get two associated embeddings into
-the complex numbers, and hence a pair of period lattices. We let $\Omegap_E$
-and $\Omegam_E$, which we refer to as the periods of $E$,
-be the smallest positive real and imaginary periods of the lattice
-which come from the embedding $\sigma_1$, and as the period lattices are interchanged
-when $E$ is replaced with its conjugate elliptic curve, we let $\Omegap_{\Ebar}$
-and $\Omegam_{\Ebar}$ denote the least real and imaginary periods
-of the lattice under the embedding $\sigma_2$.
+the complex numbers, and hence a pair of period lattices. Let
+$\Omegap_E$ denote the smallest positive real period corresponding to the
+embedding $\sigma_1$, and similarly define $\Omegam_E$ to be
+the smallest period which lies on the positive imaginary axis. We
+will refer to these as the periods of $E$, and as the period lattices
+are interchanged when $E$ is replaced with its conjugate elliptic curve,
+we let $\Omegap_{\Ebar}$ and $\Omegam_{\Ebar}$ denote the least real and
+imaginary periods of the lattice under the embedding $\sigma_2$.
 
 For ease, we write
 \begin{align*}
@@ -708,9 +715,15 @@ For a given $f$ and a primitive $\chi$, we can construct the twisted $L$-functio
 where $m$ is a totally positive generator of $\m$. (Note that $\chi$ is not well defined
 on ideals, but {\em is} well defined on totally positive generators of ideals.) $L(f, \chi, s)$
 will satisfy a functional equation similar to that of $L(f, s)$, but the conductor is
-multiplied by $\Norm(\fc)^2$ and the sign is multiplied by $\chi(-N)$. The key to finding the
-mixed periods of $E$ is contained in the following conjecture that \dembele has distilled
-from \cite{bertolini-darmon-green}, and we have stated specifically for $\Q(\sqrt5)$.
+multiplied by $\Norm(\fc)^2$ and the sign is multiplied by $\chi(-N)$.
+
+Oda \cite{oda:periods} conjectured relations between the periods of $f$ and the
+associated elliptic curve $E$ and gave some relations between the periods of $f$ and central
+values of $L(s, \chi, 1)$. Stronger versions of these relations are conjectured, and
+they are what \dembele uses to obtain information about the mixed periods of $E$.
+Specifically, \dembele distills the following conjecture
+from \cite{bertolini-darmon-green}, which we further simplify to state
+specifically for $\Q(\sqrt5)$.
 \begin{conjecture}
 If $\chi$ is a primitive quadratic character with conductor $\fc$ relatively prime to the
 conductor of $E$, with $\chi(\varphi) = s'$ and
@@ -747,8 +760,10 @@ this factor does not occur with the definition of $L(f, s)$ that we have given.
 
 \begin{remark}
 Contained in this conjecture is the obstruction to carrying out the method described here when 
-$\n$ is a square. In this case, the sign of $L(f, \chi, s)$ will be completely determined by
-whether or not $\chi(\varphi) = \chi(1 - \varphi)$, so we can only obtain information about
+$\n$ is a square. If the sign of the functional equation of $L(f, s)$ is $\epsilon_f$,
+then the sign of $L(f, \chi, s)$ will be $\chi(-N)\epsilon_f$.
+When $\n$ is a perfect square, this is completely determined by whether
+or not $\chi(\varphi) = \chi(1 - \varphi)$, so we can only obtain information about
 either $\Omegamm$ and $\Omegapp$ or $\Omegamp$ and $\Omegapm$, and we need three of these
 values to find $E$.
 \end{remark}
@@ -760,9 +775,12 @@ up to some conductor bound $M$ (we are restricting to odd prime modulus here for
 as primitivity is ensured, but this is not necessary):
 \[
     S^{s,s'} = \{ \chi \bmod \p : \chi(\phi) = s', \chi(1 - \phi) = s,
-            (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_E\}.
+            (\p, \n) = 1, \Norm(\p) < M, \chi(-N) = \epsilon_f\}.
 \]
-Here $s, s' \in \{+, -\} = \{ \pm 1 \}$ again. We will consider these lists to be ordered by the
+Here $s, s' \in \{+, -\} = \{ \pm 1 \}$ again, and we restrict our choice of characters
+to force the functional equation of $L(s, \chi, f)$ to have positive sign so that there
+is a good chance that it does not vanish as the central point.
+We will consider these lists to be ordered by the
 norms of the conductors of the characters in increasing order, and index their elements as
 $\chi^{s,s'}_0, \chi^{s,s'}_1, \chi^{s,s'}_2, \ldots$. For each character we compute the central
 value of the twisted $L$-function to get four new lists

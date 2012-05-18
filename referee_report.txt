@@ -33,7 +33,7 @@ global minimal models. Whenever you mention existence of minimal
 discriminants, you are using this existence result. Deserves to be
 pointed out.
 
-  [ ] YEP (ashwath)
+  [X] YEP (ashwath)
 
 page 2, first paragraph: If you order all number fields (not just
 totally real ones) by their discriminants, Q(sqrt{-3}) and Q(sqrt{-1})
@@ -63,7 +63,7 @@ rational points on such a curve. I believe Fisher's quartic surface
 paramerized pairs of elliptic curves with isomorphic mod n
 representations.
 
-  [ ] (ben l) fix our paper based on fisher; we are wrong. 
+  [X] (ben l) fix our paper based on fisher; we are wrong. 
 
 S. 3.7: It would be helpful if you'd define least real/imaginary
 periods. Are these just the smallest periods that lie on the
@@ -86,7 +86,10 @@ case except in the case that the elliptic curve in question is a base
 change from one defined over Q. The relevant conjectures here were
 formulated by Oda, and you are implicitly using these.
 
-   [ ] (jon) I suggest just insert it.
+   [X] (jon) I suggest just insert it. [I didn't not insert all of this
+   but instead just added a bit that said something like "Oda conjectured
+   something and proved something, and stronger conjectures are believed,
+   for example..."]
 
 Were all the methods you employed necessary to find all elliptic
 curves of conductor up to 1831, or would a subset have them have
@@ -149,9 +152,7 @@ Here are some minor points that should be fixed.
   there is no explanation why the condition $\chi(-N) = \epsilon_E$ is
   necessary. Should this be added to Conjecture 3.4?
 
-[will fix (Bober). Note: The condition isn't strictly necessary, but it
-is there because when \chi(-N) = -\epsilon_E the multiple of the period
-that is computed is exactly 0, so no information is obtained.]
+[fixed]
 
 * Page 9, line 5 from below - missing braces around $\pm 1$.
 
